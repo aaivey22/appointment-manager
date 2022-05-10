@@ -3,6 +3,7 @@ package main;
 /** Created class Main.java */
 /** @author Angela Ivey */
 
+import helper.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +28,9 @@ public class Main extends Application {
 
     /** This is the main method that launches the program.*/
     public static void main(String[] args) {
+        JDBC.openConnection();
+        JDBC.closeConnection();
+
         launch(args);
         System.out.println("reishi");
     }
