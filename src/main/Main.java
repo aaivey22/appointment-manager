@@ -10,17 +10,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 /** This class fires the appointment manager app.
  * The Java Docs folder is located in the project directory. The folder is called "javadoc"
  * FUTURE ENHANCEMENT the entire project should be translatable in multiple languages and also include enhancements for various disabilities.*/
 
 
 public class Main extends Application {
-    /** This is the start method that loads the landing page MainForm.*/
+    /** This is the start method that loads the landing page LoginForm.*/
     @Override
     public void start(Stage primaryStage) throws Exception {
         //addTestData();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
         primaryStage.setTitle("Appointment Management System");
         primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.show();
@@ -30,6 +32,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         JDBC.openConnection();
         JDBC.closeConnection();
+
+        Locale.setDefault(new Locale("fr"));
 
         launch(args);
         System.out.println("reishi");
