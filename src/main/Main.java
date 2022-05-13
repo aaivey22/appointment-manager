@@ -24,7 +24,7 @@ public class Main extends Application {
         //addTestData();
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
         primaryStage.setTitle("Appointment Management System");
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setScene(new Scene(root, 810, 47git 0));
         primaryStage.show();
     }
 
