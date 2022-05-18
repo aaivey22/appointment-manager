@@ -20,16 +20,18 @@ public class LoginForm implements Initializable {
 
     public Label greeting;
 
+    /** @param url,resourceBundle used to initialize translate() method.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        translate_fr();
+        translate();
 
     }
 
-    public void translate_fr() {
+    public void translate() {
 
         ResourceBundle rb = ResourceBundle.getBundle("main/lang", Locale.getDefault());
 
+        /** @param actionEvent used to retrieve default language setting via Locale object to check if it is "fr".*/
         if (Locale.getDefault().getLanguage().equals("fr")) {
             System.out.println(rb.getString("hello") + " " + rb.getString("world"));
             System.out.println(rb.getString("greeting"));
