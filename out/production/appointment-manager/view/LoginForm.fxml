@@ -51,7 +51,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="welcome back" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                  <Label fx:id="greeting" prefHeight="30.0" prefWidth="337.0" text="welcome back" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2">
                      <font>
                         <Font name="Tahoma" size="24.0" />
                      </font>

@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 /** This class fires the appointment manager app.
  * The Java Docs folder is located in the project directory. The folder is called "javadoc"
@@ -24,7 +25,7 @@ public class Main extends Application {
         //addTestData();
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
         primaryStage.setTitle("Appointment Management System");
-        primaryStage.setScene(new Scene(root, 810, 47git 0));
+        primaryStage.setScene(new Scene(root, 810, 470));
         primaryStage.show();
     }
 
@@ -32,10 +33,10 @@ public class Main extends Application {
     public static void main(String[] args) {
         JDBC.openConnection();
         JDBC.closeConnection();
-
         Locale.setDefault(new Locale("fr"));
+        ResourceBundle rb = ResourceBundle.getBundle("main/lang", Locale.getDefault());
 
         launch(args);
-        System.out.println("reishi");
+        System.out.println("goodbye");
     }
 }
