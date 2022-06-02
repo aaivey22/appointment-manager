@@ -70,7 +70,7 @@
                   <RadioButton mnemonicParsing="false" text="English" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14" />
                   <RadioButton layoutX="100.0" layoutY="319.0" mnemonicParsing="false" text="French" GridPane.columnIndex="3" GridPane.rowIndex="14" />
                   <Label layoutX="125.0" layoutY="57.0" opacity="0.6" text="America" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                  <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff;" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                  <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff;" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
                   <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="10">
                      <image>
                         <Image url="@images/loginIconWhite.png" />
