@@ -116,7 +116,7 @@
                         </Label>
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Save Changes" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                        <TextField promptText="Type Customer ID here" GridPane.columnIndex="1">
+                        <TextField promptText="Auto Generated" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -156,7 +156,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <MenuButton mnemonicParsing="false" text="Select Contact" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Contact" GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Action 1" />
                             <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -165,7 +165,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton mnemonicParsing="false" text="Select State" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select State" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Action 1" />
                               <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -174,7 +174,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton mnemonicParsing="false" text="Select Country" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Country" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Action 1" />
                               <MenuItem mnemonicParsing="false" text="Action 2" />
