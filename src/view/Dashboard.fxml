@@ -48,7 +48,7 @@
             <RowConstraints maxHeight="68.26666870117188" minHeight="10.0" prefHeight="45.466650390625006" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="555.0" text="Scheduled This Week of June" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
+            <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="411.0" text="Scheduled This Week in June" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
                <font>
                   <Font name="Tahoma" size="24.0" />
                </font>
@@ -188,7 +188,7 @@
          <children>
             <VBox alignment="TOP_CENTER" layoutX="4.0" layoutY="5.0" prefHeight="272.0" prefWidth="526.0">
                <children>
-                  <Label prefHeight="20.0" prefWidth="529.0" text="Manage Appointments">
+                  <Label prefHeight="27.0" prefWidth="498.0" text="Manage Appointments">
                      <font>
                         <Font size="18.0" />
                      </font>
