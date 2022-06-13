@@ -33,7 +33,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         JDBC.openConnection();
         JDBC.closeConnection();
-        Locale.setDefault(new Locale("fr"));
+ //       Locale.setDefault(new Locale("fr"));
         ResourceBundle rb = ResourceBundle.getBundle("main/lang", Locale.getDefault());
 
         launch(args);

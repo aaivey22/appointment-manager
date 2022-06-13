@@ -258,7 +258,7 @@
       </Pane>
       <VBox alignment="TOP_CENTER" layoutX="831.0" layoutY="290.0" prefHeight="182.0" prefWidth="142.0" AnchorPane.bottomAnchor="128.0" AnchorPane.leftAnchor="831.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="290.0">
          <children>
-            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Appointments">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Appointments" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="25.0" />
                </VBox.margin>
@@ -266,7 +266,7 @@
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Customers">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Customers" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="25.0" />
                </VBox.margin>
@@ -274,7 +274,7 @@
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Generate Reports">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Generate Reports" textAlignment="CENTER">
                <font>
                   <Font size="11.0" />
                </font>

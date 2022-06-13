@@ -7,6 +7,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -49,6 +50,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="greeting" prefHeight="30.0" prefWidth="337.0" text="welcome back" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2">
@@ -63,13 +65,21 @@
                   <Label text="User Name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="Password" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Hyperlink layoutX="169.0" layoutY="54.0" nodeOrientation="LEFT_TO_RIGHT" text="Forgot Password?" underline="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" opacity="0.5" text="Select Language" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="12" />
-                  <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                  <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="12" />
-                  <RadioButton mnemonicParsing="false" text="English" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="13" />
-                  <RadioButton layoutX="100.0" layoutY="319.0" mnemonicParsing="false" text="French" GridPane.columnIndex="3" GridPane.rowIndex="13" />
-                  <Label layoutX="125.0" layoutY="57.0" opacity="0.6" text="America" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="156.0" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" opacity="0.5" text="Select Language" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
+                  <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                  <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                  <RadioButton fx:id="engRadioButton" mnemonicParsing="false" onAction="#translate" selected="true" text="English" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="languageRadioButton" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="freRadioButton" layoutX="100.0" layoutY="319.0" mnemonicParsing="false" onAction="#translate" text="French" toggleGroup="$languageRadioButton" GridPane.columnIndex="3" GridPane.rowIndex="14" />
+                  <Label fx:id="countryLabel" layoutX="125.0" layoutY="57.0" opacity="0.6" text="Country" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                  <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff;" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                     <image>
+                        <Image url="@images/loginIconWhite.png" />
+                     </image>
+                  </ImageView>
                </children>
                <opaqueInsets>
                   <Insets />
