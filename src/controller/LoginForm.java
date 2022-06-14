@@ -2,11 +2,11 @@ package controller;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-
 import java.net.URL;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -35,7 +35,8 @@ public class LoginForm implements Initializable {
     /** @param url,resourceBundle used to initialize translate() method.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        translate();
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
+        timeZoneLabel.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm").format(currentDateTime));
     }
 
     /** @param actionEvent used to retrieve default language setting and set it to == the user's selected radio button.*/
@@ -53,7 +54,6 @@ public class LoginForm implements Initializable {
             freRadioButton.setText(rb.getString("freRadioButton"));
             engRadioButton.setText(rb.getString("engRadioButton"));
             countryLabel.setText(rb.getString("countryLabel"));
-            timeZoneLabel.setText(rb.getString("timeZoneLabel"));
             registerLink.setText(rb.getString("registerLink"));
             userNameField.setText(rb.getString("userNameField"));
             passwordField.setText(rb.getString("passwordField"));
@@ -67,7 +67,6 @@ public class LoginForm implements Initializable {
             freRadioButton.setText(rb.getString("freRadioButton"));
             engRadioButton.setText(rb.getString("engRadioButton"));
             countryLabel.setText(rb.getString("countryLabel"));
-            timeZoneLabel.setText(rb.getString("timeZoneLabel"));
             registerLink.setText(rb.getString("registerLink"));
             userNameField.setText(rb.getString("userNameField"));
             passwordField.setText(rb.getString("passwordField"));
