@@ -73,7 +73,10 @@
                         <ToggleGroup fx:id="languageRadioButton" />
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="freRadioButton" layoutX="100.0" layoutY="319.0" mnemonicParsing="false" onAction="#translate" text="French" toggleGroup="$languageRadioButton" GridPane.columnIndex="3" GridPane.rowIndex="14" />
-                  <Label fx:id="countryLabel" layoutX="125.0" layoutY="57.0" opacity="0.6" text="Country" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                  <Label fx:id="dateDisplayLabel" layoutX="125.0" layoutY="57.0" opacity="0.6" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin></Label>
                   <Button fx:id="loginButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff;" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
                   <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="10">
                      <image>

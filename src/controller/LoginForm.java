@@ -21,8 +21,8 @@ public class LoginForm implements Initializable {
     public Label greeting;
     public RadioButton freRadioButton;
     public RadioButton engRadioButton;
-    public Label countryLabel;
     public Label timeZoneLabel;
+    public Label dateDisplayLabel;
     public Hyperlink registerLink;
     public TextField userNameField;
     public TextField passwordField;
@@ -36,11 +36,13 @@ public class LoginForm implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZonedDateTime currentDateTime = ZonedDateTime.now();
-        timeZoneLabel.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm").format(currentDateTime));
+        dateDisplayLabel.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm").format(currentDateTime));
+        timeZoneLabel.setText(String.valueOf(currentDateTime.getZone()));
     }
 
-    /** @param actionEvent used to retrieve default language setting and set it to == the user's selected radio button.*/
+    /** The translate method that contains actions that will take place when specific user events occur.*/
     public void translate() {
+        /** @param actionEvent used to retrieve default language setting and set it to == the user's selected radio button.*/
         if (freRadioButton.isSelected()) {
             Locale.setDefault(new Locale("fr"));
         } else if (engRadioButton.isSelected()) {
@@ -53,10 +55,9 @@ public class LoginForm implements Initializable {
             greeting.setText(rb.getString("greeting"));
             freRadioButton.setText(rb.getString("freRadioButton"));
             engRadioButton.setText(rb.getString("engRadioButton"));
-            countryLabel.setText(rb.getString("countryLabel"));
             registerLink.setText(rb.getString("registerLink"));
-            userNameField.setText(rb.getString("userNameField"));
-            passwordField.setText(rb.getString("passwordField"));
+            userNameField.setPromptText(rb.getString("userNameField"));
+            passwordField.setPromptText(rb.getString("passwordField"));
             userNameLabel.setText(rb.getString("userNameLabel"));
             passwordLabel.setText(rb.getString("passwordLabel"));
             forgotPwordLink.setText(rb.getString("forgotPwordLink"));
@@ -66,10 +67,9 @@ public class LoginForm implements Initializable {
             greeting.setText(rb.getString("greeting"));
             freRadioButton.setText(rb.getString("freRadioButton"));
             engRadioButton.setText(rb.getString("engRadioButton"));
-            countryLabel.setText(rb.getString("countryLabel"));
             registerLink.setText(rb.getString("registerLink"));
-            userNameField.setText(rb.getString("userNameField"));
-            passwordField.setText(rb.getString("passwordField"));
+            userNameField.setPromptText(rb.getString("userNameField"));
+            passwordField.setPromptText(rb.getString("passwordField"));
             userNameLabel.setText(rb.getString("userNameLabel"));
             passwordLabel.setText(rb.getString("passwordLabel"));
             forgotPwordLink.setText(rb.getString("forgotPwordLink"));

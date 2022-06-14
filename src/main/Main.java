@@ -54,6 +54,8 @@ public class Main extends Application {
 
         String date = String.valueOf(gmtToLocalZDT.toLocalDate());
         String time = String.valueOf(gmtToLocalZDT.toLocalTime());
+        String zone = String.valueOf(gmtToLocalZDT.getZone());
+
         String dateTime = date + " " + time;
         System.out.println(dateTime);
 
