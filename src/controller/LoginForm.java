@@ -45,6 +45,8 @@ public class LoginForm implements Initializable {
     public String userNameInput;
     public String userPwordInput;
     public String alertText = "The user name and or password entered are incorrect.";
+    public String retrievePwordText = "Contact the IT department at @helpdesk to reset your password.";
+
 
 
     /** @param url,resourceBundle used to initialize translate() method.*/
@@ -79,6 +81,7 @@ public class LoginForm implements Initializable {
             selectLangLabel.setText(rb.getString("selectLangLabel"));
             loginButton.setText(rb.getString("loginButton"));
             alertText = "Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.";
+            retrievePwordText = "Contactez le service informatique de @helpdesk pour réinitialiser votre mot de passe.";
         } else if (Locale.getDefault().getLanguage().equals("en")) {
             greeting.setText(rb.getString("greeting"));
             freRadioButton.setText(rb.getString("freRadioButton"));
@@ -92,6 +95,7 @@ public class LoginForm implements Initializable {
             selectLangLabel.setText(rb.getString("selectLangLabel"));
             loginButton.setText(rb.getString("loginButton"));
             alertText = "The user name and or password entered are incorrect.";
+            retrievePwordText = "Contact the IT department at @helpdesk to reset your password.";
         }
 
     }
@@ -114,14 +118,20 @@ public class LoginForm implements Initializable {
         } else {
             System.out.println("Incorrect Login");
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setResizable(true);
             alert.setTitle("Incorrect Login");
             alert.setContentText(alertText);
             Optional<ButtonType> result = alert.showAndWait();
         }
-
-
         JDBC.closeConnection();
-
     }
 
+
+    public void retrievePword(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setResizable(true);
+        alert.setTitle("Password Help");
+        alert.setContentText(retrievePwordText);
+        Optional<ButtonType> result = alert.showAndWait();
+    }
 }
