@@ -2,6 +2,9 @@ package controller;
 
 import helper.JDBC;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +15,11 @@ import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import helper.LoginQuery;
+import javafx.stage.Stage;
 
 /**
  * created class AddPartForm.java  @author Angela Ivey
@@ -39,6 +44,7 @@ public class LoginForm implements Initializable {
     public Button loginButton;
     public String userNameInput;
     public String userPwordInput;
+    public String alertText = "The user name and or password entered are incorrect.";
 
 
     /** @param url,resourceBundle used to initialize translate() method.*/
@@ -72,6 +78,7 @@ public class LoginForm implements Initializable {
             forgotPwordLink.setText(rb.getString("forgotPwordLink"));
             selectLangLabel.setText(rb.getString("selectLangLabel"));
             loginButton.setText(rb.getString("loginButton"));
+            alertText = "Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.";
         } else if (Locale.getDefault().getLanguage().equals("en")) {
             greeting.setText(rb.getString("greeting"));
             freRadioButton.setText(rb.getString("freRadioButton"));
@@ -84,19 +91,33 @@ public class LoginForm implements Initializable {
             forgotPwordLink.setText(rb.getString("forgotPwordLink"));
             selectLangLabel.setText(rb.getString("selectLangLabel"));
             loginButton.setText(rb.getString("loginButton"));
+            alertText = "The user name and or password entered are incorrect.";
         }
 
     }
 
-    /** loginAction function used to execute username and pword authentication via the LoginQuery. */
-    public void loginAction() throws SQLException {
+    /**  @param actionEvent loginAction function used to execute username and pword authentication via the LoginQuery. */
+    /** If the user is authenticated, they will be redirected to their dashboard page.*/
+    /** Else the user is NOT authenticated, the alertText variable will be displayed in an error message.*/
+    public void loginAction(ActionEvent actionEvent) throws SQLException, IOException {
         userNameInput = userNameField.getText();
         userPwordInput = passwordField.getText();
         JDBC.openConnection();
         //LoginQuery.insert(userNameInput, userPwordInput);
         if(LoginQuery.authenticate(userNameInput, userPwordInput)){
             System.out.println("Authenticated");
-        } else System.out.println("Incorrect Login");
+            Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setTitle("My Dashboard");
+            stage.setScene(new Scene(root, 1100, 600));
+            stage.show();
+        } else {
+            System.out.println("Incorrect Login");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Incorrect Login");
+            alert.setContentText(alertText);
+            Optional<ButtonType> result = alert.showAndWait();
+        }
 
 
         JDBC.closeConnection();
