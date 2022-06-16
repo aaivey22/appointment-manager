@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterUser">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="825.0" layoutX="-12.0" layoutY="-22.0" pickOnBounds="true">
+         <image>
+            <Image url="@background.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="110.0" layoutY="26.0" prefHeight="426.0" prefWidth="580.0" style="-fx-background-color: #FFFFFF; -fx-opacity: .80; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;">
+         <children>
+            <GridPane alignment="CENTER" layoutY="13.0" prefHeight="400.0" prefWidth="580.0" style="-fx-border-radius: 20;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="25.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.20000000000002" minWidth="190.7999755859375" prefWidth="249.20000000000002" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0000244140625" minWidth="71.59999999999997" prefWidth="71.59999999999997" />
+                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="75.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="25.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="5.0" prefHeight="5.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="12.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="greeting" text="register user" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                     <font>
+                        <Font name="Tahoma" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="userNameField" promptText="enter a user name up to 12 characters long" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
+                  <TextField fx:id="passwordField" accessibleRole="PASSWORD_FIELD" promptText="enter a password up to 12 characters long" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                  <Label fx:id="userNameLabel" text="Add User Name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="passwordLabel" text="Add Password" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#registerAction" opacity="0.8" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;" text="Register" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="15">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Label fx:id="passwordLabel1" text="Confirm Password" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <TextField fx:id="confirmField" accessibleRole="PASSWORD_FIELD" promptText="re-enter password" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="12" />
+                  <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
+                  <Button fx:id="cancelButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelAction" opacity="0.8" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #dba181; -fx-border-color: #dba181; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </GridPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

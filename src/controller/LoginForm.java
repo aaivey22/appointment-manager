@@ -132,12 +132,21 @@ public class LoginForm implements Initializable {
         JDBC.closeConnection();
     }
 
-
+    /**  @param actionEvent retrievePword function used to execute an informational alert. */
     public void retrievePword(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setResizable(true);
         alert.setTitle(retrievePwordTitle);
         alert.setContentText(retrievePwordText);
         Optional<ButtonType> result = alert.showAndWait();
+    }
+
+    /**  @param actionEvent registerUser function used to add a new user to the database. */
+    public void registerUser(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/RegisterUser.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Register User");
+        stage.setScene(new Scene(root, 810, 470));
+        stage.show();
     }
 }
