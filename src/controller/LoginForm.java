@@ -1,14 +1,20 @@
 package controller;
 
+import helper.JDBC;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import helper.LoginQuery;
 
 /**
  * created class AddPartForm.java  @author Angela Ivey
@@ -31,6 +37,9 @@ public class LoginForm implements Initializable {
     public Hyperlink forgotPwordLink;
     public Label selectLangLabel;
     public Button loginButton;
+    public String userNameInput;
+    public String userPwordInput;
+
 
     /** @param url,resourceBundle used to initialize translate() method.*/
     @Override
@@ -76,6 +85,21 @@ public class LoginForm implements Initializable {
             selectLangLabel.setText(rb.getString("selectLangLabel"));
             loginButton.setText(rb.getString("loginButton"));
         }
+
+    }
+
+    /** loginAction function used to execute username and pword authentication via the LoginQuery. */
+    public void loginAction() throws SQLException {
+        userNameInput = userNameField.getText();
+        userPwordInput = passwordField.getText();
+        JDBC.openConnection();
+        //LoginQuery.insert(userNameInput, userPwordInput);
+        if(LoginQuery.authenticate(userNameInput, userPwordInput)){
+            System.out.println("Authenticated");
+        } else System.out.println("Incorrect Login");
+
+
+        JDBC.closeConnection();
 
     }
 

@@ -61,7 +61,7 @@
                   <Label fx:id="timeZoneLabel" opacity="0.6" text="Time Zone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Hyperlink fx:id="registerLink" text="Register Here" underline="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
                   <TextField fx:id="userNameField" promptText="enter your user name" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
-                  <TextField fx:id="passwordField" promptText="enter your password" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
+                  <TextField fx:id="passwordField" accessibleRole="PASSWORD_FIELD" promptText="enter your password" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
                   <Label fx:id="userNameLabel" text="User Name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label fx:id="passwordLabel" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Hyperlink fx:id="forgotPwordLink" layoutX="169.0" layoutY="54.0" nodeOrientation="LEFT_TO_RIGHT" text="Forgot Password?" underline="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
@@ -77,12 +77,7 @@
                      <GridPane.margin>
                         <Insets right="5.0" />
                      </GridPane.margin></Label>
-                  <Button fx:id="loginButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff;" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
-                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="10">
-                     <image>
-                        <Image url="@images/loginIconWhite.png" />
-                     </image>
-                  </ImageView>
+                  <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginAction" opacity="0.8" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
                </children>
                <opaqueInsets>
                   <Insets />

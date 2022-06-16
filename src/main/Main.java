@@ -4,12 +4,14 @@ package main;
 /** @author Angela Ivey */
 
 import helper.JDBC;
+import helper.LoginQuery;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.time.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -32,7 +34,8 @@ public class Main extends Application {
     }
 
     /** This is the main method that launches the program.*/
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+
 //        ZoneId.getAvailableZoneIds().stream().forEach(System.out::println);
 //        ZoneId.getAvailableZoneIds().stream().filter(c-> c.contains("Europe")).forEach(System.out::println);
 
@@ -62,8 +65,15 @@ public class Main extends Application {
         System.out.println(parisZDT);
         System.out.println(localZoneId);
 
-        JDBC.openConnection();
-        JDBC.closeConnection();
+        //int rowsAffected = LoginQuery.insert( "dog",  "bark");
+        //if(rowsAffected > 0) {
+       //     System.out.println("Insert Successful");
+       // }
+       // else {
+       //     System.out.println("Insert Failed");
+       // }
+        //JDBC.closeConnection();
+
  //       Locale.setDefault(new Locale("fr"));
         ResourceBundle rb = ResourceBundle.getBundle("main/lang", Locale.getDefault());
 
