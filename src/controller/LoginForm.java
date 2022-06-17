@@ -34,7 +34,6 @@ public class LoginForm implements Initializable {
     public RadioButton engRadioButton;
     public Label timeZoneLabel;
     public Label dateDisplayLabel;
-    public Hyperlink registerLink;
     public TextField userNameField;
     public TextField passwordField;
     public Label userNameLabel;
@@ -48,7 +47,7 @@ public class LoginForm implements Initializable {
     public String alertTitle = "Incorrect Login";
     public String retrievePwordText = "Contact the IT department at @helpdesk to reset your password.";
     public String retrievePwordTitle = "Password Help";
-
+    public Button registerButton;
 
 
     /** @param url,resourceBundle used to initialize translate() method.*/
@@ -74,7 +73,7 @@ public class LoginForm implements Initializable {
             greeting.setText(rb.getString("greeting"));
             freRadioButton.setText(rb.getString("freRadioButton"));
             engRadioButton.setText(rb.getString("engRadioButton"));
-            registerLink.setText(rb.getString("registerLink"));
+            registerButton.setText(rb.getString("registerButton"));
             userNameField.setPromptText(rb.getString("userNameField"));
             passwordField.setPromptText(rb.getString("passwordField"));
             userNameLabel.setText(rb.getString("userNameLabel"));
@@ -90,7 +89,7 @@ public class LoginForm implements Initializable {
             greeting.setText(rb.getString("greeting"));
             freRadioButton.setText(rb.getString("freRadioButton"));
             engRadioButton.setText(rb.getString("engRadioButton"));
-            registerLink.setText(rb.getString("registerLink"));
+            registerButton.setText(rb.getString("registerButton"));
             userNameField.setPromptText(rb.getString("userNameField"));
             passwordField.setPromptText(rb.getString("passwordField"));
             userNameLabel.setText(rb.getString("userNameLabel"));

@@ -8,7 +8,7 @@ import java.util.Objects;
 public abstract class LoginQuery {
 
     /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
-    public static int insert(String userName, String password) throws SQLException {
+    public static int registerUser(String userName, String password) throws SQLException {
         String sql = "INSERT INTO USERS (User_Name, Password) VALUES(?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, userName);

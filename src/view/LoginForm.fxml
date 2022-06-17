@@ -26,12 +26,12 @@
       </ImageView>
       <Pane layoutX="110.0" layoutY="26.0" prefHeight="426.0" prefWidth="580.0" style="-fx-background-color: #FFFFFF; -fx-opacity: .80; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;">
          <children>
-            <GridPane alignment="CENTER" layoutY="13.0" prefHeight="400.0" prefWidth="580.0" style="-fx-border-radius: 20;">
+            <GridPane alignment="CENTER_RIGHT" layoutY="13.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="580.0" style="-fx-border-radius: 20;">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="25.0" />
-                <ColumnConstraints hgrow="SOMETIMES" prefWidth="75.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="25.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="75.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.40001220703124" minWidth="152.79997558593752" prefWidth="206.3999755859375" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.00002441406247" minWidth="80.39998779296872" prefWidth="123.20003662109377" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.1999633789062" minWidth="88.9999877929688" prefWidth="199.1999633789062" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="25.0" />
               </columnConstraints>
               <rowConstraints>
@@ -59,7 +59,6 @@
                      </font>
                   </Label>
                   <Label fx:id="timeZoneLabel" opacity="0.6" text="Time Zone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Hyperlink fx:id="registerLink" onAction="#registerUser" text="Register Here" underline="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
                   <TextField fx:id="userNameField" promptText="enter your user name" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
                   <TextField fx:id="passwordField" accessibleRole="PASSWORD_FIELD" promptText="enter your password" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
                   <Label fx:id="userNameLabel" text="User Name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -81,6 +80,14 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
+                  <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#registerUser" opacity="0.8" prefHeight="27.0" prefWidth="118.0" style="-fx-background-color: #dba181; -fx-border-color: #dba181; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;" text="Register" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="70.0" />
+                     </GridPane.margin>
+                  </Button>
                </children>
                <opaqueInsets>
                   <Insets />
