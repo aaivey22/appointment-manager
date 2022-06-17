@@ -48,7 +48,7 @@
             <RowConstraints maxHeight="68.26666870117188" minHeight="10.0" prefHeight="45.466650390625006" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="411.0" text="Scheduled This Week in June" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
+            <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="1002.0" text="Upcoming Appointments" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <font>
                   <Font name="Tahoma" size="24.0" />
                </font>
