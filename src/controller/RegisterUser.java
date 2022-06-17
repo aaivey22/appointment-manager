@@ -26,7 +26,8 @@ public class RegisterUser {
     public String confirmUserPassword;
 
     /**
-     * @param actionEvent registerAction function used to execute warning alert to user if username is < 8 chars long.
+     * @param actionEvent registerAction function used to execute if statement for warning alert if username is < 8 or >12 chars long.
+     * The nested if statements contain multiple username and  password checks and alerts to guid customers.
      */
     public void registerAction(ActionEvent actionEvent) throws SQLException, IOException {
         newUserName = userNameField.getText();
