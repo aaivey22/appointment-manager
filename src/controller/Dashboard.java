@@ -18,20 +18,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Dashboard implements Initializable {
-    public String dateLabelIndex0;
-    public String dateLabelIndex1;
-    public String dateLabelIndex2;
-    public String dateLabelIndex3;
-    public String dateLabelIndex4;
-    public String dateLabelIndex5;
-    public String dateLabelIndex6;
-    public String appCountIndex0;
-    public String appCountIndex1;
-    public String appCountIndex2;
-    public String appCountIndex3;
-    public String appCountIndex4;
-    public String appCountIndex5;
-    public String appCountIndex6;
     public Label appCount5;
     public Label appCount6;
     public Label appCount4;
@@ -51,7 +37,7 @@ public class Dashboard implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDates();
-        setAppNum();
+        setAptCount();
     }
 
     /** The setDates method contains a for loop that adds 1 day to each label in listOfDates object.*/
@@ -63,8 +49,11 @@ public class Dashboard implements Initializable {
         }
     }
 
-    private void setAppNum() {
-        
+    private void setAptCount() {
+        Label[] listOfApts = {appCount0, appCount1, appCount2, appCount3, appCount4, appCount5, appCount6};
+        for (int i = 0; i < 7; i++){
+            listOfApts[i].setText(DateTimeFormatter.ofPattern("d").format(ZonedDateTime.now().plusDays(i)));
+        }
     }
 
     /** @param actionEvent cancelAction function used to redirect user to login form.*/
