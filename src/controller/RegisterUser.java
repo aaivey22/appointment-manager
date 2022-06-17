@@ -91,7 +91,7 @@ public class RegisterUser {
     public void cancelAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Register User");
+        stage.setTitle("Login");
         stage.setScene(new Scene(root, 810, 470));
         stage.show();
     }

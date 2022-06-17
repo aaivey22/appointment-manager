@@ -48,7 +48,7 @@
             <RowConstraints maxHeight="68.26666870117188" minHeight="10.0" prefHeight="45.466650390625006" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="411.0" text="Scheduled This Week in June" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
+            <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="1002.0" text="Upcoming Appointments" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <font>
                   <Font name="Tahoma" size="24.0" />
                </font>
@@ -256,7 +256,7 @@
             </TabPane>
          </children>
       </Pane>
-      <VBox alignment="TOP_CENTER" layoutX="831.0" layoutY="290.0" prefHeight="182.0" prefWidth="142.0" AnchorPane.bottomAnchor="128.0" AnchorPane.leftAnchor="831.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="290.0">
+      <VBox alignment="TOP_CENTER" layoutX="831.0" layoutY="290.0" prefHeight="300.0" prefWidth="142.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="831.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="290.0">
          <children>
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Appointments" textAlignment="CENTER">
                <VBox.margin>
@@ -278,6 +278,14 @@
                <font>
                   <Font size="11.0" />
                </font>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelAction" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #dba181; -fx-border-color: #dba181; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Logout" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
             </Button>
          </children>
       </VBox>

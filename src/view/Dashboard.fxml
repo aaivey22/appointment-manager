@@ -279,7 +279,7 @@
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #dba181; -fx-border-color: #dba181; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Logout" textAlignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelAction" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #dba181; -fx-border-color: #dba181; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Logout" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
