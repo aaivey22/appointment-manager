@@ -1,4 +1,8 @@
 package controller;
+
+import helper.JDBC;
+import helper.LoginQuery;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -6,15 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
+import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Dashboard implements Initializable {
@@ -37,7 +39,11 @@ public class Dashboard implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDates();
-        setAptCount();
+        try {
+            setAptCount();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /** The setDates method contains a for loop that adds 1 day to each label in listOfDates object.*/
@@ -49,11 +55,16 @@ public class Dashboard implements Initializable {
         }
     }
 
-    private void setAptCount() {
+    /** The setAptCount method opens a connection to the database to count the number of appointments in the 'appointments' column for the current and following 6 days. */
+    private void setAptCount() throws SQLException {
+        JDBC.openConnection();
         Label[] listOfApts = {appCount0, appCount1, appCount2, appCount3, appCount4, appCount5, appCount6};
         for (int i = 0; i < 7; i++){
-            listOfApts[i].setText(DateTimeFormatter.ofPattern("d").format(ZonedDateTime.now().plusDays(i)));
+            ZonedDateTime crntDate = ZonedDateTime.now().plusDays(i);
+            int appointmentCount = LoginQuery.getNumRecords(String.valueOf(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(crntDate)));
+            listOfApts[i].setText(String.valueOf(appointmentCount));
         }
+        JDBC.closeConnection();
     }
 
     /** @param actionEvent cancelAction function used to redirect user to login form.*/
