@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Customers">
    <children>
       <ImageView fitHeight="600.0" fitWidth="1104.0" layoutY="-1.0" pickOnBounds="true">
@@ -95,6 +94,6 @@
          </children>
       </Pane>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Back" textAlignment="CENTER" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="975.0" layoutY="25.0" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Dashboard" textAlignment="CENTER" />
+      <Button fx:id="toDashboard" alignment="CENTER" contentDisplay="CENTER" layoutX="975.0" layoutY="25.0" mnemonicParsing="false" onAction="#directToDashboard" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Dashboard" textAlignment="CENTER" />
    </children>
 </AnchorPane>

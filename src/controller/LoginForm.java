@@ -118,7 +118,7 @@ public class LoginForm implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setTitle("My Dashboard");
-            stage.setScene(new Scene(root, 1100, 600));
+            stage.setScene(new Scene(root, 1100, 590));
             stage.show();
         } else {
             System.out.println("Incorrect Login");

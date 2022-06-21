@@ -67,6 +67,33 @@ public class Dashboard implements Initializable {
         JDBC.closeConnection();
     }
 
+    /** @param actionEvent directToAppointments function used to redirect user to Appointments form.*/
+    public void directToAppointments(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Appointments");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
+    }
+
+    /** @param actionEvent directToCustomers function used to redirect user to Customers form.*/
+    public void directToCustomers(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Customers");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
+    }
+
+    /** @param actionEvent directToReports function used to redirect user to Reports form.*/
+    public void directToReports(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Reports.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Reports");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
+    }
+
     /** @param actionEvent cancelAction function used to redirect user to login form.*/
     public void cancelAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
