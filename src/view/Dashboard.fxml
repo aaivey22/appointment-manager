@@ -225,6 +225,9 @@
                      </VBox.margin>
                   </HBox>
                </children>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
             </VBox>
          </children>
       </Pane>
@@ -288,12 +291,12 @@
       </VBox>
       <Pane accessibleRole="DATE_PICKER" layoutX="982.0" layoutY="290.0" prefHeight="86.0" prefWidth="103.0" style="-fx-background-color: #FFFFFF; -fx-opacity: .80; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="3.0" prefHeight="30.0" prefWidth="98.0" text="JUNE" textAlignment="CENTER">
+            <Label fx:id="dateLabelMonthText" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="3.0" prefHeight="30.0" prefWidth="98.0" text="August" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="24.0" prefHeight="64.0" prefWidth="98.0" text="12" textAlignment="CENTER">
+            <Label fx:id="dateLabelNumText" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="24.0" prefHeight="64.0" prefWidth="98.0" text="12" textAlignment="CENTER">
                <font>
                   <Font size="36.0" />
                </font>

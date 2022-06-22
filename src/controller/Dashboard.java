@@ -34,11 +34,19 @@ public class Dashboard implements Initializable {
     public Label dateLabel4;
     public Label dateLabel5;
     public Label dateLabel6;
+    public Label dateLabelMonth;
+    public Label dateLabelNumText;
+
+    public String dateLabelNum;
 
     /** @param url,resourceBundle used to initialize setDates() method.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setDates();
+        try {
+            setDates();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         try {
             setAptCount();
         } catch (SQLException e) {
@@ -47,12 +55,18 @@ public class Dashboard implements Initializable {
     }
 
     /** The setDates method contains a for loop that adds 1 day to each label in listOfDates object.*/
-    private void setDates() {
+    private void setDates() throws SQLException {
         Label[] listOfDates = {dateLabel0, dateLabel1, dateLabel2, dateLabel3, dateLabel4, dateLabel5, dateLabel6};
         for (int i = 0; i < 7; i++){
             listOfDates[i].setText(DateTimeFormatter.ofPattern("EEEE").format(ZonedDateTime.now().plusDays(i))
                     + " " + DateTimeFormatter.ofPattern("d").format(ZonedDateTime.now().plusDays(i)));
         }
+
+        /** The dateLabelNumText variable is assigned the current month based on the now() method and displayed in the "mini date display".*/
+        // need to correct this to display the month in the dashboard mini calendar display. currently only printing to console.
+        String dateLabelMonth = DateTimeFormatter.ofPattern("LLLL").format(ZonedDateTime.now());
+        String dateLabelMonthText = dateLabelMonth;
+        System.out.println(dateLabelMonthText);
     }
 
     /** The setAptCount method opens a connection to the database to count the number of appointments in the 'appointments' column for the current and following 6 days. */
