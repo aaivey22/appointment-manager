@@ -34,11 +34,9 @@ public class Dashboard implements Initializable {
     public Label dateLabel4;
     public Label dateLabel5;
     public Label dateLabel6;
-    public String dateLabelMonth;
     public Label dateLabelMonthText;
     public Label dateLabelNumText;
 
-    public String dateLabelNum;
 
     /** @param url,resourceBundle used to initialize setDates() method.*/
     @Override
@@ -63,11 +61,9 @@ public class Dashboard implements Initializable {
                     + " " + DateTimeFormatter.ofPattern("d").format(ZonedDateTime.now().plusDays(i)));
         }
 
-        /** The dateLabelNumText variable is assigned the current month based on the now() method and displayed in the "mini date display".*/
-        // need to correct this to display the month in the dashboard mini calendar display. currently only printing to console.
-        //String dateLabelMonth = DateTimeFormatter.ofPattern("LLLL").format(ZonedDateTime.now());
+        /** The dateLabelMonthText and dateLabelNumText are assigned the current month and date via the now() method and displayed in the "mini date display".*/
         dateLabelMonthText.setText(DateTimeFormatter.ofPattern("LLLL").format(ZonedDateTime.now()));
-        System.out.println(dateLabelMonthText);
+        dateLabelNumText.setText(DateTimeFormatter.ofPattern("d").format(ZonedDateTime.now()));
     }
 
     /** The setAptCount method opens a connection to the database to count the number of appointments in the 'appointments' column for the current and following 6 days. */
