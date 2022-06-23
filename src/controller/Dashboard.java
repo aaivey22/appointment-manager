@@ -37,7 +37,6 @@ public class Dashboard implements Initializable {
     public Label dateLabel6;
     public Label dateLabelMonthText;
     public Label dateLabelNumText;
-    public TextField noteDisplay;
 
 
     /** @param url,resourceBundle used to initialize setDates() method.*/
@@ -116,11 +115,5 @@ public class Dashboard implements Initializable {
         stage.show();
     }
 
-    /** @param actionEvent updateNoteAction function used to update 'note' text in database.*/
-    public void updateNoteAction(ActionEvent actionEvent) {
-        String noteDisplayText = noteDisplay.getText();
-        System.out.println(noteDisplayText);
-
-    }
 
 }
