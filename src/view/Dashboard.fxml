@@ -193,8 +193,8 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextArea prefHeight="40.0" prefWidth="200.0" promptText="Search by customer name or appointment ID" />
-                  <TableView prefHeight="200.0" prefWidth="200.0" />
+                  <TextArea fx:id="manageApptSearch" prefHeight="40.0" prefWidth="200.0" promptText="Search by customer name or appointment ID" />
+                  <TableView fx:id="manageApptTable" prefHeight="200.0" prefWidth="200.0" />
                   <HBox alignment="CENTER" prefHeight="62.0" prefWidth="462.0">
                      <children>
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Add">
