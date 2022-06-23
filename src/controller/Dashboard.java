@@ -116,6 +116,11 @@ public class Dashboard implements Initializable {
         stage.show();
     }
 
+    /** @param actionEvent updateNoteAction function used to update 'note' text in database.*/
     public void updateNoteAction(ActionEvent actionEvent) {
+        String noteDisplayText = noteDisplay.getText();
+        System.out.println(noteDisplayText);
+
     }
+
 }
