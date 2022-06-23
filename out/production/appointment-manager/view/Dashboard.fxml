@@ -66,7 +66,7 @@
             </Label>
             <Label fx:id="dateLabel2" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="144.0" style="-fx-border-color: #4c87ae;" text="Tuesday 31" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Tahoma" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets right="5.0" />
@@ -101,12 +101,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="appCount0" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="139.0" text="4" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label fx:id="appCount0" alignment="BOTTOM_CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="139.0" text="4" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="appCount1" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="10" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label fx:id="appCount1" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="10" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
@@ -146,27 +146,27 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Label fx:id="appCount2" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="9" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Label fx:id="appCount2" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="9" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="appCount3" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="6" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <Label fx:id="appCount3" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="6" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="appCount4" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="11" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <Label fx:id="appCount4" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="11" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="appCount5" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="12" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="3">
+            <Label fx:id="appCount5" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="12" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="appCount6" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="7" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.rowIndex="3">
+            <Label fx:id="appCount6" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="139.0" text="7" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
@@ -241,12 +241,12 @@
                   <Insets bottom="10.0" top="5.0" />
                </padding>
             </Label>
-            <TextField layoutX="8.0" layoutY="42.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="240.0" promptText="type a note here...">
+            <TextField fx:id="noteDisplay" layoutX="8.0" layoutY="42.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="240.0" promptText="type a note here...">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </TextField>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="246.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.8" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #dba181; -fx-border-color: #dba181; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Update" textAlignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="246.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#updateNoteAction" opacity="0.8" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #dba181; -fx-border-color: #dba181; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Update" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -291,12 +291,12 @@
       </VBox>
       <Pane accessibleRole="DATE_PICKER" layoutX="982.0" layoutY="290.0" prefHeight="86.0" prefWidth="103.0" style="-fx-background-color: #FFFFFF; -fx-opacity: .80; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;">
          <children>
-            <Label fx:id="dateLabelMonthText" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="3.0" prefHeight="30.0" prefWidth="98.0" text="August" textAlignment="CENTER">
+            <Label fx:id="dateLabelMonthText" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="3.0" prefHeight="30.0" prefWidth="98.0" text="Month" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="dateLabelNumText" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="24.0" prefHeight="64.0" prefWidth="98.0" text="12" textAlignment="CENTER">
+            <Label fx:id="dateLabelNumText" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="24.0" prefHeight="64.0" prefWidth="98.0" text="##" textAlignment="CENTER">
                <font>
                   <Font size="36.0" />
                </font>

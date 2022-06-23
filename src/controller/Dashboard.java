@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class Dashboard implements Initializable {
     public Label dateLabel6;
     public Label dateLabelMonthText;
     public Label dateLabelNumText;
+    public TextField noteDisplay;
 
 
     /** @param url,resourceBundle used to initialize setDates() method.*/
@@ -112,5 +114,8 @@ public class Dashboard implements Initializable {
         stage.setTitle("Login");
         stage.setScene(new Scene(root, 810, 470));
         stage.show();
+    }
+
+    public void updateNoteAction(ActionEvent actionEvent) {
     }
 }
