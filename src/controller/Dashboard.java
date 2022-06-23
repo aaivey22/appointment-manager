@@ -34,7 +34,8 @@ public class Dashboard implements Initializable {
     public Label dateLabel4;
     public Label dateLabel5;
     public Label dateLabel6;
-    public Label dateLabelMonth;
+    public String dateLabelMonth;
+    public Label dateLabelMonthText;
     public Label dateLabelNumText;
 
     public String dateLabelNum;
@@ -64,8 +65,8 @@ public class Dashboard implements Initializable {
 
         /** The dateLabelNumText variable is assigned the current month based on the now() method and displayed in the "mini date display".*/
         // need to correct this to display the month in the dashboard mini calendar display. currently only printing to console.
-        String dateLabelMonth = DateTimeFormatter.ofPattern("LLLL").format(ZonedDateTime.now());
-        String dateLabelMonthText = dateLabelMonth;
+        //String dateLabelMonth = DateTimeFormatter.ofPattern("LLLL").format(ZonedDateTime.now());
+        dateLabelMonthText.setText(DateTimeFormatter.ofPattern("LLLL").format(ZonedDateTime.now()));
         System.out.println(dateLabelMonthText);
     }
 
