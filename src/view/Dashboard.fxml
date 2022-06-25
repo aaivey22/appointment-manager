@@ -185,7 +185,7 @@
          <children>
             <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="5.0" prefHeight="291.0" prefWidth="945.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="498.0" text="Manage Appointments">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="498.0" text="Manage Appointments">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -193,11 +193,11 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextArea fx:id="manageApptSearch" prefHeight="40.0" prefWidth="200.0" promptText="Search by customer name or appointment ID">
+                  <TextArea fx:id="manageApptSearch" minHeight="-Infinity" prefHeight="25.0" prefWidth="936.0" promptText="Search by customer name or appointment ID">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></TextArea>
-                  <TableView fx:id="manageApptTable" prefHeight="152.0" prefWidth="910.0" />
+                  <TableView fx:id="manageApptTable" prefHeight="209.0" prefWidth="936.0" />
                   <HBox alignment="CENTER" prefHeight="62.0" prefWidth="462.0">
                      <children>
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addAppmtAction" opacity="0.85" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #7254ab; -fx-border-color: #7254ab; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Add">
@@ -224,7 +224,7 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteAppmtAction" opacity="0.85" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="View Week">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewWeekAction" opacity="0.85" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="View Week">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -232,7 +232,7 @@
                               <Insets left="25.0" right="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteAppmtAction" opacity="0.85" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="View Month">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewMonthAction" opacity="0.85" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="View Month">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -240,7 +240,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteAppmtAction" opacity="0.85" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="View History">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewHistoryAction" opacity="0.85" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="View History">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -267,7 +267,7 @@
                   <Font name="System Bold" size="11.0" />
                </font>
             </Button>
-            <Button fx:id="toReports" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#directToReports" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Generate Reports" textAlignment="CENTER">
+            <Button fx:id="toReports" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#directToReports" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Reports" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>

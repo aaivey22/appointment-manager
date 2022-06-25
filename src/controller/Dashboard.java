@@ -116,4 +116,31 @@ public class Dashboard implements Initializable {
     }
 
 
+    public void deleteAppmtAction(ActionEvent actionEvent) {
+    }
+
+    public void modifyAppmtAction(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyAppointments.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Modify Appointments");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
+    }
+
+    public void addAppmtAction(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/AddAppointments.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Add Appointments");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
+    }
+
+    public void viewHistoryAction(ActionEvent actionEvent) {
+    }
+
+    public void viewMonthAction(ActionEvent actionEvent) {
+    }
+
+    public void viewWeekAction(ActionEvent actionEvent) {
+    }
 }
