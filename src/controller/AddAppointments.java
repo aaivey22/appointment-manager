@@ -25,7 +25,6 @@ public class AddAppointments implements Initializable {
     public TextField locationField;
     public DatePicker apptStartDate;
     public DatePicker apptEndDate;
-    public Button toDashboard;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,8 +34,6 @@ public class AddAppointments implements Initializable {
     public void saveApptChanges(ActionEvent actionEvent) {
     }
 
-    public void goBackAction(ActionEvent actionEvent) {
-    }
 
     public void directToDashboard(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
@@ -44,5 +41,8 @@ public class AddAppointments implements Initializable {
         stage.setTitle("Dashboard");
         stage.setScene(new Scene(root, 1100, 590));
         stage.show();
+    }
+
+    public void clearApptChanges(ActionEvent actionEvent) {
     }
 }
