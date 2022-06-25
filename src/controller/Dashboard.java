@@ -9,8 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,6 +36,9 @@ public class Dashboard implements Initializable {
     public Label dateLabel6;
     public Label dateLabelMonthText;
     public Label dateLabelNumText;
+    public TextArea manageApptSearch;
+    public TableView manageApptTable;
+    public Button toReports;
 
 
     /** @param url,resourceBundle used to initialize setDates() method.*/

@@ -37,8 +37,8 @@
                   <GridPane alignment="CENTER" prefHeight="428.0" prefWidth="898.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.86669921875" minWidth="10.0" prefWidth="163.86669921875" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.60003662109375" minWidth="10.0" prefWidth="136.13330078125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.20001220703125" minWidth="10.0" prefWidth="219.20001220703125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.60003662109375" minWidth="10.0" prefWidth="88.79998779296875" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -111,9 +111,9 @@
                               <Insets left="25.0" />
                            </GridPane.margin>
                         </Label>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Save Changes" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveApptChanges" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Save Changes" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                        <TextField promptText="Auto Generated" GridPane.columnIndex="1" GridPane.columnSpan="4">
+                        <TextField fx:id="apptID" promptText="Auto Generated" GridPane.columnIndex="1" GridPane.columnSpan="4">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -129,7 +129,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField promptText="Type Title here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="5">
+                        <TextField fx:id="titleField" promptText="Type Title here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="5">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -137,7 +137,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField promptText="Type Description here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6">
+                        <TextField fx:id="descriptionField" promptText="Type Description here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -145,7 +145,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Customer" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <MenuButton fx:id="selectCustomer" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Customer" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Action 1" />
                               <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -154,7 +154,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <MenuButton fx:id="selectType" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Action 1" />
                               <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -163,7 +163,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select User" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                        <MenuButton fx:id="selectUser" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select User" GridPane.columnIndex="3" GridPane.rowIndex="3">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Action 1" />
                               <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -180,7 +180,7 @@
                               <Insets right="20.0" />
                            </GridPane.margin>
                         </Label>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Contact" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <MenuButton fx:id="selectContact" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Contact" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Action 1" />
                               <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -227,7 +227,7 @@
                               <Insets right="20.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField promptText="Type Location here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4">
+                        <TextField fx:id="locationField" promptText="Type Location here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -264,12 +264,12 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        <DatePicker fx:id="apptStartDate" prefHeight="26.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </DatePicker>
-                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <DatePicker fx:id="apptEndDate" prefHeight="26.0" prefWidth="216.0" promptText="end and start date are the same" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -300,7 +300,7 @@
             </Label>
          </children>
       </Pane>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Back" textAlignment="CENTER" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="975.0" layoutY="25.0" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Dashboard" textAlignment="CENTER" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onAction="#goBackAction" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Back" textAlignment="CENTER" />
+      <Button fx:id="toDashboard" alignment="CENTER" contentDisplay="CENTER" layoutX="975.0" layoutY="25.0" mnemonicParsing="false" onAction="#directToDashboard" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Dashboard" textAlignment="CENTER" />
    </children>
 </AnchorPane>
