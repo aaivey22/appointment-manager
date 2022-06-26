@@ -1,9 +1,11 @@
 package helper;
 
+import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class LoginQuery {
@@ -20,7 +22,20 @@ public abstract class LoginQuery {
         return rowsCounted;
     }
 
-    /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
+    ///** @return SELECT method used to count data from appointments column in database and returns "rowsCounted". */
+    public static java.util.List<String> getContacts() throws SQLException {
+        java.util.List<String> listofContacts = new ArrayList<String>();
+        String sql = "SELECT Contact_Name from contacts";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            listofContacts.add(resultSet.getString("Contact_Name"));
+            //System.out.println(contactName);
+        }
+        return listofContacts;
+    }
+
+        /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
     public static int registerUser(String userName, String password) throws SQLException {
         String sql = "INSERT INTO USERS (User_Name, Password) VALUES(?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
