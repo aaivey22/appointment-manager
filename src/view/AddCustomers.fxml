@@ -81,7 +81,7 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="455.0" text="Division" GridPane.rowIndex="4">
+                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="455.0" text="Division" GridPane.rowIndex="5">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -89,7 +89,7 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="68.0" prefWidth="455.0" text="Country" GridPane.rowIndex="5">
+                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="68.0" prefWidth="455.0" text="Country" GridPane.rowIndex="4">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -160,12 +160,12 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton fx:id="selectDivision" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Division" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <MenuButton fx:id="selectDivision" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Division" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton fx:id="selectCountry" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Country" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <MenuButton fx:id="selectCountry" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Country" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>

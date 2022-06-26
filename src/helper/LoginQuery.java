@@ -30,12 +30,35 @@ public abstract class LoginQuery {
         resultSet = ps.executeQuery();
         while(resultSet.next()) {
             listofContacts.add(resultSet.getString("Contact_Name"));
-            //System.out.println(contactName);
         }
         return listofContacts;
     }
 
-        /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
+    ///** @return SELECT method used to  */
+    public static java.util.List<String> getCountries() throws SQLException {
+        java.util.List<String> listofCountries = new ArrayList<String>();
+        String sql = "SELECT Country from countries";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            listofCountries.add(resultSet.getString("Country"));
+        }
+        return listofCountries;
+    }
+
+    ///** @return SELECT method used to  */
+    public static java.util.List<String> getDivisions() throws SQLException {
+        java.util.List<String> listofDivisions = new ArrayList<String>();
+        String sql = "SELECT Division from first_level_divisions";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            listofDivisions.add(resultSet.getString("Division"));
+        }
+        return listofDivisions;
+    }
+
+    /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
     public static int registerUser(String userName, String password) throws SQLException {
         String sql = "INSERT INTO USERS (User_Name, Password) VALUES(?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
