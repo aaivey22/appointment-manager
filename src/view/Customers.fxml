@@ -61,7 +61,7 @@
                   </TableView>
                   <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="550.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Add Customer" textAlignment="CENTER">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addCustomerAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Add Customer" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -94,6 +94,7 @@
             </Label>
          </children>
       </Pane>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="1100.0" />
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1100.0">
          <children>
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#directToDashboard" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Back" textAlignment="CENTER">
@@ -103,6 +104,5 @@
             </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="1100.0" />
    </children>
 </AnchorPane>

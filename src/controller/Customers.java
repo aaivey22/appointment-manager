@@ -29,4 +29,12 @@ public class Customers implements Initializable {
             stage.setScene(new Scene(root, 1100, 590));
             stage.show();
     }
+
+    public void addCustomerAction(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/AddCustomers.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Add Customers");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
+    }
 }
