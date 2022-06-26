@@ -26,4 +26,16 @@ public class AddCustomers implements Initializable{
         stage.setScene(new Scene(root, 1100, 590));
         stage.show();
     }
+
+    private void populateContacts(){
+
+    }
+
+    private void populateCountries(){
+
+    }
+
+    private void populateDivisions(){
+
+    }
 }
