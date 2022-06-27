@@ -160,7 +160,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton fx:id="selectDivision" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Division" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <MenuButton fx:id="selectDivision" disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Division" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>

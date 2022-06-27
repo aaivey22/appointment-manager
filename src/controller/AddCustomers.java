@@ -46,11 +46,6 @@ public class AddCustomers implements Initializable{
         } catch (SQLException e) {
             System.out.println("cannot load countries");
         }
-        try {
-            populateDivisions();
-        } catch (SQLException e) {
-            System.out.println("cannot load Divisions");
-        }
     }
 
     /** @param actionEvent directToCustomers function used to redirect user to Customers form.*/
@@ -89,9 +84,15 @@ public class AddCustomers implements Initializable{
     }
 
     /** The populateDivisions method opens a connection to the database and with the help of an imported function, retrieves the division column data and assigns the user selection to the menu button label.*/
-    private void populateDivisions() throws SQLException {
+    private void populateDivisions(String countryName) throws SQLException {
         JDBC.openConnection();
-        java.util.List<String> listofDivisions = LoginQuery.getDivisions();
+        selectDivision.setText("Select Division");
+        selectDivision.getItems().clear();
+        selectDivision.setDisable(false);
+        String countryID = LoginQuery.getcountryID(countryName);
+        System.out.println(countryID);
+        java.util.List<String> listofDivisions = new ArrayList<String>();
+        listofDivisions = LoginQuery.getDivisions(countryID);
         java.util.List<MenuItem> divisionsMenuItems = new ArrayList<MenuItem>();
         for(int i = 0; i < listofDivisions.size(); i++)
         {
@@ -99,7 +100,6 @@ public class AddCustomers implements Initializable{
             divisionsMenuItems.get(i).setOnAction(selectDivisionAction);
             selectDivision.getItems().add(divisionsMenuItems.get(i));
         }
-
             JDBC.closeConnection();
     }
 
@@ -126,6 +126,11 @@ public class AddCustomers implements Initializable{
                 public void handle(ActionEvent ae) {
                     country = ((MenuItem) ae.getSource()).getText();
                     selectCountry.setText(country);
+                    try {
+                        populateDivisions(country);
+                    } catch (SQLException e) {
+                        System.out.println("cannot load Divisions");
+                    }
                 }
             };
 

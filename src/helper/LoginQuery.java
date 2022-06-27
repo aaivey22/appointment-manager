@@ -47,9 +47,9 @@ public abstract class LoginQuery {
     }
 
     /** @return SELECT method returns a new list of divisions 'listofDivisions' with the Division column data. */
-    public static java.util.List<String> getDivisions() throws SQLException {
+    public static java.util.List<String> getDivisions(String countryID) throws SQLException {
         java.util.List<String> listofDivisions = new ArrayList<String>();
-        String sql = "SELECT Division from first_level_divisions";
+        String sql = "SELECT Division from first_level_divisions WHERE Country_ID = \"" + countryID + "\"";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         resultSet = ps.executeQuery();
         while(resultSet.next()) {
@@ -57,6 +57,20 @@ public abstract class LoginQuery {
         }
         return listofDivisions;
     }
+
+    /** @return SELECT method returns a String country ID whose country name matches with the selected country. */
+    public static String getcountryID(String countryName) throws SQLException {
+        java.util.List<String> listofCountries = new ArrayList<String>();
+        String sql = "SELECT Country_ID FROM client_schedule.countries WHERE Country = \"" + countryName + "\"";
+        String countryID = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            countryID = resultSet.getString("Country_ID");
+        }
+        return countryID;
+    }
+
 
     /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
     public static int registerUser(String userName, String password) throws SQLException {
