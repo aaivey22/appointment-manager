@@ -30,6 +30,7 @@ public class Customers implements Initializable {
             stage.show();
     }
 
+    /** @param actionEvent addCustomerAction function used to redirect user to Add Customers form.*/
     public void addCustomerAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/AddCustomers.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

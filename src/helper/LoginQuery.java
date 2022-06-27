@@ -22,7 +22,7 @@ public abstract class LoginQuery {
         return rowsCounted;
     }
 
-    ///** @return SELECT method used to count data from appointments column in database and returns "rowsCounted". */
+    /** @return SELECT method returns a new list of contact names 'listofContacts' with the Contact_Name column data. */
     public static java.util.List<String> getContacts() throws SQLException {
         java.util.List<String> listofContacts = new ArrayList<String>();
         String sql = "SELECT Contact_Name from contacts";
@@ -34,7 +34,7 @@ public abstract class LoginQuery {
         return listofContacts;
     }
 
-    ///** @return SELECT method used to  */
+    /** @return SELECT method returns a new list of countries 'listofCountries' with the Country column data. */
     public static java.util.List<String> getCountries() throws SQLException {
         java.util.List<String> listofCountries = new ArrayList<String>();
         String sql = "SELECT Country from countries";
@@ -46,7 +46,7 @@ public abstract class LoginQuery {
         return listofCountries;
     }
 
-    ///** @return SELECT method used to  */
+    /** @return SELECT method returns a new list of divisions 'listofDivisions' with the Division column data. */
     public static java.util.List<String> getDivisions() throws SQLException {
         java.util.List<String> listofDivisions = new ArrayList<String>();
         String sql = "SELECT Division from first_level_divisions";

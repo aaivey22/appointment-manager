@@ -30,6 +30,7 @@ public class AddCustomers implements Initializable{
     public MenuButton selectDivision;
     public MenuButton selectCountry;
 
+    /** @param url,resourceBundle used to initialize the populateContacts, populateCountries, and populateDivisions methods.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -49,6 +50,7 @@ public class AddCustomers implements Initializable{
         }
     }
 
+    /** @param actionEvent directToCustomers function used to redirect user to Customers form.*/
     public void directToCustomers(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -57,6 +59,7 @@ public class AddCustomers implements Initializable{
         stage.show();
     }
 
+    /** The populateContacts method opens a connection to the database and with the help of an imported function, retrieves the contact name column data and assigns the user selection to the menu button label.*/
     private void populateContacts() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofContacts = LoginQuery.getContacts();
@@ -66,6 +69,7 @@ public class AddCustomers implements Initializable{
         JDBC.closeConnection();
     }
 
+    /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
     private void populateCountries() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCountries = LoginQuery.getCountries();
@@ -78,6 +82,7 @@ public class AddCustomers implements Initializable{
         JDBC.closeConnection();
     }
 
+    /** The populateDivisions method opens a connection to the database and with the help of an imported function, retrieves the division column data and assigns the user selection to the menu button label.*/
     private void populateDivisions() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofDivisions = LoginQuery.getDivisions();
@@ -97,11 +102,13 @@ public class AddCustomers implements Initializable{
     public void clearFieldsAction(ActionEvent actionEvent) {
     }
 
+    /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list.*/
     public EventHandler<ActionEvent> selectCountryAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
                     MenuItem selected = (MenuItem) ae.getSource();
                     String country = selected.getText();
+                    selectCountry.setText(country);
                     System.out.println(country);
                 }
             };

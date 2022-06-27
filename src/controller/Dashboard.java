@@ -121,6 +121,7 @@ public class Dashboard implements Initializable {
     public void deleteAppmtAction(ActionEvent actionEvent) {
     }
 
+    /** @param actionEvent modifyAppmtAction function used to redirect user to ModifyAppointments form.*/
     public void modifyAppmtAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyAppointments.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -129,6 +130,7 @@ public class Dashboard implements Initializable {
         stage.show();
     }
 
+    /** @param actionEvent addAppmtAction function used to redirect user to AddAppointments form.*/
     public void addAppmtAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/AddAppointments.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
