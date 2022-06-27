@@ -29,6 +29,9 @@ public class AddCustomers implements Initializable{
     public MenuButton selectContact;
     public MenuButton selectDivision;
     public MenuButton selectCountry;
+    public String contact;
+    public String country;
+    public String division;
 
     /** @param url,resourceBundle used to initialize the populateContacts, populateCountries, and populateDivisions methods.*/
     @Override
@@ -63,8 +66,11 @@ public class AddCustomers implements Initializable{
     private void populateContacts() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofContacts = LoginQuery.getContacts();
+        java.util.List<MenuItem> contactsMenuItems = new ArrayList<MenuItem>();
         for (int i = 0; i < listofContacts.size(); i++) {
-            selectContact.getItems().add(new MenuItem(listofContacts.get(i)));
+            contactsMenuItems.add(new MenuItem(listofContacts.get(i)));
+            contactsMenuItems.get(i).setOnAction(selectContactAction);
+            selectContact.getItems().add(contactsMenuItems.get(i));
         }
         JDBC.closeConnection();
     }
@@ -90,6 +96,7 @@ public class AddCustomers implements Initializable{
         for(int i = 0; i < listofDivisions.size(); i++)
         {
             divisionsMenuItems.add(new MenuItem(listofDivisions.get(i)));
+            divisionsMenuItems.get(i).setOnAction(selectDivisionAction);
             selectDivision.getItems().add(divisionsMenuItems.get(i));
         }
 
@@ -97,20 +104,40 @@ public class AddCustomers implements Initializable{
     }
 
     public void saveChangesAction(ActionEvent actionEvent) throws SQLException {
+        System.out.println(contact);
     }
 
     public void clearFieldsAction(ActionEvent actionEvent) {
     }
 
+    /** @param actionEvent selectContactAction function fires when the user selects a Contact from the menu list.*/
+    public EventHandler<ActionEvent> selectContactAction =
+            new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent ae) {
+                    contact = ((MenuItem) ae.getSource()).getText();
+                    selectContact.setText(contact);
+                }
+            };
+
+
     /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list.*/
     public EventHandler<ActionEvent> selectCountryAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
-                    MenuItem selected = (MenuItem) ae.getSource();
-                    String country = selected.getText();
+                    country = ((MenuItem) ae.getSource()).getText();
                     selectCountry.setText(country);
-                    System.out.println(country);
                 }
             };
+
+    /** @param actionEvent selectDivisionAction function fires when the user selects a Division from the menu list.*/
+    public EventHandler<ActionEvent> selectDivisionAction =
+            new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent ae) {
+                    division = ((MenuItem) ae.getSource()).getText();
+                    selectDivision.setText(((MenuItem) ae.getSource()).getText());
+                }
+            };
+
+
 
 }
