@@ -114,6 +114,7 @@ public class AddCustomers implements Initializable{
         streetAddress = custAddressField.getText();
         postalCode = custPostalField.getText();
         phoneNum = custPhoneField.getText();
+        int rowsModified = 0;
 
         JDBC.openConnection();
         try {
@@ -125,7 +126,21 @@ public class AddCustomers implements Initializable{
 
         if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && contact.length() > 0 && division.length() > 0 && divisionID.length() > 0)
         {
-            System.out.println(divisionID);
+            JDBC.openConnection();
+            try {
+                rowsModified = LoginQuery.addCustomer(name, streetAddress, postalCode, phoneNum, divisionID);
+            } catch (SQLException e) {
+                System.out.println("failed to get division id");
+            }
+            JDBC.closeConnection();
+
+            if( rowsModified > 0) {
+                System.out.println("new customer added");
+            } else
+            {
+                System.out.println("customer could not be added");
+            }
+
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setResizable(true);

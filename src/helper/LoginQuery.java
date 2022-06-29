@@ -83,6 +83,21 @@ public abstract class LoginQuery {
         return divisionID;
     }
 
+    /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
+    public static int addCustomer(String customerName, String address, String postalCode, String phone, String divisionID) throws SQLException {
+        String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, customerName);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setString(5, divisionID);
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
+
+
 
 
     /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
