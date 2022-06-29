@@ -71,6 +71,19 @@ public abstract class LoginQuery {
         return countryID;
     }
 
+    /** @return SELECT method returns a String Division ID whose division name matches with the selected division. */
+    public static String getDivisionID(String divisionName) throws SQLException {
+        String sql = "SELECT Division_ID FROM client_schedule.first_level_divisions WHERE Division = \"" + divisionName + "\"";
+        String divisionID = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            divisionID = resultSet.getString("Division_ID");
+        }
+        return divisionID;
+    }
+
+
 
     /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
     public static int registerUser(String userName, String password) throws SQLException {

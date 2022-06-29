@@ -31,6 +31,7 @@ public class AddCustomers implements Initializable{
     public String contact = "";
     public String country = "";
     public String division = "";
+    public String divisionID = "";
     public String name;
     public String streetAddress;
     public String phoneNum;
@@ -114,9 +115,17 @@ public class AddCustomers implements Initializable{
         postalCode = custPostalField.getText();
         phoneNum = custPhoneField.getText();
 
-        if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && contact.length() > 0 && division.length() > 0)
+        JDBC.openConnection();
+        try {
+            divisionID = LoginQuery.getDivisionID(division);
+        } catch (SQLException e) {
+            System.out.println("failed to get division id");
+        }
+        JDBC.closeConnection();
+
+        if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && contact.length() > 0 && division.length() > 0 && divisionID.length() > 0)
         {
-            System.out.println("reishi did it");
+            System.out.println(divisionID);
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setResizable(true);
