@@ -115,7 +115,7 @@
                         </Label>
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveChangesAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Save Changes" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearFieldsAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Clear" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                        <TextField promptText="Auto Generated" GridPane.columnIndex="1">
+                        <TextField disable="true" promptText="Auto Generated" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -131,7 +131,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="custAddressField" promptText="Type street name here" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TextField fx:id="custAddressField" promptText="Type street address here" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>

@@ -7,9 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import helper.LoginQuery;
@@ -19,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddCustomers implements Initializable{
@@ -29,9 +28,13 @@ public class AddCustomers implements Initializable{
     public MenuButton selectContact;
     public MenuButton selectDivision;
     public MenuButton selectCountry;
-    public String contact;
-    public String country;
-    public String division;
+    public String contact = "";
+    public String country = "";
+    public String division = "";
+    public String name;
+    public String streetAddress;
+    public String phoneNum;
+    public String postalCode;
 
     /** @param url,resourceBundle used to initialize the populateContacts, populateCountries, and populateDivisions methods.*/
     @Override
@@ -88,6 +91,7 @@ public class AddCustomers implements Initializable{
         JDBC.openConnection();
         selectDivision.setText("Select Division");
         selectDivision.getItems().clear();
+        selectDivision.getItems().removeAll();
         selectDivision.setDisable(false);
         String countryID = LoginQuery.getcountryID(countryName);
         System.out.println(countryID);
@@ -103,11 +107,42 @@ public class AddCustomers implements Initializable{
             JDBC.closeConnection();
     }
 
+    /** @param actionEvent saveChangesAction function fires when the user clicks save changes. The data is then stored in the database table.*/
     public void saveChangesAction(ActionEvent actionEvent) throws SQLException {
-        System.out.println(contact);
+        name = custNameField.getText();
+        streetAddress = custAddressField.getText();
+        postalCode = custPostalField.getText();
+        phoneNum = custPhoneField.getText();
+
+        if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && contact.length() > 0 && division.length() > 0)
+        {
+            System.out.println("reishi did it");
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setResizable(true);
+            alert.setTitle("Missing Information");
+            alert.setContentText("All fields are required.");
+            Optional<ButtonType> result = alert.showAndWait();
+        }
     }
 
+    /** @param actionEvent clearFieldsAction function fires when the user clicks clear. This resets all the form fields to their default state.*/
     public void clearFieldsAction(ActionEvent actionEvent) {
+        selectContact.setText("Select Contact");
+        custNameField.setText("");
+        custAddressField.setText("");
+        selectCountry.setText("Select Country");
+        selectDivision.setText("Select Division");
+        selectDivision.getItems().clear();
+        selectDivision.getItems().removeAll();
+        selectDivision.setDisable(true);
+        custPostalField.setText("");
+        custPhoneField.setText("");
+        contact = "";
+        country = "";
+        division = "";
+
+
     }
 
     /** @param actionEvent selectContactAction function fires when the user selects a Contact from the menu list.*/
@@ -120,12 +155,14 @@ public class AddCustomers implements Initializable{
             };
 
 
-    /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list.*/
+    /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.*/
+    /** The division variable is also reset to default state to avoid potential bugs when user changes their country selection.**/
     public EventHandler<ActionEvent> selectCountryAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
                     country = ((MenuItem) ae.getSource()).getText();
                     selectCountry.setText(country);
+                    division = "";
                     try {
                         populateDivisions(country);
                     } catch (SQLException e) {
