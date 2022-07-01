@@ -23,14 +23,14 @@
       </ImageView>
       <Pane layoutX="26.0" layoutY="136.0" prefHeight="75.0" prefWidth="1054.0" style="-fx-background-color: #FFFFFF; -fx-opacity: .80; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;">
          <children>
-            <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1055.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="1055.0">
                <children>
-                  <TextField maxWidth="-Infinity" prefHeight="38.0" prefWidth="700.0" promptText="search for a customer" style="-fx-background-radius: 15;">
+                  <TextField fx:id="searchCustField" maxWidth="-Infinity" onAction="#searchCustomerAction" prefHeight="38.0" prefWidth="907.0" promptText="search for a customer" style="-fx-background-radius: 15;">
                      <HBox.margin>
                         <Insets left="10.0" right="25.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Search" textAlignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#searchCustomerAction" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Search" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -53,14 +53,14 @@
                   </Label>
                   <TableView prefHeight="243.0" prefWidth="1034.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Customer ID" />
-                      <TableColumn prefWidth="75.0" text="Contact" />
-                        <TableColumn prefWidth="75.0" text="Name" />
-                        <TableColumn prefWidth="75.0" text="Address" />
-                        <TableColumn prefWidth="75.0" text="State" />
-                        <TableColumn prefWidth="75.0" text="Country" />
-                        <TableColumn prefWidth="75.0" text="Postal Code" />
-                        <TableColumn prefWidth="75.0" text="Phone" />
+                      <TableColumn fx:id="custIDCol" prefWidth="75.0" text="Customer ID" />
+                      <TableColumn fx:id="custContactCol" prefWidth="75.0" text="Contact" />
+                        <TableColumn fx:id="custNameCol" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="custAddressCol" prefWidth="75.0" text="Address" />
+                        <TableColumn fx:id="custStateCol" prefWidth="75.0" text="State" />
+                        <TableColumn fx:id="custCountryCol" prefWidth="75.0" text="Country" />
+                        <TableColumn fx:id="custPostCol" prefWidth="75.0" text="Postal Code" />
+                        <TableColumn fx:id="custPhoneCol" prefWidth="75.0" text="Phone" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -73,12 +73,12 @@
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Modify Customer" textAlignment="CENTER">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#modifyCustomerAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Modify Customer" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Delete Customer" textAlignment="CENTER" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteCustomerAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Delete Customer" textAlignment="CENTER" />
                      </children>
                      <VBox.margin>
                         <Insets left="15.0" />
