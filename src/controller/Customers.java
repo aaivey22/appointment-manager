@@ -41,6 +41,7 @@ public class Customers implements Initializable {
     public TableColumn custPhoneCol;
     public TableView customersTable;
 
+    /** @param url,resourceBundle used to initialize the allCustomers method.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         JDBC.openConnection();
@@ -48,8 +49,9 @@ public class Customers implements Initializable {
         try {
             allCustomers = LoginQuery.getAllCustomers();
             ObservableList<customer> allCustomersList = FXCollections.observableArrayList();
-            //allCustomersList.removeAll();
 
+            customer Ruby = new customer("10", "Ruby Sinke", "123 Dog Drive", "34645", "434-656-5745", 60);
+            allCustomersList.add(Ruby);
             while(allCustomers.next()) {
                 customer new_customer = new customer(allCustomers.getString("Customer_ID"),
                         allCustomers.getString("Customer_Name"),

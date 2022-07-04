@@ -135,7 +135,12 @@ public class AddCustomers implements Initializable{
             JDBC.closeConnection();
 
             if( rowsModified > 0) {
-                System.out.println("new customer added");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setResizable(true);
+                alert.setTitle("Success");
+                alert.setContentText("New customer added");
+                Optional<ButtonType> result = alert.showAndWait();
+
             } else
             {
                 System.out.println("customer could not be added");

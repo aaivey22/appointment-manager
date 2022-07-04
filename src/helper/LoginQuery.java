@@ -10,6 +10,7 @@ import java.util.Objects;
 
 public abstract class LoginQuery {
 
+    /** a ResultSet is a datatype that holds mysql query results. */
     private static ResultSet resultSet = null;
 
     /** @return SELECT method used to count data from appointments column in database and returns "rowsCounted". */
