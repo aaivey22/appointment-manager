@@ -140,7 +140,7 @@ public class AddCustomers implements Initializable{
                 alert.setTitle("Success");
                 alert.setContentText("New customer added");
                 Optional<ButtonType> result = alert.showAndWait();
-
+                clearFieldsAction(null);
             } else
             {
                 System.out.println("customer could not be added");
