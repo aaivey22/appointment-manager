@@ -140,7 +140,7 @@ public class AddCustomers implements Initializable{
                 alert.setTitle("Success");
                 alert.setContentText("New customer added");
                 Optional<ButtonType> result = alert.showAndWait();
-                clearFieldsAction(null);
+                clearFieldsAction(null); // using null because the function is being directly called without an action event such as a button click.
             } else
             {
                 System.out.println("customer could not be added");

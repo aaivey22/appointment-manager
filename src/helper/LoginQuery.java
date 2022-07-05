@@ -47,7 +47,7 @@ public abstract class LoginQuery {
         return listofCountries;
     }
 
-    /** @return SELECT method returns a new list of divisions 'listofDivisions' with the Division column data. */
+    /** @return SELECT method returns a new list of divisions 'listofDivisions' with the Division by referencing the countryID. */
     public static java.util.List<String> getDivisions(String countryID) throws SQLException {
         java.util.List<String> listofDivisions = new ArrayList<String>();
         String sql = "SELECT Division from first_level_divisions WHERE Country_ID = \"" + countryID + "\"";
@@ -59,10 +59,33 @@ public abstract class LoginQuery {
         return listofDivisions;
     }
 
-    /** @return SELECT method returns a String country ID whose country name matches with the selected country. */
+    /** @return SELECT method returns a country ID by referencing countryName. */
     public static String getcountryID(String countryName) throws SQLException {
-        java.util.List<String> listofCountries = new ArrayList<String>();
         String sql = "SELECT Country_ID FROM client_schedule.countries WHERE Country = \"" + countryName + "\"";
+        String countryID = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            countryID = resultSet.getString("Country_ID");
+        }
+        return countryID;
+    }
+
+    /** @return SELECT method returns a country name whose name matches with the selected country ID. */
+    public static String getcountryName(String countryID) throws SQLException {
+        String sql = "SELECT Country FROM client_schedule.countries WHERE Country_ID = \"" + countryID + "\"";
+        String countryName = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            countryName = resultSet.getString("Country");
+        }
+        return countryName;
+    }
+
+    /** @return SELECT method returns a country ID whose name matches with the selected division ID. */
+    public static String getCountryID(Integer divisionID) throws SQLException {
+        String sql = "SELECT Country_ID FROM client_schedule.first_level_divisions WHERE Division_ID = \"" + divisionID + "\"";
         String countryID = null;
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         resultSet = ps.executeQuery();
@@ -82,6 +105,18 @@ public abstract class LoginQuery {
             divisionID = resultSet.getString("Division_ID");
         }
         return divisionID;
+    }
+
+    /** @return SELECT method returns a String Division Name whose division id matches with the selected division. */
+    public static String getDivisionName(Integer divisionID) throws SQLException {
+        String sql = "SELECT Division FROM client_schedule.first_level_divisions WHERE Division_ID = \"" + divisionID + "\"";
+        String divisionName = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            divisionName = resultSet.getString("Division");
+        }
+        return divisionName;
     }
 
     /** @return SELECT method returns all customer data to populate in the customers table in the customers page. */
@@ -106,6 +141,15 @@ public abstract class LoginQuery {
         return rowsAffected;
     }
 
+    /** @return delete method used to delete a customer from the database and returns "rowsAffected". */
+    public static int deleteCustomer(String customerID) throws SQLException {
+        String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = (?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, customerID);
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
 
 
 

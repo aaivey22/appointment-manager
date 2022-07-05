@@ -9,10 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -23,6 +20,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import helper.LoginQuery;
@@ -40,6 +38,7 @@ public class Customers implements Initializable {
     public TableColumn custPostCol;
     public TableColumn custPhoneCol;
     public TableView customersTable;
+    public ObservableList<customer> allCustomersList = FXCollections.observableArrayList();
 
     /** @param url,resourceBundle used to initialize the allCustomers method.*/
     @Override
@@ -48,10 +47,9 @@ public class Customers implements Initializable {
 
         try {
             allCustomers = LoginQuery.getAllCustomers();
-            ObservableList<customer> allCustomersList = FXCollections.observableArrayList();
-
-            customer Ruby = new customer("10", "Ruby Sinke", "123 Dog Drive", "34645", "434-656-5745", 60);
-            allCustomersList.add(Ruby);
+            allCustomersList.removeAll();
+            //customer Ruby = new customer("10", "Ruby Sinke", "123 Dog Drive", "34645", "434-656-5745", 60);
+            //allCustomersList.add(Ruby);
             while(allCustomers.next()) {
                 customer new_customer = new customer(allCustomers.getString("Customer_ID"),
                         allCustomers.getString("Customer_Name"),
@@ -59,12 +57,22 @@ public class Customers implements Initializable {
                         allCustomers.getString("Postal_Code"),
                         allCustomers.getString("Phone"),
                         allCustomers.getInt("Division_ID"));
+                new_customer.setCountryName();
+                new_customer.setDivisionName();
+
                 allCustomersList.add(new_customer);
-                //System.out.println(new_customer.getCustomerID());
             }
+
             customersTable.setItems(allCustomersList);
             custIDCol.setCellValueFactory(new PropertyValueFactory<customer, String>("customerID"));
-            System.out.println(allCustomersList.size());
+            //custContactCol.setCellValueFactory(new PropertyValueFactory<customer, String>("customerName"));
+            custNameCol.setCellValueFactory(new PropertyValueFactory<customer, String>("customerName"));
+            custAddressCol.setCellValueFactory(new PropertyValueFactory<customer, String>("address"));
+            custStateCol.setCellValueFactory(new PropertyValueFactory<customer, String>("divisionName"));
+            custCountryCol.setCellValueFactory(new PropertyValueFactory<customer, String>("countryName"));
+            custPostCol.setCellValueFactory(new PropertyValueFactory<customer, String>("postalCode"));
+            custPhoneCol.setCellValueFactory(new PropertyValueFactory<customer, String>("phone"));
+
 
         } catch (SQLException e) {
             System.out.println("could not load customers");
@@ -90,7 +98,25 @@ public class Customers implements Initializable {
         stage.show();
     }
 
-    public void deleteCustomerAction(ActionEvent actionEvent) {
+    /** @param actionEvent deleteCustomerAction function used to remove a customer from database.*/
+    public void deleteCustomerAction(ActionEvent actionEvent) throws SQLException {
+        customer selectedCustomer = (customer)customersTable.getSelectionModel().getSelectedItem();
+        String customerID = selectedCustomer.getCustomerID();
+
+        if (selectedCustomer != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Customer");
+            alert.setContentText("Are you sure you want to delete this customer?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                JDBC.openConnection();
+
+                allCustomersList.remove(selectedCustomer);
+                LoginQuery.deleteCustomer(customerID);
+
+                JDBC.closeConnection();
+            }
+        }
     }
 
     public void modifyCustomerAction(ActionEvent actionEvent) {
