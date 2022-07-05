@@ -42,6 +42,11 @@ public class customer {
         return customerID;
     }
 
+    /** @return getCustomerID method used to retrieve customer ID Integer data from the customerID member in customer object model. */
+    public Integer getCustomerIDint(){
+        return Integer.parseInt(customerID);
+    }
+
     /** @return getCustomerName method used to retrieve customer name data from the customerName member in customer object model. */
     public String getCustomerName(){
         return customerName;

@@ -122,6 +122,61 @@ public class Customers implements Initializable {
     public void modifyCustomerAction(ActionEvent actionEvent) {
     }
 
+    /** RUNTIME ERROR after running program, name search did not work, but id search did, was missing second else statement to set partNames.
+     *If no names are found when searching and the query is not a number, an error is thrown when converting query into an integer because it's trying to convert a character into an int.
+     *The solution is to add the try catch exception.
+     *@param actionEvent used to search for a specific part first by name, then by ID in the allParts list via a button actionEvent.*/
     public void searchCustomerAction(ActionEvent actionEvent) {
+            String Q = searchCustField.getText();
+            ObservableList<customer> customerData = searchCustName(Q);
+            if (customerData.size() == 0) {
+                try {
+                    int queryID = Integer.parseInt(Q);
+                    customer Customer = searchCustomerID(queryID);
+                    if (Customer != null) {
+                        customerData.add(Customer);
+                        customersTable.setItems(customerData);
+                        searchCustField.setText("");
+                    } else {
+                        customersTable.setItems(null);
+                        searchCustField.setText("");
+                    }
+                } catch (Exception e) {
+                    customersTable.setItems(null);
+                    searchCustField.setText("");
+                }
+            } else {
+                customersTable.setItems(customerData);
+                searchCustField.setText("");
+            }
+        }
+    /** @param partName used to search for a specific part by name in the allParts list via a button actionEvent.*/
+    /** @return nameResults returns a list of parts matching the search criteria.*/
+    private ObservableList<customer> searchCustName(String customerName) {
+        ObservableList<customer> nameResults = FXCollections.observableArrayList();
+        ObservableList<customer> allCustomers = allCustomersList;
+
+        for (customer names : allCustomers) {
+            if (names.getCustomerName().contains(customerName)) {
+                nameResults.add(names);
+            }
+        }
+        return nameResults;
+    }
+
+    /** @param partID the part ID to find in the allParts list.*/
+    /** @return partid the specific part from the list allParts.*/
+    /** @return null if there is not an ID match in the allParts list.*/
+    private customer searchCustomerID(Integer customerID) {
+        ObservableList<customer> allCustomers = allCustomersList;
+        for (int i = 0; i < allCustomers.size(); i++) {
+            customer singleCustomer = allCustomers.get(i);
+            if (singleCustomer.getCustomerIDint() == customerID) {
+                System.out.println("Match Found");
+                return singleCustomer;
+            }
+        }
+        return null;
     }
 }
+
