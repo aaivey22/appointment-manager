@@ -54,7 +54,6 @@
                   <TableView fx:id="customersTable" prefHeight="243.0" prefWidth="1034.0">
                     <columns>
                       <TableColumn fx:id="custIDCol" prefWidth="75.0" text="Customer ID" />
-                      <TableColumn fx:id="custContactCol" prefWidth="75.0" text="Contact" />
                         <TableColumn fx:id="custNameCol" prefWidth="75.0" text="Name" />
                         <TableColumn fx:id="custAddressCol" prefWidth="75.0" text="Address" />
                         <TableColumn fx:id="custStateCol" prefWidth="75.0" text="State" />

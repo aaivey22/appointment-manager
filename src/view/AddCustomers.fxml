@@ -44,7 +44,6 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -57,7 +56,7 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="455.0" text="Contact" GridPane.rowIndex="1">
+                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="33.0" prefHeight="68.0" prefWidth="455.0" text="Name" GridPane.rowIndex="1">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -65,7 +64,7 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="33.0" prefHeight="68.0" prefWidth="455.0" text="Name" GridPane.rowIndex="2">
+                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="455.0" text="Street Address" GridPane.rowIndex="2">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -73,7 +72,7 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="455.0" text="Street Address" GridPane.rowIndex="3">
+                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="455.0" text="Division" GridPane.rowIndex="4">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -81,7 +80,7 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="455.0" text="Division" GridPane.rowIndex="5">
+                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="68.0" prefWidth="455.0" text="Country" GridPane.rowIndex="3">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -89,7 +88,7 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="68.0" prefWidth="455.0" text="Country" GridPane.rowIndex="4">
+                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="80.0" prefHeight="68.0" prefWidth="455.0" text="Postal Code" GridPane.rowIndex="5">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -97,15 +96,7 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="80.0" prefHeight="68.0" prefWidth="455.0" text="Postal Code" GridPane.rowIndex="6">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="50.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="150.0" prefHeight="68.0" prefWidth="455.0" text="Phone" GridPane.rowIndex="7">
+                        <Label contentDisplay="CENTER" layoutX="10.0" layoutY="150.0" prefHeight="68.0" prefWidth="455.0" text="Phone" GridPane.rowIndex="6">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -123,7 +114,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="custNameField" promptText="Type first and last name here" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="custNameField" promptText="Type first and last name here" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -131,7 +122,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="custAddressField" promptText="Type street address here" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TextField fx:id="custAddressField" promptText="Type street address here" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -139,7 +130,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="custPostalField" promptText="Type postal code here" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <TextField fx:id="custPostalField" promptText="Type postal code here" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -147,7 +138,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="custPhoneField" promptText="Type phone number here" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        <TextField fx:id="custPhoneField" promptText="Type phone number here" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -155,17 +146,12 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <MenuButton fx:id="selectContact" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Contact" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <MenuButton fx:id="selectDivision" disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Division" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton fx:id="selectDivision" disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Division" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <GridPane.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </GridPane.margin>
-                        </MenuButton>
-                        <MenuButton fx:id="selectCountry" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Country" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <MenuButton fx:id="selectCountry" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Country" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>

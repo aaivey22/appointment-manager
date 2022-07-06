@@ -25,10 +25,8 @@ public class AddCustomers implements Initializable{
     public TextField custAddressField;
     public TextField custPostalField;
     public TextField custPhoneField;
-    public MenuButton selectContact;
     public MenuButton selectDivision;
     public MenuButton selectCountry;
-    public String contact = "";
     public String country = "";
     public String division = "";
     public String divisionID = "";
@@ -37,14 +35,9 @@ public class AddCustomers implements Initializable{
     public String phoneNum;
     public String postalCode;
 
-    /** @param url,resourceBundle used to initialize the populateContacts, populateCountries, and populateDivisions methods.*/
+    /** @param url,resourceBundle used to initialize the populateCountries method.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            populateContacts();
-        } catch (SQLException e) {
-            System.out.println("cannot load contacts");
-        }
         try {
             populateCountries();
         } catch (SQLException e) {
@@ -61,18 +54,7 @@ public class AddCustomers implements Initializable{
         stage.show();
     }
 
-    /** The populateContacts method opens a connection to the database and with the help of an imported function, retrieves the contact name column data and assigns the user selection to the menu button label.*/
-    private void populateContacts() throws SQLException {
-        JDBC.openConnection();
-        java.util.List<String> listofContacts = LoginQuery.getContacts();
-        java.util.List<MenuItem> contactsMenuItems = new ArrayList<MenuItem>();
-        for (int i = 0; i < listofContacts.size(); i++) {
-            contactsMenuItems.add(new MenuItem(listofContacts.get(i)));
-            contactsMenuItems.get(i).setOnAction(selectContactAction);
-            selectContact.getItems().add(contactsMenuItems.get(i));
-        }
-        JDBC.closeConnection();
-    }
+
 
     /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
     private void populateCountries() throws SQLException {
@@ -124,7 +106,7 @@ public class AddCustomers implements Initializable{
         }
         JDBC.closeConnection();
 
-        if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && contact.length() > 0 && division.length() > 0 && divisionID.length() > 0)
+        if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && division.length() > 0 && divisionID.length() > 0)
         {
             JDBC.openConnection();
             try {
@@ -157,7 +139,6 @@ public class AddCustomers implements Initializable{
 
     /** @param actionEvent clearFieldsAction function fires when the user clicks clear. This resets all the form fields to their default state.*/
     public void clearFieldsAction(ActionEvent actionEvent) {
-        selectContact.setText("Select Contact");
         custNameField.setText("");
         custAddressField.setText("");
         selectCountry.setText("Select Country");
@@ -167,22 +148,11 @@ public class AddCustomers implements Initializable{
         selectDivision.setDisable(true);
         custPostalField.setText("");
         custPhoneField.setText("");
-        contact = "";
         country = "";
         division = "";
 
 
     }
-
-    /** @param actionEvent selectContactAction function fires when the user selects a Contact from the menu list.*/
-    public EventHandler<ActionEvent> selectContactAction =
-            new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent ae) {
-                    contact = ((MenuItem) ae.getSource()).getText();
-                    selectContact.setText(contact);
-                }
-            };
-
 
     /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.*/
     /** The division variable is also reset to default state to avoid potential bugs when user changes their country selection.**/
