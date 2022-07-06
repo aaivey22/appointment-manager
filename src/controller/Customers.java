@@ -30,7 +30,6 @@ public class Customers implements Initializable {
     public ResultSet allCustomers;
     public TextField searchCustField;
     public TableColumn custIDCol;
-    public TableColumn custContactCol;
     public TableColumn custNameCol;
     public TableColumn custAddressCol;
     public TableColumn custStateCol;
@@ -48,8 +47,6 @@ public class Customers implements Initializable {
         try {
             allCustomers = LoginQuery.getAllCustomers();
             allCustomersList.removeAll();
-            //customer Ruby = new customer("10", "Ruby Sinke", "123 Dog Drive", "34645", "434-656-5745", 60);
-            //allCustomersList.add(Ruby);
             while(allCustomers.next()) {
                 customer new_customer = new customer(allCustomers.getString("Customer_ID"),
                         allCustomers.getString("Customer_Name"),
@@ -65,7 +62,6 @@ public class Customers implements Initializable {
 
             customersTable.setItems(allCustomersList);
             custIDCol.setCellValueFactory(new PropertyValueFactory<customer, String>("customerID"));
-            //custContactCol.setCellValueFactory(new PropertyValueFactory<customer, String>("customerName"));
             custNameCol.setCellValueFactory(new PropertyValueFactory<customer, String>("customerName"));
             custAddressCol.setCellValueFactory(new PropertyValueFactory<customer, String>("address"));
             custStateCol.setCellValueFactory(new PropertyValueFactory<customer, String>("divisionName"));
