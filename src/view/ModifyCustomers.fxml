@@ -105,9 +105,9 @@
                               <Insets left="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Save Changes" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                        <TextField promptText="Auto Generated" GridPane.columnIndex="1">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveChangesAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Save Changes" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#revertChangesAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Reset" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <TextField fx:id="custIDField" promptText="Auto Generated" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -115,7 +115,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField promptText="Type Name here" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="custNameField" promptText="Type Name here" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -123,7 +123,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField promptText="Type Name here" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="custAddressField" promptText="Type Name here" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -131,7 +131,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField promptText="Type Name here" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <TextField fx:id="custPostalField" promptText="Type Name here" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -139,7 +139,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField promptText="Type Name here" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <TextField fx:id="custPhoneField" promptText="Type Name here" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -147,7 +147,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select State" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <MenuButton fx:id="custStateField" mnemonicParsing="false" onAction="#custStateAction" prefHeight="26.0" prefWidth="235.0" text="Select State" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Action 1" />
                               <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -156,7 +156,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" text="Select Country" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <MenuButton fx:id="custCountryField" mnemonicParsing="false" onAction="#custSCountryAction" prefHeight="26.0" prefWidth="235.0" text="Select Country" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Action 1" />
                               <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -191,7 +191,7 @@
             </Label>
          </children>
       </Pane>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Back" textAlignment="CENTER" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onAction="#directToCustomers" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Back" textAlignment="CENTER" />
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="975.0" layoutY="25.0" mnemonicParsing="false" opacity="0.85" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Dashboard" textAlignment="CENTER" />
    </children>
 </AnchorPane>
