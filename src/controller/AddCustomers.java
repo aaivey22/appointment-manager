@@ -150,8 +150,6 @@ public class AddCustomers implements Initializable{
         custPhoneField.setText("");
         country = "";
         division = "";
-
-
     }
 
     /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.*/
@@ -178,7 +176,4 @@ public class AddCustomers implements Initializable{
                     selectDivision.setText(((MenuItem) ae.getSource()).getText());
                 }
             };
-
-
-
 }

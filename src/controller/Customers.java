@@ -38,6 +38,7 @@ public class Customers implements Initializable {
     public TableColumn custPhoneCol;
     public TableView customersTable;
     public ObservableList<customer> allCustomersList = FXCollections.observableArrayList();
+    private static customer modifiedCustomer = null;
 
     /** @param url,resourceBundle used to initialize the allCustomers method.*/
     @Override
@@ -115,7 +116,21 @@ public class Customers implements Initializable {
         }
     }
 
-    public void modifyCustomerAction(ActionEvent actionEvent) {
+    /** @return modifiedCustomer used to retrieve customer data to be modified.*/
+    public static customer  getModifiedCustomer() {
+        return modifiedCustomer;
+    }
+
+    /** @param actionEvent modifyCustomerAction function used to redirect user to Modify Customers form whenever a customer row is clicked.*/
+    public void modifyCustomerAction(ActionEvent actionEvent) throws IOException {
+        modifiedCustomer = (customer) customersTable.getSelectionModel().getSelectedItem();
+        if (modifiedCustomer != null) { // if a customer is not clicked it will == null
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyCustomers.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setTitle("Modify Customers");
+            stage.setScene(new Scene(root, 1100, 590));
+            stage.show();
+        }
     }
 
     /** RUNTIME ERROR after running program, name search did not work, but id search did, was missing second else statement to set partNames.

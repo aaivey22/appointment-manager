@@ -126,6 +126,13 @@ public abstract class LoginQuery {
         return resultSet = ps.executeQuery();
     }
 
+    /** @return SELECT method returns all customer data to populate in the customers table in the customers page. */
+    public static ResultSet getCustomer(Integer customerID) throws SQLException {
+        String sql = "SELECT * FROM client_schedule.customers WHERE Customer_ID = (?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        return resultSet = ps.executeQuery();
+    }
 
     /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
     public static int addCustomer(String customerName, String address, String postalCode, String phone, String divisionID) throws SQLException {
