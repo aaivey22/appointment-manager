@@ -3,19 +3,23 @@ package controller;
 import helper.JDBC;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 
+import javafx.stage.Stage;
 import model.customer;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import helper.LoginQuery;
@@ -33,6 +37,15 @@ public class ModifyCustomers implements Initializable {
     public String divisionName;
     public String countryName;
     public Integer customerID;
+
+    public String country = "";
+    public String division = "";
+    public String divisionID = "";
+    public String name;
+    public String streetAddress;
+    public String phoneNum;
+    public String postalCode;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -104,8 +117,59 @@ public class ModifyCustomers implements Initializable {
         JDBC.closeConnection();
     }
 
+    /** @param actionEvent saveChangesAction function fires when the user clicks save changes. The data is then stored in the database table.*/
+    public void saveChangesAction(ActionEvent actionEvent) throws IOException {
+        name = custNameField.getText();
+        streetAddress = custAddressField.getText();
+        postalCode = custPostalField.getText();
+        phoneNum = custPhoneField.getText();
+        customerID = Integer.valueOf(custIDField.getText());
+        division = selectDivision.getText();
+        country = selectCountry.getText();
+        int rowsModified = 0;
 
-    public void saveChangesAction(ActionEvent actionEvent) {
+        JDBC.openConnection();
+        try {
+            divisionID = LoginQuery.getDivisionID(division);
+        } catch (SQLException e) {
+            System.out.println("failed to get division id");
+        }
+        JDBC.closeConnection();
+
+        if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && division.length() > 0 && divisionID.length() > 0)
+        {
+            JDBC.openConnection();
+            try {
+                rowsModified = LoginQuery.modifyCustomer(name, streetAddress, postalCode, phoneNum, divisionID, customerID);
+            } catch (SQLException e) {
+                System.out.println("failed to get division id");
+            }
+            JDBC.closeConnection();
+
+            if( rowsModified > 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setResizable(true);
+                alert.setTitle("Success");
+                alert.setContentText("Customer Updated");
+                Optional<ButtonType> result = alert.showAndWait();
+                Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setTitle("Customers");
+                stage.setScene(new Scene(root, 1100, 590));
+                stage.show();
+            } else
+            {
+                System.out.println("customer could not be modified");
+            }
+
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setResizable(true);
+            alert.setTitle("Missing Information");
+            alert.setContentText("All fields are required.");
+            Optional<ButtonType> result = alert.showAndWait();
+        }
+
     }
 
     public void setUpAction(ActionEvent actionEvent) {
@@ -134,6 +198,11 @@ public class ModifyCustomers implements Initializable {
         JDBC.closeConnection();
     }
 
-    public void directToCustomers(ActionEvent actionEvent) {
+    public void directToCustomers(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Customers");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
     }
 }

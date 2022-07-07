@@ -148,6 +148,22 @@ public abstract class LoginQuery {
         return rowsAffected;
     }
 
+    /** @return UPDATE method used to update customer data in the database and returns "rowsAffected". */
+    public static int modifyCustomer(String customerName, String address, String postalCode, String phone, String divisionID, Integer customerID) throws SQLException {
+        String sql = "UPDATE client_schedule.customers SET Customer_Name = (?), Address = (?), Postal_Code = (?), Phone = (?), Division_ID = (?) WHERE Customer_ID = (?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, customerName);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setString(5, divisionID);
+        ps.setInt(6, customerID);
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
+
+
     /** @return delete method used to delete a customer from the database and returns "rowsAffected". */
     public static int deleteCustomer(String customerID) throws SQLException {
         String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = (?)";
