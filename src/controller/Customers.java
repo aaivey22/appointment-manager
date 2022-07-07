@@ -168,7 +168,7 @@ public class Customers implements Initializable {
         ObservableList<customer> allCustomers = allCustomersList;
 
         for (customer names : allCustomers) {
-            if (names.getCustomerName().contains(customerName)) {
+            if (names.getCustomerName().toLowerCase(Locale.ROOT).contains(customerName.toLowerCase(Locale.ROOT))) {
                 nameResults.add(names);
             }
         }
