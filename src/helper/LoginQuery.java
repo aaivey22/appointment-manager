@@ -59,6 +59,8 @@ public abstract class LoginQuery {
         return listofCustomers;
     }
 
+
+
     /** @return SELECT method returns a new list of divisions 'listofDivisions' with the Division by referencing the countryID. */
     public static java.util.List<String> getDivisions(String countryID) throws SQLException {
         java.util.List<String> listofDivisions = new ArrayList<String>();

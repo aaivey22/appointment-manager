@@ -61,6 +61,7 @@
                   </Label>
                   <Label fx:id="timeZoneLabel" opacity="0.6" text="Time Zone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="userNameField" promptText="enter your user name" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
+                  <PasswordField fx:id="passwordField" promptText="enter your password" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
                   <Label fx:id="userNameLabel" text="User Name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label fx:id="passwordLabel" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Hyperlink fx:id="forgotPwordLink" layoutX="169.0" layoutY="54.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#retrievePword" text="Forgot Password?" underline="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
@@ -88,7 +89,6 @@
                         <Insets right="70.0" />
                      </GridPane.margin>
                   </Button>
-                  <PasswordField fx:id="passwordField" promptText="enter your password" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
                </children>
                <opaqueInsets>
                   <Insets />

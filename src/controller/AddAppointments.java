@@ -34,17 +34,22 @@ public class AddAppointments implements Initializable {
     public MenuButton appEndTime;
     public Label appEndDate;
     public String customer;
+    public String contact;
+    public String type;
+    public String user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             populateCustomers();
+            populateContact();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
+    /** The populateCustomers method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
     private void populateCustomers() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCustomers = LoginQuery.getCustNames();
@@ -57,12 +62,34 @@ public class AddAppointments implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent selectDivisionAction function fires when the user selects a Division from the menu list.*/
+    /** @param actionEvent selectCustAction function fires when the user selects a customer from the menu list.*/
     public EventHandler<ActionEvent> selectCustAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
                     customer = ((MenuItem) ae.getSource()).getText();
                     selectCustomer.setText(((MenuItem) ae.getSource()).getText());
+                }
+            };
+
+    /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
+    private void populateContact() throws SQLException {
+        JDBC.openConnection();
+        java.util.List<String> listofContacts = LoginQuery.getContacts();
+        java.util.List<MenuItem> countriesMenuItems = new ArrayList<MenuItem>();
+        for (int i = 0; i < listofContacts.size(); i++) {
+            countriesMenuItems.add(new MenuItem(listofContacts.get(i)));
+            countriesMenuItems.get(i).setOnAction(selectContactAction);
+            selectContact.getItems().add(countriesMenuItems.get(i));
+        }
+        JDBC.closeConnection();
+    }
+
+    /** @param actionEvent selectContactAction function fires when the user selects a contact from the menu list.*/
+    public EventHandler<ActionEvent> selectContactAction =
+            new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent ae) {
+                    contact = ((MenuItem) ae.getSource()).getText();
+                    selectContact.setText(((MenuItem) ae.getSource()).getText());
                 }
             };
 
