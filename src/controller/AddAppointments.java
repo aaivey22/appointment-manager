@@ -21,20 +21,23 @@ import java.util.ResourceBundle;
 
 public class AddAppointments implements Initializable {
     public TextField descriptionField;
-    public MenuButton selectCustomer;
     public TextField titleField;
     public TextField apptID;
+    public TextField locationField;
+    public TextField appNameField;
+
+    public MenuButton selectCustomer;
     public MenuButton selectUser;
     public MenuButton selectContact;
-    public TextField locationField;
-    public DatePicker apptStartDate;
-    public TextField appNameField;
     public MenuButton appStartTime;
     public MenuButton appEndTime;
+
+    public DatePicker apptStartDate;
+
     public Label appEndDate;
+
     public String customer;
     public String contact;
-    public String type;
     public String user;
 
     @Override
@@ -92,6 +95,7 @@ public class AddAppointments implements Initializable {
                     selectContact.setText(((MenuItem) ae.getSource()).getText());
                 }
             };
+
     /** The populateUsers method opens a connection to the database and with the help of an imported function, retrieves the user column data.*/
     private void populateUsers() throws SQLException {
         JDBC.openConnection();
@@ -114,33 +118,8 @@ public class AddAppointments implements Initializable {
                 }
             };
 
-
-
     public void saveApptChanges(ActionEvent actionEvent) {
     }
-
-    /** The populateContacts method opens a connection to the database and with the help of an imported function, retrieves the contact name column data and assigns the user selection to the menu button label.*/
-      /*  private void populateContacts() throws SQLException {
-            JDBC.openConnection();
-            java.util.List<String> listofContacts = LoginQuery.getContacts();
-            java.util.List<MenuItem> contactsMenuItems = new ArrayList<MenuItem>();
-            for (int i = 0; i < listofContacts.size(); i++) {
-                contactsMenuItems.add(new MenuItem(listofContacts.get(i)));
-                contactsMenuItems.get(i).setOnAction(selectContactAction);
-                selectContact.getItems().add(contactsMenuItems.get(i));
-            }
-            JDBC.closeConnection();
-        } */
-
-    /** @param actionEvent selectContactAction function fires when the user selects a Contact from the menu list.*/
-    /* public EventHandler<ActionEvent> selectContactAction =
-            new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent ae) {
-                    contact = ((MenuItem) ae.getSource()).getText();
-                    selectContact.setText(contact);
-                }
-            }; */
-
 
     public void directToDashboard(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
@@ -151,5 +130,23 @@ public class AddAppointments implements Initializable {
     }
 
     public void clearApptChanges(ActionEvent actionEvent) {
+        descriptionField.setText("");
+        titleField.setText("");
+        apptID.setText("");
+        locationField.setText("");
+        appNameField.setText("");
+        selectCustomer.setText("Select customer");
+        selectCustomer.getItems().clear();
+        selectCustomer.getItems().removeAll();
+        selectUser.setText("Select user");
+        selectUser.getItems().clear();
+        selectUser.getItems().removeAll();
+        selectContact.setText("Select contact");
+        selectContact.getItems().clear();
+        selectContact.getItems().removeAll();
+        customer = "";
+        user = "";
+        contact = "";
+
     }
 }
