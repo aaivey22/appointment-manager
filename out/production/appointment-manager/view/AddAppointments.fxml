@@ -128,6 +128,17 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
+                        <TextField fx:id="appTypeField" promptText="Appointment Type here" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
                         <TextField fx:id="titleField" promptText="Type Title here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="5">
                            <font>
                               <Font name="System Italic" size="14.0" />
@@ -145,11 +156,6 @@
                            </GridPane.margin>
                         </TextField>
                         <MenuButton fx:id="selectCustomer" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Customer" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </GridPane.margin>
-                        </MenuButton>
-                        <MenuButton fx:id="selectType" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>

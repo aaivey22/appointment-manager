@@ -24,7 +24,6 @@ public class AddAppointments implements Initializable {
     public MenuButton selectCustomer;
     public TextField titleField;
     public TextField apptID;
-    public MenuButton selectType;
     public MenuButton selectUser;
     public MenuButton selectContact;
     public TextField locationField;
@@ -43,13 +42,14 @@ public class AddAppointments implements Initializable {
         try {
             populateCustomers();
             populateContact();
+            populateUsers();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    /** The populateCustomers method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
+    /** The populateCustomers method opens a connection to the database and with the help of an imported function, retrieves the user column data.*/
     private void populateCustomers() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCustomers = LoginQuery.getCustNames();
@@ -62,7 +62,7 @@ public class AddAppointments implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent selectCustAction function fires when the user selects a customer from the menu list.*/
+    /** @param actionEvent selectCustAction function fires when the user selects a customer from the menu list and assigns their selection to the menu button label.*/
     public EventHandler<ActionEvent> selectCustAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
@@ -71,20 +71,20 @@ public class AddAppointments implements Initializable {
                 }
             };
 
-    /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
+    /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the user column data.*/
     private void populateContact() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofContacts = LoginQuery.getContacts();
-        java.util.List<MenuItem> countriesMenuItems = new ArrayList<MenuItem>();
+        java.util.List<MenuItem> contactsMenuItems = new ArrayList<MenuItem>();
         for (int i = 0; i < listofContacts.size(); i++) {
-            countriesMenuItems.add(new MenuItem(listofContacts.get(i)));
-            countriesMenuItems.get(i).setOnAction(selectContactAction);
-            selectContact.getItems().add(countriesMenuItems.get(i));
+            contactsMenuItems.add(new MenuItem(listofContacts.get(i)));
+            contactsMenuItems.get(i).setOnAction(selectContactAction);
+            selectContact.getItems().add(contactsMenuItems.get(i));
         }
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent selectContactAction function fires when the user selects a contact from the menu list.*/
+    /** @param actionEvent selectContactAction function fires when the user selects a contact from the menu list and assigns their selection to the menu button label.*/
     public EventHandler<ActionEvent> selectContactAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
@@ -92,6 +92,28 @@ public class AddAppointments implements Initializable {
                     selectContact.setText(((MenuItem) ae.getSource()).getText());
                 }
             };
+    /** The populateUsers method opens a connection to the database and with the help of an imported function, retrieves the user column data.*/
+    private void populateUsers() throws SQLException {
+        JDBC.openConnection();
+        java.util.List<String> listofUsers = LoginQuery.getUsers();
+        java.util.List<MenuItem> usersMenuItems = new ArrayList<MenuItem>();
+        for (int i = 0; i < listofUsers.size(); i++) {
+            usersMenuItems.add(new MenuItem(listofUsers.get(i)));
+            usersMenuItems.get(i).setOnAction(selectUserAction);
+            selectUser.getItems().add(usersMenuItems.get(i));
+        }
+        JDBC.closeConnection();
+    }
+
+    /** @param actionEvent selectUserAction function fires when the user selects a user from the menu list and assigns their selection to the menu button label.*/
+    public EventHandler<ActionEvent> selectUserAction =
+            new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent ae) {
+                    user = ((MenuItem) ae.getSource()).getText();
+                    selectUser.setText(((MenuItem) ae.getSource()).getText());
+                }
+            };
+
 
 
     public void saveApptChanges(ActionEvent actionEvent) {

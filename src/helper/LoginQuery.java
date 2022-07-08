@@ -148,6 +148,19 @@ public abstract class LoginQuery {
         return resultSet = ps.executeQuery();
     }
 
+    /** @return SELECT method returns a new list of users 'listofUsers' with the Contact_Name column data. */
+    public static java.util.List<String> getUsers() throws SQLException {
+        java.util.List<String> listofUsers = new ArrayList<String>();
+        String sql = "SELECT User_Name from users";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            listofUsers.add(resultSet.getString("User_Name"));
+        }
+        return listofUsers;
+    }
+
+
     /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
     public static int addCustomer(String customerName, String address, String postalCode, String phone, String divisionID) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
