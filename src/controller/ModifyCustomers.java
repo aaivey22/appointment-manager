@@ -32,19 +32,19 @@ public class ModifyCustomers implements Initializable {
     public TextField custPhoneField;
     public MenuButton selectDivision;
     public MenuButton selectCountry;
-    public customer modifiedCustomer = null;
-    public ResultSet resultSet;
-    public String divisionName;
-    public String countryName;
-    public Integer customerID;
+    private customer modifiedCustomer = null;
+    private ResultSet resultSet;
+    private String divisionName;
+    private String countryName;
+    private Integer customerID;
 
-    public String country = "";
-    public String division = "";
-    public String divisionID = "";
-    public String name;
-    public String streetAddress;
-    public String phoneNum;
-    public String postalCode;
+    private String country = "";
+    private String division = "";
+    private String divisionID = "";
+    private String name;
+    private String streetAddress;
+    private String phoneNum;
+    private String postalCode;
 
 
     @Override

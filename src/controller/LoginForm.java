@@ -41,13 +41,13 @@ public class LoginForm implements Initializable {
     public Hyperlink forgotPwordLink;
     public Label selectLangLabel;
     public Button loginButton;
-    public String userNameInput;
-    public String userPwordInput;
-    public String alertText = "The user name and or password entered are incorrect.";
-    public String alertTitle = "Incorrect Login";
-    public String retrievePwordText = "Contact the IT department at @helpdesk to reset your password.";
-    public String retrievePwordTitle = "Password Help";
-    public Button registerButton;
+    private String userNameInput;
+    private String userPwordInput;
+    private String alertText = "The user name and or password entered are incorrect.";
+    private String alertTitle = "Incorrect Login";
+    private String retrievePwordText = "Contact the IT department at @helpdesk to reset your password.";
+    private String retrievePwordTitle = "Password Help";
+    private Button registerButton;
 
 
     /** @param url,resourceBundle used to initialize translate() method.*/

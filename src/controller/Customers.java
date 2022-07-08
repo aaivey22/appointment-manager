@@ -26,8 +26,7 @@ import java.util.ResourceBundle;
 import helper.LoginQuery;
 
 public class Customers implements Initializable {
-    public Button toDashboard;
-    public ResultSet allCustomers;
+    private ResultSet allCustomers;
     public TextField searchCustField;
     public TableColumn custIDCol;
     public TableColumn custNameCol;
@@ -37,7 +36,7 @@ public class Customers implements Initializable {
     public TableColumn custPostCol;
     public TableColumn custPhoneCol;
     public TableView customersTable;
-    public ObservableList<customer> allCustomersList = FXCollections.observableArrayList();
+    private ObservableList<customer> allCustomersList = FXCollections.observableArrayList();
     private static customer modifiedCustomer = null;
 
     /** @param url,resourceBundle used to initialize the allCustomers method.*/

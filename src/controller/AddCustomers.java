@@ -27,13 +27,13 @@ public class AddCustomers implements Initializable{
     public TextField custPhoneField;
     public MenuButton selectDivision;
     public MenuButton selectCountry;
-    public String country = "";
-    public String division = "";
-    public String divisionID = "";
-    public String name;
-    public String streetAddress;
-    public String phoneNum;
-    public String postalCode;
+    private String country = "";
+    private String division = "";
+    private String divisionID = "";
+    private String name;
+    private String streetAddress;
+    private String phoneNum;
+    private String postalCode;
 
     /** @param url,resourceBundle used to initialize the populateCountries method.*/
     @Override

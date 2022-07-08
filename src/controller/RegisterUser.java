@@ -21,9 +21,9 @@ public class RegisterUser {
     public TextField userNameField;
     public TextField passwordField;
     public TextField confirmField;
-    public String newUserName;
-    public String newUserPassword;
-    public String confirmUserPassword;
+    private String newUserName;
+    private String newUserPassword;
+    private String confirmUserPassword;
 
     /**
      * @param actionEvent registerAction function used to execute if statement for warning alert if username is < 8 or >12 chars long.

@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -113,7 +112,7 @@
                         </Label>
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveApptChanges" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Save Changes" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearApptChanges" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Clear" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                        <TextField fx:id="apptID" promptText="Auto Generated" GridPane.columnIndex="1" GridPane.columnSpan="4">
+                        <TextField fx:id="apptID" disable="true" promptText="Auto Generated" GridPane.columnIndex="1" GridPane.columnSpan="4">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -121,7 +120,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField promptText="Type Name here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                        <TextField fx:id="appNameField" promptText="Type Name here" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>
@@ -146,28 +145,16 @@
                            </GridPane.margin>
                         </TextField>
                         <MenuButton fx:id="selectCustomer" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Customer" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
                         <MenuButton fx:id="selectType" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
                         <MenuButton fx:id="selectUser" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select User" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -181,10 +168,6 @@
                            </GridPane.margin>
                         </Label>
                         <MenuButton fx:id="selectContact" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Contact" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -246,34 +229,29 @@
                               <Insets right="20.0" />
                            </GridPane.margin>
                         </Label>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Start Time" GridPane.columnIndex="3" GridPane.rowIndex="7">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
+                        <MenuButton fx:id="appStartTime" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select Start Time" GridPane.columnIndex="3" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select End Time" GridPane.columnIndex="3" GridPane.rowIndex="8">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
+                        <MenuButton fx:id="appEndTime" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Select End Time" GridPane.columnIndex="3" GridPane.rowIndex="8">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </MenuButton>
-                        <DatePicker fx:id="apptStartDate" prefHeight="26.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        <DatePicker fx:id="apptStartDate" prefHeight="26.0" prefWidth="222.0" promptText="Select Date" GridPane.columnIndex="1" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </DatePicker>
-                        <DatePicker fx:id="apptEndDate" prefHeight="26.0" prefWidth="216.0" promptText="end and start date are the same" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <Label fx:id="appEndDate" prefHeight="18.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                            <GridPane.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
-                        </DatePicker>
+                        </Label>
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />

@@ -47,6 +47,18 @@ public abstract class LoginQuery {
         return listofCountries;
     }
 
+    /** @return SELECT method returns a new list of customer names 'listofCustomers' with the Customer_Name column data. */
+    public static java.util.List<String> getCustNames() throws SQLException {
+        java.util.List<String> listofCustomers = new ArrayList<String>();
+        String sql = "SELECT Customer_Name from customers";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            listofCustomers.add(resultSet.getString("Customer_Name"));
+        }
+        return listofCustomers;
+    }
+
     /** @return SELECT method returns a new list of divisions 'listofDivisions' with the Division by referencing the countryID. */
     public static java.util.List<String> getDivisions(String countryID) throws SQLException {
         java.util.List<String> listofDivisions = new ArrayList<String>();
