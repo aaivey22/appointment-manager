@@ -1,6 +1,9 @@
 package controller;
+
 import helper.JDBC;
 import helper.LoginQuery;
+import helper.Message;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +26,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import helper.LoginQuery;
+
 
 public class Customers implements Initializable {
     private ResultSet allCustomers;
@@ -98,18 +101,12 @@ public class Customers implements Initializable {
     public void deleteCustomerAction(ActionEvent actionEvent) throws SQLException {
         customer selectedCustomer = (customer)customersTable.getSelectionModel().getSelectedItem();
         String customerID = selectedCustomer.getCustomerID();
-
         if (selectedCustomer != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Delete Customer");
-            alert.setContentText("Are you sure you want to delete this customer?");
-            Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = Message.confirmation("Delete Customer", "Are you sure you want to delete this customer?");
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 JDBC.openConnection();
-
                 allCustomersList.remove(selectedCustomer);
                 LoginQuery.deleteCustomer(customerID);
-
                 JDBC.closeConnection();
             }
         }

@@ -1,6 +1,9 @@
 package controller;
 
 import helper.JDBC;
+import helper.LoginQuery;
+import helper.Message;
+
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,7 +21,6 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import helper.LoginQuery;
 import javafx.stage.Stage;
 
 /**
@@ -30,25 +32,29 @@ import javafx.stage.Stage;
 public class LoginForm implements Initializable {
 
     public Label greeting;
-    public RadioButton freRadioButton;
-    public RadioButton engRadioButton;
     public Label timeZoneLabel;
     public Label dateDisplayLabel;
-    public TextField userNameField;
-    public TextField passwordField;
     public Label userNameLabel;
     public Label passwordLabel;
-    public Hyperlink forgotPwordLink;
     public Label selectLangLabel;
+
+    public RadioButton freRadioButton;
+    public RadioButton engRadioButton;
+
     public Button loginButton;
+    public Button registerButton;
+
+    public TextField userNameField;
+    public TextField passwordField;
+
+    public Hyperlink forgotPwordLink;
+
     private String userNameInput;
     private String userPwordInput;
     private String alertText = "The user name and or password entered are incorrect.";
     private String alertTitle = "Incorrect Login";
     private String retrievePwordText = "Contact the IT department at @helpdesk to reset your password.";
     private String retrievePwordTitle = "Password Help";
-    private Button registerButton;
-
 
     /** @param url,resourceBundle used to initialize translate() method.*/
     @Override
@@ -102,7 +108,6 @@ public class LoginForm implements Initializable {
             alertTitle = "Incorrect Login";
             retrievePwordTitle = "Password Help";
         }
-
     }
 
     /**  @param actionEvent loginAction function used to execute username and pword authentication via the LoginQuery. */
@@ -121,23 +126,14 @@ public class LoginForm implements Initializable {
             stage.setScene(new Scene(root, 1100, 590));
             stage.show();
         } else {
-            System.out.println("Incorrect Login");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setResizable(true);
-            alert.setTitle(alertTitle);
-            alert.setContentText(alertText);
-            Optional<ButtonType> result = alert.showAndWait();
+            Message.error(alertTitle, alertText);
         }
         JDBC.closeConnection();
     }
 
     /**  @param actionEvent retrievePword function used to execute an informational alert. */
     public void retrievePword(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setResizable(true);
-        alert.setTitle(retrievePwordTitle);
-        alert.setContentText(retrievePwordText);
-        Optional<ButtonType> result = alert.showAndWait();
+        Message.information(retrievePwordTitle, retrievePwordText);
     }
 
     /**  @param actionEvent registerUser function used to add a new user to the database. */

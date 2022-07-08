@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import helper.LoginQuery;
 import helper.JDBC;
+import helper.Message;
 
 import java.io.IOException;
 import java.net.URL;
@@ -117,11 +118,7 @@ public class AddCustomers implements Initializable{
             JDBC.closeConnection();
 
             if( rowsModified > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setResizable(true);
-                alert.setTitle("Success");
-                alert.setContentText("New customer added");
-                Optional<ButtonType> result = alert.showAndWait();
+                Message.information("Success", "New customer added");
                 clearFieldsAction(null); // using null because the function is being directly called without an action event such as a button click.
             } else
             {
@@ -129,11 +126,7 @@ public class AddCustomers implements Initializable{
             }
 
         }else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setResizable(true);
-            alert.setTitle("Missing Information");
-            alert.setContentText("All fields are required.");
-            Optional<ButtonType> result = alert.showAndWait();
+            Message.information("Missing Information", "All fields are required.");
         }
     }
 

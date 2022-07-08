@@ -1,6 +1,9 @@
 package controller;
 
 import helper.JDBC;
+import helper.Message;
+import helper.LoginQuery;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +25,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import helper.LoginQuery;
+
 
 public class ModifyCustomers implements Initializable {
     public TextField custIDField;
@@ -30,14 +33,18 @@ public class ModifyCustomers implements Initializable {
     public TextField custAddressField;
     public TextField custPostalField;
     public TextField custPhoneField;
+
     public MenuButton selectDivision;
     public MenuButton selectCountry;
+
     private customer modifiedCustomer = null;
+
     private ResultSet resultSet;
-    private String divisionName;
-    private String countryName;
+
     private Integer customerID;
 
+    private String divisionName;
+    private String countryName;
     private String country = "";
     private String division = "";
     private String divisionID = "";
@@ -147,11 +154,7 @@ public class ModifyCustomers implements Initializable {
             JDBC.closeConnection();
 
             if( rowsModified > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setResizable(true);
-                alert.setTitle("Success");
-                alert.setContentText("Customer Updated");
-                Optional<ButtonType> result = alert.showAndWait();
+                Message.information("Success", "Customer Updated");
                 Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setTitle("Customers");
@@ -163,11 +166,7 @@ public class ModifyCustomers implements Initializable {
             }
 
         }else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setResizable(true);
-            alert.setTitle("Missing Information");
-            alert.setContentText("All fields are required.");
-            Optional<ButtonType> result = alert.showAndWait();
+            Message.information("Missing Information", "All fields are required");
         }
 
     }
