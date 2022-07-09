@@ -15,22 +15,30 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
+/** This class controls the AddAppointments page.*/
 public class AddAppointments implements Initializable {
     public TextField descriptionField;
     public TextField titleField;
     public TextField apptID;
     public TextField locationField;
     public TextField appNameField;
+    public TextField appTypeField;
+
+
+    java.util.List<LocalTime> timeItems = new ArrayList<LocalTime>();
 
     public MenuButton selectCustomer;
     public MenuButton selectUser;
     public MenuButton selectContact;
-    public MenuButton appStartTime;
-    public MenuButton appEndTime;
+
+    public ComboBox appStartTime;
+    public ComboBox appEndTime;
 
     public DatePicker apptStartDate;
 
@@ -40,8 +48,10 @@ public class AddAppointments implements Initializable {
     public String contact;
     public String user;
 
+    /** @param url,resourceBundle used to initialize the populateCustomers, populateContact, populateUsers methods.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        populateTimes();
         try {
             populateCustomers();
             populateContact();
@@ -52,7 +62,19 @@ public class AddAppointments implements Initializable {
         }
     }
 
-    /** The populateCustomers method opens a connection to the database and with the help of an imported function, retrieves the user column data.*/
+    /** The populateTimes method populates combo boxes with 10 minute increments beginning at 8:00 and ending at 10:00.*/
+    private void populateTimes() {
+        LocalTime start = LocalTime.of(8, 00);
+        LocalTime end = LocalTime.of(22, 0);
+
+        while(start.isBefore(end.plusSeconds(1))){
+            appStartTime.getItems().add(start);
+            appEndTime.getItems().add(start);
+            start = start.plusMinutes(10);
+        }
+    }
+
+    /** The populateCustomers method opens a database connection and retrieves the customer column data.*/
     private void populateCustomers() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCustomers = LoginQuery.getCustNames();
@@ -65,7 +87,7 @@ public class AddAppointments implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent selectCustAction function fires when the user selects a customer from the menu list and assigns their selection to the menu button label.*/
+    /** @param actionEvent selectCustAction function fires when the user selects a customer from the menu list, assigning their selection to the menu button label.*/
     public EventHandler<ActionEvent> selectCustAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
@@ -74,7 +96,7 @@ public class AddAppointments implements Initializable {
                 }
             };
 
-    /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the user column data.*/
+    /** The populateCountries method opens a database connection and retrieves the user contact data.*/
     private void populateContact() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofContacts = LoginQuery.getContacts();
@@ -87,7 +109,7 @@ public class AddAppointments implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent selectContactAction function fires when the user selects a contact from the menu list and assigns their selection to the menu button label.*/
+    /** @param actionEvent selectContactAction function fires when the user selects a contact from the menu list, assigning their selection to the menu button label.*/
     public EventHandler<ActionEvent> selectContactAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
@@ -96,7 +118,7 @@ public class AddAppointments implements Initializable {
                 }
             };
 
-    /** The populateUsers method opens a connection to the database and with the help of an imported function, retrieves the user column data.*/
+    /** The populateUsers method opens a database connection and retrieves the user column data.*/
     private void populateUsers() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofUsers = LoginQuery.getUsers();
@@ -109,7 +131,7 @@ public class AddAppointments implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent selectUserAction function fires when the user selects a user from the menu list and assigns their selection to the menu button label.*/
+    /** @param actionEvent selectUserAction function fires when the user selects a 'user' from the menu list, assigning their selection to the menu button label.*/
     public EventHandler<ActionEvent> selectUserAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
@@ -118,9 +140,11 @@ public class AddAppointments implements Initializable {
                 }
             };
 
+    /** @param actionEvent saveApptChanges function fires when the user clicks save changes. The data is then stored in the database table.*/
     public void saveApptChanges(ActionEvent actionEvent) {
     }
 
+    /** @param actionEvent directToDashboard function used to redirect user to Dashboard form.*/
     public void directToDashboard(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -129,24 +153,23 @@ public class AddAppointments implements Initializable {
         stage.show();
     }
 
+    /** @param actionEvent clearApptChanges function fires when the user clicks clear. This resets all the form fields to their original state.*/
     public void clearApptChanges(ActionEvent actionEvent) {
         descriptionField.setText("");
         titleField.setText("");
         apptID.setText("");
         locationField.setText("");
         appNameField.setText("");
+        appTypeField.setText("");
         selectCustomer.setText("Select customer");
-        selectCustomer.getItems().clear();
-        selectCustomer.getItems().removeAll();
         selectUser.setText("Select user");
-        selectUser.getItems().clear();
-        selectUser.getItems().removeAll();
         selectContact.setText("Select contact");
-        selectContact.getItems().clear();
-        selectContact.getItems().removeAll();
         customer = "";
         user = "";
         contact = "";
-
+        appStartTime.getSelectionModel().clearSelection();
+        appStartTime.setPromptText("Select Start Time");
+        appEndTime.getSelectionModel().clearSelection();
+        appEndTime.setPromptText("Select End Time");
     }
 }

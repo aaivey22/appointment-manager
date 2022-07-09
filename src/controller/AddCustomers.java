@@ -57,7 +57,7 @@ public class AddCustomers implements Initializable{
 
 
 
-    /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
+    /** The populateCountries method opens a connection to the database, retrieves the Country column data to display and when the user makes a selection, it's assigned to the menu button label.*/
     private void populateCountries() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCountries = LoginQuery.getCountries();
@@ -70,7 +70,7 @@ public class AddCustomers implements Initializable{
         JDBC.closeConnection();
     }
 
-    /** The populateDivisions method opens a connection to the database and with the help of an imported function, retrieves the division column data and assigns the user selection to the menu button label.*/
+    /** The populateDivisions method opens a connection to the database, retrieves the Division column data to display and when the user makes a selection, it's assigned to the menu button label.*/
     private void populateDivisions(String countryName) throws SQLException {
         JDBC.openConnection();
         selectDivision.setText("Select Division");
@@ -91,7 +91,7 @@ public class AddCustomers implements Initializable{
             JDBC.closeConnection();
     }
 
-    /** @param actionEvent saveChangesAction function fires when the user clicks save changes. The data is then stored in the database table.*/
+    /** @param actionEvent saveChangesAction function fires when the user clicks save changes. All fields with modified rows are stored in the database table.*/
     public void saveChangesAction(ActionEvent actionEvent) throws SQLException {
         name = custNameField.getText();
         streetAddress = custAddressField.getText();
@@ -130,7 +130,7 @@ public class AddCustomers implements Initializable{
         }
     }
 
-    /** @param actionEvent clearFieldsAction function fires when the user clicks clear. This resets all the form fields to their default state.*/
+    /** @param actionEvent clearFieldsAction function fires when the user clicks clear. This resets all the form fields to their original state.*/
     public void clearFieldsAction(ActionEvent actionEvent) {
         custNameField.setText("");
         custAddressField.setText("");
