@@ -2,6 +2,7 @@ package controller;
 
 import helper.JDBC;
 import helper.LoginQuery;
+import helper.TimeFunctions;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -29,7 +33,6 @@ public class AddAppointments implements Initializable {
     public TextField locationField;
     public TextField appNameField;
     public TextField appTypeField;
-
 
     java.util.List<LocalTime> timeItems = new ArrayList<LocalTime>();
 
@@ -47,10 +50,20 @@ public class AddAppointments implements Initializable {
     public String customer;
     public String contact;
     public String user;
+    public String name;
+    public String type;
+    public String location;
+    public String title;
+    public String description;
+    public LocalDate datefield;
+    public LocalTime timeStartField;
+    public LocalTime timeEndField;
+
 
     /** @param url,resourceBundle used to initialize the populateCustomers, populateContact, populateUsers methods.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        apptStartDate.setValue(LocalDate.now());
         populateTimes();
         try {
             populateCustomers();
@@ -141,7 +154,30 @@ public class AddAppointments implements Initializable {
             };
 
     /** @param actionEvent saveApptChanges function fires when the user clicks save changes. The data is then stored in the database table.*/
-    public void saveApptChanges(ActionEvent actionEvent) {
+    public void saveApptChanges(ActionEvent actionEvent) throws SQLException {
+        customer = selectCustomer.getText();
+        contact = selectContact.getText();
+        user = selectUser.getText();
+        name = appNameField.getText();
+        type = appTypeField.getText();
+        location = locationField.getText();
+        title = titleField.getText();
+        description = appNameField.getText();
+        datefield = apptStartDate.getValue();
+        timeStartField = (LocalTime) appStartTime.getValue();
+        timeEndField = (LocalTime) appEndTime.getValue();
+        LocalDateTime StartDateTime = TimeFunctions.combineDateTime(datefield, timeStartField);
+        ZonedDateTime UTCStart = TimeFunctions.convertUTC(StartDateTime);
+        LocalDateTime EndDateTime = TimeFunctions.combineDateTime(datefield, timeEndField);
+        ZonedDateTime UTCEnd = TimeFunctions.convertUTC(EndDateTime);
+
+        JDBC.openConnection();
+        String customerID = LoginQuery.getCustomerID(customer);
+        String contactID = LoginQuery.getContactID(contact);
+        String userID = LoginQuery.getUserID(user);
+
+        JDBC.closeConnection();
+        System.out.println(customerID + " " + contactID + " " +userID);
     }
 
     /** @param actionEvent directToDashboard function used to redirect user to Dashboard form.*/
@@ -171,5 +207,6 @@ public class AddAppointments implements Initializable {
         appStartTime.setPromptText("Select Start Time");
         appEndTime.getSelectionModel().clearSelection();
         appEndTime.setPromptText("Select End Time");
+        apptStartDate.setValue(LocalDate.now());
     }
 }

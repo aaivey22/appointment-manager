@@ -109,6 +109,43 @@ public abstract class LoginQuery {
         return countryID;
     }
 
+
+    /** @return SELECT method returns a String Customer ID whose name in the Customer_Name matches with the selected customer. */
+    public static String getCustomerID(String customerName) throws SQLException {
+        String sql = "SELECT Customer_ID FROM client_schedule.customers WHERE Customer_Name = \"" + customerName + "\"";
+        String customerID = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            customerID = resultSet.getString("Customer_ID");
+        }
+        return customerID;
+    }
+
+    /** @return SELECT method returns a String Contact ID whose name in the Contact_Name matches with the selected contact. */
+    public static String getContactID(String contactName) throws SQLException {
+        String sql = "SELECT Contact_ID FROM client_schedule.contacts WHERE Contact_Name = \"" + contactName + "\"";
+        String contactID = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            contactID = resultSet.getString("Contact_ID");
+        }
+        return contactID;
+    }
+
+    /** @return SELECT method returns a String User ID whose name in the User_Name matches with the selected user. */
+    public static String getUserID(String userName) throws SQLException {
+        String sql = "SELECT User_ID FROM client_schedule.users WHERE User_Name = \"" + userName + "\"";
+        String userID = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            userID = resultSet.getString("User_ID");
+        }
+        return userID;
+    }
+
     /** @return SELECT method returns a String Division ID whose division name matches with the selected division. */
     public static String getDivisionID(String divisionName) throws SQLException {
         String sql = "SELECT Division_ID FROM client_schedule.first_level_divisions WHERE Division = \"" + divisionName + "\"";
