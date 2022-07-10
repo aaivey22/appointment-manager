@@ -2,6 +2,7 @@ package controller;
 
 import helper.JDBC;
 import helper.LoginQuery;
+import helper.Message;
 import helper.TimeFunctions;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,13 +17,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 
 /** This class controls the AddAppointments page.*/
@@ -31,7 +30,6 @@ public class AddAppointments implements Initializable {
     public TextField titleField;
     public TextField apptID;
     public TextField locationField;
-    public TextField appNameField;
     public TextField appTypeField;
 
     java.util.List<LocalTime> timeItems = new ArrayList<LocalTime>();
@@ -47,17 +45,27 @@ public class AddAppointments implements Initializable {
 
     public Label appEndDate;
 
-    public String customer;
-    public String contact;
-    public String user;
-    public String name;
-    public String type;
-    public String location;
-    public String title;
-    public String description;
-    public LocalDate datefield;
-    public LocalTime timeStartField;
-    public LocalTime timeEndField;
+    private String customer = "";
+    private String contact = "";
+    private String user = "";
+
+    private String type;
+    private String location;
+    private String title;
+    private String description;
+    private String customerID;
+    private String contactID;
+    private String userID;
+
+    private LocalDate datefield;
+    private LocalTime timeStartField;
+    private LocalTime timeEndField;
+    private ZonedDateTime StartDateTime;
+    private LocalDateTime UTCStart;
+    private ZonedDateTime EndDateTime;
+    private LocalDateTime UTCEnd;
+
+    ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
 
 
     /** @param url,resourceBundle used to initialize the populateCustomers, populateContact, populateUsers methods.*/
@@ -79,7 +87,6 @@ public class AddAppointments implements Initializable {
     private void populateTimes() {
         LocalTime start = LocalTime.of(8, 00);
         LocalTime end = LocalTime.of(22, 0);
-
         while(start.isBefore(end.plusSeconds(1))){
             appStartTime.getItems().add(start);
             appEndTime.getItems().add(start);
@@ -155,29 +162,63 @@ public class AddAppointments implements Initializable {
 
     /** @param actionEvent saveApptChanges function fires when the user clicks save changes. The data is then stored in the database table.*/
     public void saveApptChanges(ActionEvent actionEvent) throws SQLException {
-        customer = selectCustomer.getText();
-        contact = selectContact.getText();
-        user = selectUser.getText();
-        name = appNameField.getText();
+        Integer rowsModified = 0;
         type = appTypeField.getText();
         location = locationField.getText();
         title = titleField.getText();
-        description = appNameField.getText();
+        description = descriptionField.getText();
         datefield = apptStartDate.getValue();
         timeStartField = (LocalTime) appStartTime.getValue();
         timeEndField = (LocalTime) appEndTime.getValue();
-        LocalDateTime StartDateTime = TimeFunctions.combineDateTime(datefield, timeStartField);
-        ZonedDateTime UTCStart = TimeFunctions.convertUTC(StartDateTime);
-        LocalDateTime EndDateTime = TimeFunctions.combineDateTime(datefield, timeEndField);
-        ZonedDateTime UTCEnd = TimeFunctions.convertUTC(EndDateTime);
+        if(apptStartDate.getValue() != null && timeStartField != null && timeEndField != null) {
+            System.out.println(datefield);
+            StartDateTime = TimeFunctions.combineDateTime(datefield, timeStartField);
+            System.out.println("Local Time: " + StartDateTime);
+            UTCStart = LocalDateTime.from(TimeFunctions.convertUTC(StartDateTime));
+            System.out.println("UTC Time: " + UTCStart);
 
-        JDBC.openConnection();
-        String customerID = LoginQuery.getCustomerID(customer);
-        String contactID = LoginQuery.getContactID(contact);
-        String userID = LoginQuery.getUserID(user);
+            //System.out.println("Back to LocalTime: " + TimeFunctions.convertLocal(ZonedDateTime.from(UTCStart)));
+            ZoneId UTC = ZoneId.of("UTC");
+            EndDateTime = TimeFunctions.combineDateTime(datefield, timeEndField);
+            UTCEnd = LocalDateTime.from(TimeFunctions.convertUTC(EndDateTime));
+            if(customer.length() > 0 && contact.length() > 0 && user.length() > 0) {
+                JDBC.openConnection();
+                try{
+                    customerID = LoginQuery.getCustomerID(customer);
+                    contactID = LoginQuery.getContactID(contact);
+                    userID = LoginQuery.getUserID(user);
+                } catch (SQLException e) {
+                    System.out.println("failed");
+                }
+                if(customerID.length() > 0 && contactID.length() > 0 && userID.length() > 0 && type.length() > 0 && location.length() > 0
+                        && title.length() > 0 && description.length() > 0)
+                {
+                    try {
+                        rowsModified = LoginQuery.addAppointment(title, description, location, type, UTCStart, UTCEnd, customerID, userID, contactID);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        Message.error("Failed", "Appointment could not be added");
+                    }
+                    if( rowsModified > 0) {
+                        Message.information("Success", "New appointment added");
+                        clearApptChanges(null); // using null because the function is being directly called without an action event such as a button click.
+                    } else
+                    {
+                        Message.information("Failed", "Appointment could not be added");
+                    }
 
+                }else{
+                    Message.information("Missing Information", "All fields are required.");
+                }
+            } else {
+                Message.error("Missing Information", "All fields are required.");
+            }
+
+        } else {
+            Message.error("Missing Information", "Missing Date or Times");
+        }
         JDBC.closeConnection();
-        System.out.println(customerID + " " + contactID + " " +userID);
+
     }
 
     /** @param actionEvent directToDashboard function used to redirect user to Dashboard form.*/
@@ -195,7 +236,6 @@ public class AddAppointments implements Initializable {
         titleField.setText("");
         apptID.setText("");
         locationField.setText("");
-        appNameField.setText("");
         appTypeField.setText("");
         selectCustomer.setText("Select customer");
         selectUser.setText("Select user");

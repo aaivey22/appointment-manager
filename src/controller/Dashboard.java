@@ -3,6 +3,9 @@ package controller;
 import helper.JDBC;
 import helper.LoginQuery;
 
+import helper.TimeFunctions;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,14 +13,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointments;
+import model.customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class Dashboard implements Initializable {
     public Label appCount5;
@@ -39,7 +49,21 @@ public class Dashboard implements Initializable {
     public TextArea manageApptSearch;
     public TableView manageApptTable;
     public Button toReports;
+    public TableColumn appIDCol;
+    public TableColumn titleCol;
+    public TableColumn descriptionCol;
+    public TableColumn locationCol;
+    public TableColumn typeCol;
+    public TableColumn startCol;
+    public TableColumn endCol;
+    public TableColumn custIDCol;
+    public TableColumn contactCol;
+    public TableColumn userIDCol;
+    private ResultSet allApps;
 
+
+    private ObservableList<Appointments> allAppsList = FXCollections.observableArrayList();
+    private static Appointments modifiedApp = null;
 
     /** @param url,resourceBundle used to initialize setDates() method.*/
     @Override
@@ -54,7 +78,48 @@ public class Dashboard implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+        JDBC.openConnection();
+
+        try {
+            allApps = LoginQuery.getAllApps();
+            allAppsList.removeAll();
+            while(allApps.next()) {
+                ZonedDateTime start = TimeFunctions.convertLocal(allApps.getTimestamp("Start").toLocalDateTime());
+
+                ZonedDateTime end = TimeFunctions.convertLocal(allApps.getTimestamp("End").toLocalDateTime());
+                Appointments new_appointment = new Appointments(allApps.getInt("Appointment_ID"),
+                        allApps.getString("Title"),
+                        allApps.getString("Description"),
+                        allApps.getString("Location"),
+                        allApps.getString("Type"),
+                        start, end,
+                        allApps.getInt("Customer_ID"),
+                        allApps.getInt("User_ID"),
+                        allApps.getInt("Contact_ID")
+                        );
+                new_appointment.setContact(new_appointment.getContactID());
+
+                allAppsList.add(new_appointment);
+
+            }
+
+            manageApptTable.setItems(allAppsList);
+            appIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
+            titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("description"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("location"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("type"));
+            startCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedStart"));
+            endCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedEnd"));
+            contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("contact"));
+
+
+        } catch (SQLException e) {
+            System.out.println("could not load customers");
+        }
+        JDBC.closeConnection();
+
+}
 
     /** The setDates method contains a for loop that adds 1 day to each label in listOfDates object.*/
     private void setDates() throws SQLException {

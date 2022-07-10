@@ -35,16 +35,16 @@ public class Main extends Application {
 
     /** This is the main method that launches the program.*/
     public static void main(String[] args) throws SQLException {
-
-//        ZoneId.getAvailableZoneIds().stream().forEach(System.out::println);
-//        ZoneId.getAvailableZoneIds().stream().filter(c-> c.contains("Europe")).forEach(System.out::println);
+/*
+        ZoneId.getAvailableZoneIds().stream().forEach(System.out::println);
+        ZoneId.getAvailableZoneIds().stream().filter(c-> c.contains("UTC")).forEach(System.out::println);
 
         LocalDate parisDate = LocalDate.of(2022, 05, 22);
         LocalTime parisTime = LocalTime.of(01, 00);
         ZoneId parisZoneId = ZoneId.of("Europe/Paris");
+        ZoneId UTC = ZoneId.of("Etc/UTC");
         ZonedDateTime parisZDT = ZonedDateTime.of(parisDate, parisTime, parisZoneId);
         ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-
         Instant parisToGMTInstant = parisZDT.toInstant();
         ZonedDateTime parisToLocalZDT = parisZDT.withZoneSameInstant(localZoneId);
         ZonedDateTime gmtToLocalZDT = parisToGMTInstant.atZone(localZoneId);
@@ -66,7 +66,7 @@ public class Main extends Application {
 
         System.out.println(parisZDT);
         System.out.println(localZoneId);
-
+*/
         //int rowsAffected = LoginQuery.insert( "dog",  "bark");
         //if(rowsAffected > 0) {
        //     System.out.println("Insert Successful");

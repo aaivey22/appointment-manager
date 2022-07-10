@@ -4,6 +4,9 @@ import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -178,6 +181,27 @@ public abstract class LoginQuery {
     }
 
     /** @return SELECT method returns all customer data to populate in the customers table in the customers page. */
+    public static ResultSet getAllApps() throws SQLException {
+        String sql = "SELECT * FROM client_schedule.appointments";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        return resultSet = ps.executeQuery();
+    }
+
+
+    /** @return SELECT method returns a String Division Name whose division id matches with the selected division. */
+    public static String getContact(Integer contactID) throws SQLException {
+        String sql = "SELECT Contact_Name FROM client_schedule.contacts WHERE Contact_ID = \"" + contactID + "\"";
+        String contact = null;
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        resultSet = ps.executeQuery();
+        while(resultSet.next()) {
+            contact = resultSet.getString("Contact_Name");
+        }
+        return contact;
+    }
+
+
+    /** @return SELECT method returns all customer data to populate in the customers table in the customers page. */
     public static ResultSet getCustomer(Integer customerID) throws SQLException {
         String sql = "SELECT * FROM client_schedule.customers WHERE Customer_ID = (?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -211,6 +235,26 @@ public abstract class LoginQuery {
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
+
+    /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
+    public static int addAppointment(String title, String description, String location, String type, LocalDateTime timeStartField, LocalDateTime timeEndField, String Customer_ID, String User_ID, String Contact_ID) throws SQLException {
+        ZoneId UTC = ZoneId.of("UTC");
+
+        String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, title);
+        ps.setString(2, description);
+        ps.setString(3, location);
+        ps.setString(4, type);
+        ps.setTimestamp(5, Timestamp.valueOf(timeStartField));
+        ps.setTimestamp(6, Timestamp.valueOf(timeEndField));
+        ps.setString(7, Customer_ID);
+        ps.setString(8, User_ID);
+        ps.setString(9, Contact_ID);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
+
 
     /** @return UPDATE method used to update customer data in the database and returns "rowsAffected". */
     public static int modifyCustomer(String customerName, String address, String postalCode, String phone, String divisionID, Integer customerID) throws SQLException {
