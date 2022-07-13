@@ -66,7 +66,7 @@ public class ModifyCustomers implements Initializable {
         setUpAction(null);
     }
 
-    /** The populateCountries method opens a connection to the database and with the help of an imported function, retrieves the country column data and assigns the user selection to the menu button label.*/
+    /** The populateCountries method opens a connection to the database, retrieves the country column data  to set as menu items. The menu item selected by the user is then assigned to the menu button label.*/
     private void populateCountries() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCountries = LoginQuery.getCountries();

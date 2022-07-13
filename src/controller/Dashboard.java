@@ -48,7 +48,6 @@ public class Dashboard implements Initializable {
     public Label dateLabelNumText;
     public TextArea manageApptSearch;
     public TableView manageApptTable;
-    public Button toReports;
     public TableColumn appIDCol;
     public TableColumn titleCol;
     public TableColumn descriptionCol;
@@ -111,6 +110,8 @@ public class Dashboard implements Initializable {
             typeCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("type"));
             startCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedStart"));
             endCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedEnd"));
+            custIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("customerID"));
+            userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("userID"));
             contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("contact"));
 
 
@@ -119,7 +120,7 @@ public class Dashboard implements Initializable {
         }
         JDBC.closeConnection();
 
-}
+    }
 
     /** The setDates method contains a for loop that adds 1 day to each label in listOfDates object.*/
     private void setDates() throws SQLException {

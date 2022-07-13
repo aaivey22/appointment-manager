@@ -272,7 +272,7 @@
       </Pane>
       <VBox alignment="CENTER" layoutX="970.0" layoutY="393.0" prefHeight="191.0" prefWidth="133.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="970.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="393.0">
          <children>
-            <Button fx:id="toCustomers" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#directToCustomers" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Customers" textAlignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#directToCustomers" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Customers" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="35.0" left="10.0" right="10.0" />
                </VBox.margin>
@@ -280,7 +280,7 @@
                   <Font name="System Bold" size="11.0" />
                </font>
             </Button>
-            <Button fx:id="toReports" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#directToReports" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Reports" textAlignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#directToReports" opacity="0.8" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Reports" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
