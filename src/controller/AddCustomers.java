@@ -2,25 +2,36 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+
 import javafx.stage.Stage;
 
 import helper.LoginQuery;
+
 import helper.JDBC;
+
 import helper.Message;
 
 import java.io.IOException;
+
 import java.net.URL;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+
 import java.util.Optional;
+
 import java.util.ResourceBundle;
 
+/** This class controls the AddCustomers page.*/
 public class AddCustomers implements Initializable{
     public TextField custNameField;
     public TextField custAddressField;

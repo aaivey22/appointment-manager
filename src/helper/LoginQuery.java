@@ -76,7 +76,7 @@ public abstract class LoginQuery {
         return listofDivisions;
     }
 
-    /** @return SELECT method returns a country ID by referencing countryName. */
+    /** @return SELECT method returns a country ID by referencing Country in the database. */
     public static String getcountryID(String countryName) throws SQLException {
         String sql = "SELECT Country_ID FROM client_schedule.countries WHERE Country = \"" + countryName + "\"";
         String countryID = null;
@@ -88,7 +88,7 @@ public abstract class LoginQuery {
         return countryID;
     }
 
-    /** @return SELECT method returns a country name whose name matches with the selected country ID. */
+    /** @return SELECT method returns a country name by referencing Country_ID in the database. */
     public static String getcountryName(String countryID) throws SQLException {
         String sql = "SELECT Country FROM client_schedule.countries WHERE Country_ID = \"" + countryID + "\"";
         String countryName = null;
@@ -100,7 +100,7 @@ public abstract class LoginQuery {
         return countryName;
     }
 
-    /** @return SELECT method returns a country ID whose name matches with the selected division ID. */
+    /** @return SELECT method returns a country ID by referencing Division_ID in the database. */
     public static String getCountryID(Integer divisionID) throws SQLException {
         String sql = "SELECT Country_ID FROM client_schedule.first_level_divisions WHERE Division_ID = \"" + divisionID + "\"";
         String countryID = null;
@@ -113,7 +113,7 @@ public abstract class LoginQuery {
     }
 
 
-    /** @return SELECT method returns a String Customer ID whose name in the Customer_Name matches with the selected customer. */
+    /** @return SELECT method returns a customer ID by referencing Customer_Name in the database. */
     public static String getCustomerID(String customerName) throws SQLException {
         String sql = "SELECT Customer_ID FROM client_schedule.customers WHERE Customer_Name = \"" + customerName + "\"";
         String customerID = null;
@@ -125,7 +125,7 @@ public abstract class LoginQuery {
         return customerID;
     }
 
-    /** @return SELECT method returns a String Contact ID whose name in the Contact_Name matches with the selected contact. */
+    /** @return SELECT method returns a contact ID by referencing Contact_Name in the database. */
     public static String getContactID(String contactName) throws SQLException {
         String sql = "SELECT Contact_ID FROM client_schedule.contacts WHERE Contact_Name = \"" + contactName + "\"";
         String contactID = null;
@@ -137,7 +137,7 @@ public abstract class LoginQuery {
         return contactID;
     }
 
-    /** @return SELECT method returns a String User ID whose name in the User_Name matches with the selected user. */
+    /** @return SELECT method returns a String User ID by referencing User_Name in the database. */
     public static String getUserID(String userName) throws SQLException {
         String sql = "SELECT User_ID FROM client_schedule.users WHERE User_Name = \"" + userName + "\"";
         String userID = null;
@@ -149,7 +149,7 @@ public abstract class LoginQuery {
         return userID;
     }
 
-    /** @return SELECT method returns a String Division ID whose division name matches with the selected division. */
+    /** @return SELECT method returns a String Division ID by referencing Division in the database. */
     public static String getDivisionID(String divisionName) throws SQLException {
         String sql = "SELECT Division_ID FROM client_schedule.first_level_divisions WHERE Division = \"" + divisionName + "\"";
         String divisionID = null;
@@ -161,7 +161,7 @@ public abstract class LoginQuery {
         return divisionID;
     }
 
-    /** @return SELECT method returns a String Division Name whose division id matches with the selected division. */
+    /** @return SELECT method returns a String Division Name by referencing Division_ID in the database. */
     public static String getDivisionName(Integer divisionID) throws SQLException {
         String sql = "SELECT Division FROM client_schedule.first_level_divisions WHERE Division_ID = \"" + divisionID + "\"";
         String divisionName = null;
@@ -180,15 +180,14 @@ public abstract class LoginQuery {
         return resultSet = ps.executeQuery();
     }
 
-    /** @return SELECT method returns all customer data to populate in the customers table in the customers page. */
+    /** @return SELECT method returns all appointment data to populate in the appointments table in the dashboard page. */
     public static ResultSet getAllApps() throws SQLException {
         String sql = "SELECT * FROM client_schedule.appointments";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         return resultSet = ps.executeQuery();
     }
 
-
-    /** @return SELECT method returns a String Division Name whose division id matches with the selected division. */
+    /** @return SELECT method returns a contact name whose Contact_ID matches the Contact_ID in the database. */
     public static String getContact(Integer contactID) throws SQLException {
         String sql = "SELECT Contact_Name FROM client_schedule.contacts WHERE Contact_ID = \"" + contactID + "\"";
         String contact = null;
@@ -222,7 +221,7 @@ public abstract class LoginQuery {
     }
 
 
-    /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
+    /** @return insert method used to insert new customer data into the database and returns "rowsAffected". */
     public static int addCustomer(String customerName, String address, String postalCode, String phone, String divisionID) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -236,7 +235,7 @@ public abstract class LoginQuery {
         return rowsAffected;
     }
 
-    /** @return insert method used to insert user input for username and pword into the database and returns "rowsAffected". */
+    /** @return insert method used to insert new appointment data into the database and returns "rowsAffected". */
     public static int addAppointment(String title, String description, String location, String type, LocalDateTime timeStartField, LocalDateTime timeEndField, String Customer_ID, String User_ID, String Contact_ID) throws SQLException {
         ZoneId UTC = ZoneId.of("UTC");
 

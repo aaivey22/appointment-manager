@@ -116,7 +116,7 @@ public class AddAppointments implements Initializable {
                 }
             };
 
-    /** The populateCountries method opens a database connection and retrieves the user contact data.*/
+    /** The populateContact method opens a database connection and retrieves the user contact data.*/
     private void populateContact() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofContacts = LoginQuery.getContacts();

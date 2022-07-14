@@ -2,8 +2,8 @@ package controller;
 
 import helper.JDBC;
 import helper.LoginQuery;
-
 import helper.TimeFunctions;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,20 +15,26 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import model.Appointments;
 import model.customer;
 
 import java.io.IOException;
+
 import java.net.URL;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+/** This class controls the Dashboard page.*/
 public class Dashboard implements Initializable {
     public Label appCount5;
     public Label appCount6;
@@ -46,8 +52,11 @@ public class Dashboard implements Initializable {
     public Label dateLabel6;
     public Label dateLabelMonthText;
     public Label dateLabelNumText;
+
     public TextArea manageApptSearch;
+
     public TableView manageApptTable;
+
     public TableColumn appIDCol;
     public TableColumn titleCol;
     public TableColumn descriptionCol;
@@ -58,6 +67,7 @@ public class Dashboard implements Initializable {
     public TableColumn custIDCol;
     public TableColumn contactCol;
     public TableColumn userIDCol;
+
     private ResultSet allApps;
 
 
@@ -145,15 +155,6 @@ public class Dashboard implements Initializable {
             listOfApts[i].setText(String.valueOf(appointmentCount));
         }
         JDBC.closeConnection();
-    }
-
-    /** @param actionEvent directToAppointments function used to redirect user to Appointments form.*/
-    public void directToAppointments(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Appointments");
-        stage.setScene(new Scene(root, 1100, 590));
-        stage.show();
     }
 
     /** @param actionEvent directToCustomers function used to redirect user to Customers form.*/

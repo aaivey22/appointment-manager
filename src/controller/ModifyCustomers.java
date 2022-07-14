@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-
+/** This class controls the ModifyCustomers page.*/
 public class ModifyCustomers implements Initializable {
     public TextField custIDField;
     public TextField custNameField;
@@ -53,7 +53,7 @@ public class ModifyCustomers implements Initializable {
     private String phoneNum;
     private String postalCode;
 
-
+    /** @param url,resourceBundle used to initialize populateCountries() method.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -171,6 +171,7 @@ public class ModifyCustomers implements Initializable {
 
     }
 
+    /** @param actionEvent setUpAction function that retrieves customer data and populates the fields with it.*/
     public void setUpAction(ActionEvent actionEvent) {
         JDBC.openConnection();
         try {
@@ -197,6 +198,7 @@ public class ModifyCustomers implements Initializable {
         JDBC.closeConnection();
     }
 
+    /** @param actionEvent directToCustomers function used to redirect user to Customers form.*/
     public void directToCustomers(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
