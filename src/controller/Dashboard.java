@@ -31,6 +31,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
@@ -53,7 +54,7 @@ public class Dashboard implements Initializable {
     public Label dateLabelMonthText;
     public Label dateLabelNumText;
 
-    public TextArea manageApptSearch;
+    public TextField apptSearchField;
 
     public TableView manageApptTable;
 
@@ -214,4 +215,60 @@ public class Dashboard implements Initializable {
 
     public void viewWeekAction(ActionEvent actionEvent) {
     }
+
+    /** @param actionEvent searchCustomerAction function used to search for a specific customer first by name, then by ID via a button actionEvent.*/
+    public void searchAppAction(ActionEvent actionEvent) {
+        String Q = apptSearchField.getText();
+        ObservableList<Appointments> apptData = searchApptTitle(Q);
+        if (apptData.size() == 0) {
+            try {
+                int queryID = Integer.parseInt(Q);
+                Appointments appointment = searchApptID(queryID);
+                if (appointment != null) {
+                    apptData.add(appointment);
+                    manageApptTable.setItems(apptData);
+                    apptSearchField.setText("");
+                } else {
+                    manageApptTable.setItems(null);
+                    apptSearchField.setText("");
+                }
+            } catch (Exception e) {
+                manageApptTable.setItems(null);
+                apptSearchField.setText("");
+            }
+        } else {
+            manageApptTable.setItems(apptData);
+            apptSearchField.setText("");
+        }
+    }
+
+    /** @param customerName used to search for a specific customer by name in the allCustomers list via a button actionEvent.*/
+    /** @return nameResults returns a list of customers matching the search criteria.*/
+    private ObservableList<Appointments> searchApptTitle(String apptTitle) {
+        ObservableList<Appointments> nameResults = FXCollections.observableArrayList();
+        ObservableList<Appointments> allAppts = allAppsList;
+
+        for (Appointments names : allAppts) {
+            if (names.getTitle().toLowerCase(Locale.ROOT).contains(apptTitle.toLowerCase(Locale.ROOT))) {
+                nameResults.add(names);
+            }
+        }
+        return nameResults;
+    }
+
+    /** @param searchApptID the customer ID to find in the allCustomers list.*/
+    /** @return singleCustomer the specific customer from the list allCustomers.*/
+    /** @return null if there is not an ID match in the allCustomers list.*/
+    private Appointments searchApptID(Integer apptID) {
+        ObservableList<Appointments> allAppts = allAppsList;
+        for (int i = 0; i < allAppts.size(); i++) {
+            Appointments singleAppt = allAppts.get(i);
+            if (singleAppt.getAppointmentID() == apptID) {
+                System.out.println("Match Found");
+                return singleAppt;
+            }
+        }
+        return null;
+    }
+
 }
