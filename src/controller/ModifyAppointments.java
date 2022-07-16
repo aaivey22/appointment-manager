@@ -1,6 +1,7 @@
 package controller;
 import helper.JDBC;
 import helper.LoginQuery;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -14,6 +15,9 @@ import java.util.ResourceBundle;
 public class ModifyAppointments implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+
+    public void directToDashboard(ActionEvent actionEvent) {
     }
 
     /** The populateContacts method opens a connection to the database and with the help of an imported function, retrieves the contact name column data and assigns the user selection to the menu button label.*/
