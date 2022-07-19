@@ -198,39 +198,48 @@ public class AddAppointments implements Initializable {
                 UTCStart = LocalDateTime.from(TimeFunctions.convertUTC(StartDateTime));
                 System.out.println("UTC Time: " + UTCStart);
 
-                //System.out.println("Back to LocalTime: " + TimeFunctions.convertLocal(ZonedDateTime.from(UTCStart)));
                 ZoneId UTC = ZoneId.of("UTC");
                 EndDateTime = TimeFunctions.combineDateTime(datefield, timeEndField);
                 UTCEnd = LocalDateTime.from(TimeFunctions.convertUTC(EndDateTime));
-                if (customer.length() > 0 && contact.length() > 0 && user.length() > 0) {
-                    JDBC.openConnection();
-                    try {
-                        customerID = LoginQuery.getCustomerID(customer);
-                        contactID = LoginQuery.getContactID(contact);
-                        userID = LoginQuery.getUserID(user);
-                    } catch (SQLException e) {
-                        System.out.println("failed");
-                    }
-                    if (customerID.length() > 0 && contactID.length() > 0 && userID.length() > 0 && type.length() > 0 && location.length() > 0
-                            && title.length() > 0 && description.length() > 0) {
-                        try {
-                            rowsModified = LoginQuery.addAppointment(title, description, location, type, UTCStart, UTCEnd, customerID, userID, contactID);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            Message.error("Failed", "Appointment could not be added");
-                        }
-                        if (rowsModified > 0) {
-                            Message.information("Success", "New appointment added");
-                            clearApptChanges(null); // using null because the function is being directly called without an action event such as a button click.
-                        } else {
-                            Message.information("Failed", "Appointment could not be added");
-                        }
 
-                    } else {
-                        Message.information("Missing Information", "All fields are required.");
-                    }
+                JDBC.openConnection();
+                Boolean overlap = TimeFunctions.isOverlap(UTCStart, UTCEnd);
+                JDBC.closeConnection();
+
+                if (overlap) {
+                    Message.information("Appointment Conflict", "This appointment time overlaps with another");
                 } else {
-                    Message.error("Missing Information", "All fields are required.");
+
+                    if (customer.length() > 0 && contact.length() > 0 && user.length() > 0) {
+                        JDBC.openConnection();
+                        try {
+                            customerID = LoginQuery.getCustomerID(customer);
+                            contactID = LoginQuery.getContactID(contact);
+                            userID = LoginQuery.getUserID(user);
+                        } catch (SQLException e) {
+                            System.out.println("failed");
+                        }
+                        if (customerID.length() > 0 && contactID.length() > 0 && userID.length() > 0 && type.length() > 0 && location.length() > 0
+                                && title.length() > 0 && description.length() > 0) {
+                            try {
+                                rowsModified = LoginQuery.addAppointment(title, description, location, type, UTCStart, UTCEnd, customerID, userID, contactID);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                Message.error("Failed", "Appointment could not be added");
+                            }
+                            if (rowsModified > 0) {
+                                Message.information("Success", "New appointment added");
+                                clearApptChanges(null); // using null because the function is being directly called without an action event such as a button click.
+                            } else {
+                                Message.information("Failed", "Appointment could not be added");
+                            }
+
+                        } else {
+                            Message.information("Missing Information", "All fields are required.");
+                        }
+                    } else {
+                        Message.error("Missing Information", "All fields are required.");
+                    }
                 }
 
             } else {

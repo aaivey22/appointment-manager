@@ -199,12 +199,18 @@ public abstract class LoginQuery {
         return contact;
     }
 
-
     /** @return SELECT method returns all customer data to populate in the customers table in the customers page. */
     public static ResultSet getCustomer(Integer customerID) throws SQLException {
         String sql = "SELECT * FROM client_schedule.customers WHERE Customer_ID = (?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setInt(1, customerID);
+        return resultSet = ps.executeQuery();
+    }
+
+    /** @return SELECT method returns all Date and Time data from the appointments table. */
+    public static ResultSet getAllDateTimes() throws SQLException {
+        String sql = "SELECT Start, End FROM client_schedule.appointments";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         return resultSet = ps.executeQuery();
     }
 
@@ -219,7 +225,6 @@ public abstract class LoginQuery {
         }
         return listofUsers;
     }
-
 
     /** @return insert method used to insert new customer data into the database and returns "rowsAffected". */
     public static int addCustomer(String customerName, String address, String postalCode, String phone, String divisionID) throws SQLException {

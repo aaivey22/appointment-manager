@@ -1,5 +1,7 @@
 package helper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.*;
 import java.util.TimeZone;
 
@@ -32,5 +34,22 @@ public class TimeFunctions {
         ZonedDateTime startLocal = TimeFunctions.combineDateTimeUTC(startDate, startTime);
         ZoneId localZone = ZoneId.of(TimeZone.getDefault().getID());
         return startLocal.withZoneSameInstant(localZone);
+    }
+
+    public static Boolean isOverlap(LocalDateTime start, LocalDateTime end) throws SQLException {
+        ResultSet resultSet = LoginQuery.getAllDateTimes();
+        Boolean overLap = false;
+        while (resultSet.next()) {
+           LocalDateTime startResult = resultSet.getTimestamp("Start").toLocalDateTime();
+           LocalDateTime endResult = resultSet.getTimestamp("End").toLocalDateTime();
+            if (startResult.isAfter(start) && startResult.isBefore(end)) {
+                overLap = true;
+                System.out.println("1");
+            } if (startResult.isEqual(start) && startResult.isBefore(end)) {
+                overLap = true;
+                System.out.println("2");
+            }
+        }
+        return overLap;
     }
 }
