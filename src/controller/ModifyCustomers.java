@@ -31,7 +31,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-/** This class controls the ModifyCustomers page.*/
+/**
+ * This class controls the ModifyCustomers page.
+ */
 public class ModifyCustomers implements Initializable {
     public TextField custIDField;
     public TextField custNameField;
@@ -58,7 +60,9 @@ public class ModifyCustomers implements Initializable {
     private String phoneNum;
     private String postalCode;
 
-    /** @param url,resourceBundle used to initialize populateCountries() method.*/
+    /**
+     * @param url,resourceBundle used to initialize populateCountries() method.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -71,7 +75,9 @@ public class ModifyCustomers implements Initializable {
         setUpAction(null);
     }
 
-    /** The populateCountries method opens a connection to the database, retrieves the country column data  to set as menu items. The menu item selected by the user is then assigned to the menu button label.*/
+    /**
+     * The populateCountries method opens a connection to the database, retrieves the country column data  to set as menu items. The menu item selected by the user is then assigned to the menu button label.
+     */
     private void populateCountries() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCountries = LoginQuery.getCountries();
@@ -85,7 +91,9 @@ public class ModifyCustomers implements Initializable {
     }
 
     /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.*/
-    /** The division variable is also reset to default state to avoid potential bugs when user changes their country selection.**/
+    /**
+     * The division variable is also reset to default state to avoid potential bugs when user changes their country selection.
+     **/
     public EventHandler<ActionEvent> selectCountryAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
@@ -100,7 +108,9 @@ public class ModifyCustomers implements Initializable {
                 }
             };
 
-    /** @param actionEvent selectDivisionAction function fires when the user selects a Division from the menu list.*/
+    /**
+     * @param actionEvent selectDivisionAction function fires when the user selects a Division from the menu list.
+     */
     public EventHandler<ActionEvent> selectDivisionAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
@@ -109,7 +119,9 @@ public class ModifyCustomers implements Initializable {
                 }
             };
 
-    /** The populateDivisions method opens a connection to the database and with the help of an imported function, retrieves the division column data and assigns the user selection to the menu button label.*/
+    /**
+     * The populateDivisions method opens a connection to the database and with the help of an imported function, retrieves the division column data and assigns the user selection to the menu button label.
+     */
     private void populateDivisions(String countryName) throws SQLException {
         JDBC.openConnection();
         selectDivision.setText(divisionName);
@@ -120,8 +132,7 @@ public class ModifyCustomers implements Initializable {
         java.util.List<String> listofDivisions = new ArrayList<String>();
         listofDivisions = LoginQuery.getDivisions(countryID);
         java.util.List<MenuItem> divisionsMenuItems = new ArrayList<MenuItem>();
-        for(int i = 0; i < listofDivisions.size(); i++)
-        {
+        for (int i = 0; i < listofDivisions.size(); i++) {
             divisionsMenuItems.add(new MenuItem(listofDivisions.get(i)));
             divisionsMenuItems.get(i).setOnAction(selectDivisionAction);
             selectDivision.getItems().add(divisionsMenuItems.get(i));
@@ -129,7 +140,9 @@ public class ModifyCustomers implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent saveChangesAction function fires when the user clicks save changes. The data is then stored in the database table.*/
+    /**
+     * @param actionEvent saveChangesAction function fires when the user clicks save changes. The data is then stored in the database table.
+     */
     public void saveChangesAction(ActionEvent actionEvent) throws IOException {
         name = custNameField.getText();
         streetAddress = custAddressField.getText();
@@ -148,8 +161,7 @@ public class ModifyCustomers implements Initializable {
         }
         JDBC.closeConnection();
 
-        if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && division.length() > 0 && divisionID.length() > 0)
-        {
+        if (name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && division.length() > 0 && divisionID.length() > 0) {
             JDBC.openConnection();
             try {
                 rowsModified = LoginQuery.modifyCustomer(name, streetAddress, postalCode, phoneNum, divisionID, customerID);
@@ -158,30 +170,31 @@ public class ModifyCustomers implements Initializable {
             }
             JDBC.closeConnection();
 
-            if( rowsModified > 0) {
+            if (rowsModified > 0) {
                 Message.information("Success", "Customer Updated");
                 Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setTitle("Customers");
                 stage.setScene(new Scene(root, 1100, 590));
                 stage.show();
-            } else
-            {
+            } else {
                 System.out.println("customer could not be modified");
             }
 
-        }else{
+        } else {
             Message.information("Missing Information", "All fields are required");
         }
 
     }
 
-    /** @param actionEvent setUpAction function that retrieves customer data and populates the fields with it.*/
+    /**
+     * @param actionEvent setUpAction function that retrieves customer data and populates the fields with it.
+     */
     public void setUpAction(ActionEvent actionEvent) {
         JDBC.openConnection();
         try {
             resultSet = LoginQuery.getCustomer(customerID);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 custIDField.setText(resultSet.getString("Customer_ID"));
                 custNameField.setText(resultSet.getString("Customer_Name"));
                 custAddressField.setText(resultSet.getString("Address"));
@@ -203,7 +216,9 @@ public class ModifyCustomers implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent directToCustomers function used to redirect user to Customers form.*/
+    /**
+     * @param actionEvent directToCustomers function used to redirect user to Customers form.
+     */
     public void directToCustomers(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

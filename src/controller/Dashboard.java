@@ -72,8 +72,9 @@ public class Dashboard implements Initializable {
     private ResultSet allApps;
 
 
+
     private ObservableList<Appointments> allAppsList = FXCollections.observableArrayList();
-    private static Appointments modifiedApp = null;
+    private static Appointments modifiedAppt = null;
 
     /** @param url,resourceBundle used to initialize setDates() method.*/
     @Override
@@ -189,13 +190,22 @@ public class Dashboard implements Initializable {
     public void deleteAppmtAction(ActionEvent actionEvent) {
     }
 
+    /** @return modifiedAppt used to retrieve appointment data to be modified.*/
+    public static Appointments  getModifiedAppt() {
+        return modifiedAppt;
+    }
+
+
     /** @param actionEvent modifyAppmtAction function used to redirect user to ModifyAppointments form.*/
     public void modifyAppmtAction(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyAppointments.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Modify Appointments");
-        stage.setScene(new Scene(root, 1100, 590));
-        stage.show();
+        modifiedAppt = (Appointments) manageApptTable.getSelectionModel().getSelectedItem();
+        if (modifiedAppt != null) { // if a customer is not clicked it will == null
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyAppointments.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setTitle("Modify Appointments");
+            stage.setScene(new Scene(root, 1100, 590));
+            stage.show();
+        }
     }
 
     /** @param actionEvent addAppmtAction function used to redirect user to AddAppointments form.*/
