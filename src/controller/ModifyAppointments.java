@@ -101,7 +101,7 @@ public class ModifyAppointments implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("could not find customer");
+            System.out.println("could not find appointment");
         }
         JDBC.closeConnection();
     }
@@ -116,9 +116,6 @@ public class ModifyAppointments implements Initializable {
     }
 
     public void saveApptChanges(ActionEvent actionEvent) {
-    }
-
-    public void clearApptChanges(ActionEvent actionEvent) {
     }
 
     /**
