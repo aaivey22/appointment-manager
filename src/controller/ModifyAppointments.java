@@ -67,8 +67,7 @@ public class ModifyAppointments implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        apptStartDate.setValue(LocalDate.now());
-        populateTimes();
+        //populateTimes();
         try {
             populateCustomers();
             populateContact();
@@ -87,7 +86,9 @@ public class ModifyAppointments implements Initializable {
      */
     public void setUpAction(ActionEvent actionEvent) {
         JDBC.openConnection();
+        populateTimes();
         try {
+            appointmentID = Integer.valueOf(modifiedAppt.getAppointmentID());
             resultSet = LoginQuery.getAppointment(appointmentID);
             while (resultSet.next()) {
                 apptID.setText(resultSet.getString("Appointment_ID"));
@@ -107,8 +108,11 @@ public class ModifyAppointments implements Initializable {
                 startDateTime = LocalDateTime.from(TimeFunctions.convertLocal(LocalDateTime.from(LoginQuery.getStartUTC(appointmentID)))); //Converts from a UTC ZonedDateTime to the LocalDateTime in the current system timezone
                 endDateTime = LocalDateTime.from(TimeFunctions.convertLocal(LocalDateTime.from(LoginQuery.getEndUTC(appointmentID)))); //Converts from a UTC ZonedDateTime to the LocalDateTime in the current system timezone
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+
                 appStartTime.setValue(startDateTime.format(formatter));
                 appEndTime.setValue(endDateTime.format(formatter));
+
+                apptStartDate.setValue(startDateTime.toLocalDate());
 
             }
         } catch (SQLException e) {
