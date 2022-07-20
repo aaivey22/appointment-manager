@@ -342,6 +342,38 @@ public abstract class LoginQuery {
         return rowsAffected;
     }
 
+    /**
+     * @return SELECT method used to retrieve Start date time data from a specific appointment ID in UTC timezone and returns the data in the ZonedDateTime data type.
+     */
+    public static ZonedDateTime getStartUTC(Integer apptID) throws SQLException {
+        ZoneId UTC = ZoneId.of("UTC");
+
+        String sql = "SELECT Start FROM client_schedule.appointments WHERE Appointment_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, apptID);
+        resultSet = ps.executeQuery();
+        ZonedDateTime start = null;
+        while (resultSet.next()) {
+            start = resultSet.getTimestamp("Start").toLocalDateTime().atZone(UTC);
+        }
+        return start;
+    };
+
+    /**
+     * @return SELECT method used to retrieve End date time data from a specific appointment ID in UTC timezone and returns the data in the ZonedDateTime data type.
+     */
+    public static ZonedDateTime getEndUTC(Integer apptID) throws SQLException {
+        ZoneId UTC = ZoneId.of("UTC");
+        String sql = "SELECT End FROM client_schedule.appointments WHERE Appointment_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, apptID);
+        resultSet = ps.executeQuery();
+        ZonedDateTime end = null;
+        while (resultSet.next()) {
+            end = resultSet.getTimestamp("End").toLocalDateTime().atZone(UTC);
+        }
+        return end;
+    };
 
     /**
      * @return UPDATE method used to update customer data in the database and returns "rowsAffected".

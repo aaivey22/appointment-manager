@@ -3,6 +3,7 @@ package controller;
 import helper.JDBC;
 import helper.LoginQuery;
 
+import helper.TimeFunctions;
 import javafx.event.ActionEvent;
 
 import javafx.event.EventHandler;
@@ -25,7 +26,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -58,6 +62,8 @@ public class ModifyAppointments implements Initializable {
     private String contact = "";
     private String user = "";
 
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -98,6 +104,12 @@ public class ModifyAppointments implements Initializable {
                 selectCustomer.setText(customerName);
                 selectUser.setText(userName);
                 selectContact.setText(contactName);
+                startDateTime = LocalDateTime.from(TimeFunctions.convertLocal(LocalDateTime.from(LoginQuery.getStartUTC(appointmentID)))); //Converts from a UTC ZonedDateTime to the LocalDateTime in the current system timezone
+                endDateTime = LocalDateTime.from(TimeFunctions.convertLocal(LocalDateTime.from(LoginQuery.getEndUTC(appointmentID)))); //Converts from a UTC ZonedDateTime to the LocalDateTime in the current system timezone
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+                appStartTime.setValue(startDateTime.format(formatter));
+                appEndTime.setValue(endDateTime.format(formatter));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
