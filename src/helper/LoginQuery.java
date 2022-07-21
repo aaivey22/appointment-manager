@@ -31,6 +31,19 @@ public abstract class LoginQuery {
     }
 
     /**
+     * @return SELECT method used to count data from appointments column in database and returns "rowsCounted".
+     */
+    public static int appmtCount(String custID) throws SQLException {
+        String sql = "SELECT COUNT(Start) from appointments WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, custID);
+        resultSet = ps.executeQuery();
+        resultSet.next();
+        int rowsCounted = resultSet.getInt(1);
+        return rowsCounted;
+    }
+
+    /**
      * @return SELECT method returns a new list of contact names 'listofContacts' with the Contact_Name column data.
      */
     public static java.util.List<String> getContacts() throws SQLException {

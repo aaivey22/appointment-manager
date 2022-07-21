@@ -34,7 +34,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-/** This class controls the Customers page.*/
+/**
+ * This class controls the Customers page.
+ */
 public class Customers implements Initializable {
     private ResultSet allCustomers;
     public TextField searchCustField;
@@ -49,7 +51,9 @@ public class Customers implements Initializable {
     private ObservableList<customer> allCustomersList = FXCollections.observableArrayList();
     private static customer modifiedCustomer = null;
 
-    /** @param url,resourceBundle used to initialize the allCustomers method.*/
+    /**
+     * @param url,resourceBundle used to initialize the allCustomers method.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         JDBC.openConnection();
@@ -57,7 +61,7 @@ public class Customers implements Initializable {
         try {
             allCustomers = LoginQuery.getAllCustomers();
             allCustomersList.removeAll();
-            while(allCustomers.next()) {
+            while (allCustomers.next()) {
                 customer new_customer = new customer(allCustomers.getString("Customer_ID"),
                         allCustomers.getString("Customer_Name"),
                         allCustomers.getString("Address"),
@@ -86,16 +90,21 @@ public class Customers implements Initializable {
         JDBC.closeConnection();
 
     }
-    /** @param actionEvent directToDashboard function used to redirect user to Dashboard form.*/
+
+    /**
+     * @param actionEvent directToDashboard function used to redirect user to Dashboard form.
+     */
     public void directToDashboard(ActionEvent actionEvent) throws IOException {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setTitle("Dashboard");
-            stage.setScene(new Scene(root, 1100, 590));
-            stage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Dashboard");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
     }
 
-    /** @param actionEvent addCustomerAction function used to redirect user to Add Customers form.*/
+    /**
+     * @param actionEvent addCustomerAction function used to redirect user to Add Customers form.
+     */
     public void addCustomerAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/AddCustomers.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -104,27 +113,42 @@ public class Customers implements Initializable {
         stage.show();
     }
 
-    /** @param actionEvent deleteCustomerAction function used to remove a customer from database.*/
+    /**
+     * @param actionEvent deleteCustomerAction function used to remove a customer from database.
+     */
     public void deleteCustomerAction(ActionEvent actionEvent) throws SQLException {
-        customer selectedCustomer = (customer)customersTable.getSelectionModel().getSelectedItem();
+        customer selectedCustomer = (customer) customersTable.getSelectionModel().getSelectedItem();
         String customerID = selectedCustomer.getCustomerID();
+
+        JDBC.openConnection();
+        Integer numberOfAppmnts = LoginQuery.appmtCount(customerID);
+        JDBC.closeConnection();
         if (selectedCustomer != null) {
-            Optional<ButtonType> result = Message.confirmation("Delete Customer", "Are you sure you want to delete this customer?");
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                JDBC.openConnection();
-                allCustomersList.remove(selectedCustomer);
-                LoginQuery.deleteCustomer(customerID);
-                JDBC.closeConnection();
+            if (numberOfAppmnts == 0) {
+                Optional<ButtonType> result = Message.confirmation("Delete Customer", "Are you sure you want to delete this customer?");
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    JDBC.openConnection();
+                    allCustomersList.remove(selectedCustomer);
+                    LoginQuery.deleteCustomer(customerID);
+                    JDBC.closeConnection();
+                }
+            } else {
+                String msg = "Customer has " + numberOfAppmnts + " appointments scheduled.";
+                Message.warning("Cannot Delete", msg);
             }
         }
     }
 
-    /** @return modifiedCustomer used to retrieve customer data to be modified.*/
-    public static customer  getModifiedCustomer() {
+    /**
+     * @return modifiedCustomer used to retrieve customer data to be modified.
+     */
+    public static customer getModifiedCustomer() {
         return modifiedCustomer;
     }
 
-    /** @param actionEvent modifyCustomerAction function used to redirect user to Modify Customers form whenever a customer row is clicked.*/
+    /**
+     * @param actionEvent modifyCustomerAction function used to redirect user to Modify Customers form whenever a customer row is clicked.
+     */
     public void modifyCustomerAction(ActionEvent actionEvent) throws IOException {
         modifiedCustomer = (customer) customersTable.getSelectionModel().getSelectedItem();
         if (modifiedCustomer != null) { // if a customer is not clicked it will == null
@@ -136,34 +160,38 @@ public class Customers implements Initializable {
         }
     }
 
-    /** @param actionEvent searchCustomerAction function used to search for a specific customer first by name, then by ID via a button actionEvent.*/
+    /**
+     * @param actionEvent searchCustomerAction function used to search for a specific customer first by name, then by ID via a button actionEvent.
+     */
     public void searchCustomerAction(ActionEvent actionEvent) {
-            String Q = searchCustField.getText();
-            ObservableList<customer> customerData = searchCustName(Q);
-            if (customerData.size() == 0) {
-                try {
-                    int queryID = Integer.parseInt(Q);
-                    customer Customer = searchCustomerID(queryID);
-                    if (Customer != null) {
-                        customerData.add(Customer);
-                        customersTable.setItems(customerData);
-                        searchCustField.setText("");
-                    } else {
-                        customersTable.setItems(null);
-                        searchCustField.setText("");
-                    }
-                } catch (Exception e) {
+        String Q = searchCustField.getText();
+        ObservableList<customer> customerData = searchCustName(Q);
+        if (customerData.size() == 0) {
+            try {
+                int queryID = Integer.parseInt(Q);
+                customer Customer = searchCustomerID(queryID);
+                if (Customer != null) {
+                    customerData.add(Customer);
+                    customersTable.setItems(customerData);
+                    searchCustField.setText("");
+                } else {
                     customersTable.setItems(null);
                     searchCustField.setText("");
                 }
-            } else {
-                customersTable.setItems(customerData);
+            } catch (Exception e) {
+                customersTable.setItems(null);
                 searchCustField.setText("");
             }
+        } else {
+            customersTable.setItems(customerData);
+            searchCustField.setText("");
         }
+    }
 
     /** @param customerName used to search for a specific customer by name in the allCustomers list via a button actionEvent.*/
-    /** @return nameResults returns a list of customers matching the search criteria.*/
+    /**
+     * @return nameResults returns a list of customers matching the search criteria.
+     */
     private ObservableList<customer> searchCustName(String customerName) {
         ObservableList<customer> nameResults = FXCollections.observableArrayList();
         ObservableList<customer> allCustomers = allCustomersList;
@@ -178,7 +206,9 @@ public class Customers implements Initializable {
 
     /** @param searchCustomerID the customer ID to find in the allCustomers list.*/
     /** @return singleCustomer the specific customer from the list allCustomers.*/
-    /** @return null if there is not an ID match in the allCustomers list.*/
+    /**
+     * @return null if there is not an ID match in the allCustomers list.
+     */
     private customer searchCustomerID(Integer customerID) {
         ObservableList<customer> allCustomers = allCustomersList;
         for (int i = 0; i < allCustomers.size(); i++) {

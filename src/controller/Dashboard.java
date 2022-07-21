@@ -255,7 +255,6 @@ public class Dashboard implements Initializable {
         return modifiedAppt;
     }
 
-
     /**
      * @param actionEvent modifyAppmtAction function used to redirect user to ModifyAppointments form.
      */
