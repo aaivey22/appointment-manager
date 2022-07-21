@@ -192,11 +192,8 @@ public class AddAppointments implements Initializable {
         timeEndField = (LocalTime) appEndTime.getValue();
         if (apptStartDate.getValue() != null && timeStartField != null && timeEndField != null) {
             if (timeStartField.isBefore(timeEndField)) {
-                System.out.println(datefield);
                 StartDateTime = TimeFunctions.combineDateTime(datefield, timeStartField);
-                System.out.println("Local Time: " + StartDateTime);
                 UTCStart = LocalDateTime.from(TimeFunctions.convertUTC(StartDateTime));
-                System.out.println("UTC Time: " + UTCStart);
 
                 ZoneId UTC = ZoneId.of("UTC");
                 EndDateTime = TimeFunctions.combineDateTime(datefield, timeEndField);

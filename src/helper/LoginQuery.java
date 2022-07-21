@@ -392,6 +392,29 @@ public abstract class LoginQuery {
         return rowsAffected;
     }
 
+    /**
+     * @return insert method used to insert new appointment data into the database and returns "rowsAffected".
+     */
+    public static int modifyAppointment(String title, String description, String location, String type, LocalDateTime timeStartField, LocalDateTime timeEndField, String Customer_ID, String User_ID, String Contact_ID, Integer Appointment_ID) throws SQLException {
+        ZoneId UTC = ZoneId.of("UTC");
+
+        String sql = "UPDATE  client_schedule.appointments SET Title = (?), Description = (?), Location = (?), Type = (?), Start = (?), End = (?), Customer_ID = (?), User_ID = (?), Contact_ID = (?) WHERE Appointment_ID = (?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, title);
+        ps.setString(2, description);
+        ps.setString(3, location);
+        ps.setString(4, type);
+        ps.setTimestamp(5, Timestamp.valueOf(timeStartField));
+        ps.setTimestamp(6, Timestamp.valueOf(timeEndField));
+        ps.setString(7, Customer_ID);
+        ps.setString(8, User_ID);
+        ps.setString(9, Contact_ID);
+        ps.setInt(10, Appointment_ID);
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
+
 
     /**
      * @return delete method used to delete a customer from the database and returns "rowsAffected".

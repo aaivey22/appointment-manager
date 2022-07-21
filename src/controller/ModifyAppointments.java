@@ -3,6 +3,7 @@ package controller;
 import helper.JDBC;
 import helper.LoginQuery;
 
+import helper.Message;
 import helper.TimeFunctions;
 import javafx.event.ActionEvent;
 
@@ -25,10 +26,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -53,17 +51,31 @@ public class ModifyAppointments implements Initializable {
     private Integer customerID;
     private Integer userID;
     private Integer contactID;
-    private String customerName;
-    private String userName;
-    private String contactName;
     private ResultSet resultSet;
 
     private String customer = "";
     private String contact = "";
     private String user = "";
+    private String type;
+    private String location;
+    private String title;
+    private String description;
+    private String customerName;
+    private String userName;
+    private String contactName;
+    private String custID;
+    private String useID;
+    private String contID;
 
+    private ZonedDateTime EndDateTime;
+    private ZonedDateTime StartDateTime;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
+    private LocalDate datefield;
+    private LocalTime timeStartField;
+    private LocalTime timeEndField;
+    private LocalDateTime UTCStart;
+    private LocalDateTime UTCEnd;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -131,7 +143,78 @@ public class ModifyAppointments implements Initializable {
         stage.show();
     }
 
-    public void saveApptChanges(ActionEvent actionEvent) {
+    public void saveApptChanges(ActionEvent actionEvent) throws IOException, SQLException {
+        Integer rowsModified = 0;
+        type = appTypeField.getText();
+        location = locationField.getText();
+        title = titleField.getText();
+        description = descriptionField.getText();
+        datefield = apptStartDate.getValue();
+        timeStartField = (LocalTime) appStartTime.getValue();
+        timeEndField = (LocalTime) appEndTime.getValue();
+
+        if (apptStartDate.getValue() != null && timeStartField != null && timeEndField != null) {
+            if (timeStartField.isBefore(timeEndField)) {
+                StartDateTime = TimeFunctions.combineDateTime(datefield, timeStartField);
+                UTCStart = LocalDateTime.from(TimeFunctions.convertUTC(StartDateTime));
+
+                ZoneId UTC = ZoneId.of("UTC");
+                EndDateTime = TimeFunctions.combineDateTime(datefield, timeEndField);
+                UTCEnd = LocalDateTime.from(TimeFunctions.convertUTC(EndDateTime));
+
+                JDBC.openConnection();
+                Boolean overlap = TimeFunctions.isOverlap(UTCStart, UTCEnd);
+                JDBC.closeConnection();
+
+                if (overlap) {
+                    Message.information("Appointment Conflict", "This appointment time overlaps with another");
+                } else {
+
+                    if (customer.length() > 0 && contact.length() > 0 && user.length() > 0) {
+                        JDBC.openConnection();
+                        try {
+                            custID = LoginQuery.getCustomerID(customer);
+                            contID = LoginQuery.getContactID(contact);
+                            useID = LoginQuery.getUserID(user);
+                        } catch (SQLException e) {
+                            System.out.println("failed");
+                        }
+                        if (custID.length() > 0 && contID.length() > 0 && useID.length() > 0 && type.length() > 0 && location.length() > 0
+                                && title.length() > 0 && description.length() > 0) {
+                            try {
+                                rowsModified = LoginQuery.modifyAppointment(title, description, location, type, UTCStart, UTCEnd, custID, useID, contID, appointmentID);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                Message.error("Failed", "Appointment could not be modified");
+                            }
+                            if (rowsModified > 0) {
+                                Message.information("Success", "Appointment updated");
+                                Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyAppointments.fxml"));
+                                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                                stage.setTitle("Modify Appointments");
+                                stage.setScene(new Scene(root, 1100, 590));
+                                stage.show();
+                            } else {
+                                Message.information("Failed", "Appointment could not be modified");
+                            }
+
+                        } else {
+                            Message.information("Missing Information", "All fields are required.");
+                        }
+                    } else {
+                        Message.error("Missing Information", "All fields are required.");
+                    }
+                }
+
+            } else {
+                Message.information("Time Issue", "Start time must be before end time.");
+            }
+        } else {
+            Message.error("Missing Information", "Missing Date or Times");
+        }
+        JDBC.closeConnection();
+
+
     }
 
     /**
