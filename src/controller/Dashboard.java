@@ -69,35 +69,29 @@ public class Dashboard implements Initializable {
     public TableColumn custIDCol;
     public TableColumn contactCol;
     public TableColumn userIDCol;
+    public RadioButton weekRB;
+    public RadioButton monthRB;
+    public RadioButton allRB;
 
     private ResultSet allApps;
 
-
+    private Integer appointmentCount = 0;
 
     private ObservableList<Appointments> allAppsList = FXCollections.observableArrayList();
+    private ObservableList<Appointments> monthList = FXCollections.observableArrayList();
+    private ObservableList<Appointments> weekList = FXCollections.observableArrayList();
     private static Appointments modifiedAppt = null;
 
     /** @param url,resourceBundle used to initialize setDates() method.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            setDates();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            setAptCount();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         JDBC.openConnection();
-
         try {
             allApps = LoginQuery.getAllApps();
             allAppsList.removeAll();
+            ZonedDateTime crntDate = ZonedDateTime.now();
             while(allApps.next()) {
                 ZonedDateTime start = TimeFunctions.convertLocal(allApps.getTimestamp("Start").toLocalDateTime());
-
                 ZonedDateTime end = TimeFunctions.convertLocal(allApps.getTimestamp("End").toLocalDateTime());
                 Appointments new_appointment = new Appointments(allApps.getInt("Appointment_ID"),
                         allApps.getString("Title"),
@@ -110,11 +104,20 @@ public class Dashboard implements Initializable {
                         allApps.getInt("Contact_ID")
                         );
                 new_appointment.setContact(new_appointment.getContactID());
-
                 allAppsList.add(new_appointment);
 
-            }
+                if (start.getMonth().equals(crntDate.getMonth())){
+                    monthList.add(new_appointment);
+                }
 
+                for(int i = 0; i < 7; i++){
+                    int startDay = start.getDayOfMonth();
+                    int crntday = crntDate.plusDays(i).getDayOfMonth();
+                    if(start.getMonth().equals(crntDate.getMonth()) && (startDay == crntday)){
+                        weekList.add(new_appointment);
+                    }
+                }
+            }
             manageApptTable.setItems(allAppsList);
             appIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
             titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
@@ -127,12 +130,13 @@ public class Dashboard implements Initializable {
             userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("userID"));
             contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("contact"));
 
-
         } catch (SQLException e) {
             System.out.println("could not load customers");
         }
         JDBC.closeConnection();
 
+        setDates();
+        setAptCount();
         timeAlert();
     }
 
@@ -147,7 +151,7 @@ public class Dashboard implements Initializable {
     }
 
     /** The setDates method contains a for loop that adds 1 day to each label in listOfDates object.*/
-    private void setDates() throws SQLException {
+    private void setDates() {
         Label[] listOfDates = {dateLabel0, dateLabel1, dateLabel2, dateLabel3, dateLabel4, dateLabel5, dateLabel6};
         for (int i = 0; i < 7; i++){
             listOfDates[i].setText(DateTimeFormatter.ofPattern("EEEE").format(ZonedDateTime.now().plusDays(i))
@@ -159,13 +163,24 @@ public class Dashboard implements Initializable {
         dateLabelNumText.setText(DateTimeFormatter.ofPattern("d").format(ZonedDateTime.now()));
     }
 
-    /** The setAptCount method opens a connection to the database to count the number of appointments in the 'appointments' column for the current and following 6 days. */
-    private void setAptCount() throws SQLException {
+    /** The setAptCount counts the number of appointments by comparing the month and date of each appointment in the list of appointments with the current day of the month. */
+    private void setAptCount() {
         JDBC.openConnection();
         Label[] listOfApts = {appCount0, appCount1, appCount2, appCount3, appCount4, appCount5, appCount6};
         for (int i = 0; i < 7; i++){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             ZonedDateTime crntDate = ZonedDateTime.now().plusDays(i);
-            int appointmentCount = LoginQuery.getNumRecords(String.valueOf(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(crntDate)));
+            appointmentCount = 0;
+            allAppsList.forEach( (appts) -> {
+                int crntDay = crntDate.getDayOfMonth();
+                int crntMonth = crntDate.getMonthValue();
+                int day2 = appts.getTimeDateStart().getDayOfMonth();
+                int month2 = appts.getTimeDateStart().getMonthValue();
+                if(crntDay == day2 && crntMonth == month2){
+                    appointmentCount++;
+                }
+            });
+            //int appointmentCount = LoginQuery.getNumRecords(String.valueOf(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(crntDate)));
             listOfApts[i].setText(String.valueOf(appointmentCount));
         }
         JDBC.closeConnection();
@@ -229,15 +244,6 @@ public class Dashboard implements Initializable {
         stage.show();
     }
 
-    public void viewHistoryAction(ActionEvent actionEvent) {
-    }
-
-    public void viewMonthAction(ActionEvent actionEvent) {
-    }
-
-    public void viewWeekAction(ActionEvent actionEvent) {
-    }
-
     /** @param actionEvent searchCustomerAction function used to search for a specific customer first by name, then by ID via a button actionEvent.*/
     public void searchAppAction(ActionEvent actionEvent) {
         String Q = apptSearchField.getText();
@@ -293,4 +299,45 @@ public class Dashboard implements Initializable {
         return null;
     }
 
+    public void setTable(ActionEvent actionEvent) {
+        if(allRB.isSelected()) {
+            manageApptTable.setItems(allAppsList);
+            appIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
+            titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("description"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("location"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("type"));
+            startCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedStart"));
+            endCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedEnd"));
+            custIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("customerID"));
+            userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("userID"));
+            contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("contact"));
+        }
+        if (monthRB.isSelected()) {
+            manageApptTable.setItems(monthList);
+            appIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
+            titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("description"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("location"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("type"));
+            startCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedStart"));
+            endCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedEnd"));
+            custIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("customerID"));
+            userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("userID"));
+            contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("contact"));
+        }
+        if(weekRB.isSelected()){
+            manageApptTable.setItems(weekList);
+            appIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
+            titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("description"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("location"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("type"));
+            startCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedStart"));
+            endCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("formattedEnd"));
+            custIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("customerID"));
+            userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("userID"));
+            contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("contact"));
+        }
+    }
 }

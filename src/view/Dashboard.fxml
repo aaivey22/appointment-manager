@@ -240,7 +240,7 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <RadioButton contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewWeekAction" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-background-radius: 15; -fx-text-fill: #ffffff; -fx-border-width: 5.5; -fx-border-radius: 15;" text=" View Week  ">
+                        <RadioButton fx:id="weekRB" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setTable" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-background-radius: 15; -fx-text-fill: #ffffff; -fx-border-width: 5.5; -fx-border-radius: 15;" text=" View Week  ">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -251,7 +251,7 @@
                               <ToggleGroup fx:id="viewRadioBtns" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton contentDisplay="CENTER" layoutX="498.0" layoutY="12.0" mnemonicParsing="false" onAction="#viewWeekAction" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-background-radius: 15; -fx-text-fill: #ffffff; -fx-border-width: 5.5; -fx-border-radius: 15;" text=" View Month  " toggleGroup="$viewRadioBtns">
+                        <RadioButton fx:id="monthRB" contentDisplay="CENTER" layoutX="498.0" layoutY="12.0" mnemonicParsing="false" onAction="#setTable" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-background-radius: 15; -fx-text-fill: #ffffff; -fx-border-width: 5.5; -fx-border-radius: 15;" text=" View Month  " toggleGroup="$viewRadioBtns">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -259,7 +259,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <RadioButton contentDisplay="CENTER" layoutX="603.0" layoutY="13.0" mnemonicParsing="false" onAction="#viewHistoryAction" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-background-radius: 15; -fx-text-fill: #ffffff; -fx-border-width: 5.5; -fx-border-radius: 15; -fx-label-padding: 0;" text="  View All  " toggleGroup="$viewRadioBtns">
+                        <RadioButton fx:id="allRB" contentDisplay="CENTER" layoutX="603.0" layoutY="13.0" mnemonicParsing="false" onAction="#setTable" selected="true" style="-fx-background-color: #717fbf; -fx-border-color: #717fbf; -fx-background-radius: 15; -fx-text-fill: #ffffff; -fx-border-width: 5.5; -fx-border-radius: 15; -fx-label-padding: 0;" text="  View All  " toggleGroup="$viewRadioBtns">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>

@@ -67,7 +67,7 @@ public class ModifyAppointments implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //populateTimes();
+        populateTimes();
         try {
             populateCustomers();
             populateContact();
@@ -86,7 +86,7 @@ public class ModifyAppointments implements Initializable {
      */
     public void setUpAction(ActionEvent actionEvent) {
         JDBC.openConnection();
-        populateTimes();
+
         try {
             appointmentID = Integer.valueOf(modifiedAppt.getAppointmentID());
             resultSet = LoginQuery.getAppointment(appointmentID);
@@ -107,19 +107,19 @@ public class ModifyAppointments implements Initializable {
                 selectContact.setText(contactName);
                 startDateTime = LocalDateTime.from(TimeFunctions.convertLocal(LocalDateTime.from(LoginQuery.getStartUTC(appointmentID)))); //Converts from a UTC ZonedDateTime to the LocalDateTime in the current system timezone
                 endDateTime = LocalDateTime.from(TimeFunctions.convertLocal(LocalDateTime.from(LoginQuery.getEndUTC(appointmentID)))); //Converts from a UTC ZonedDateTime to the LocalDateTime in the current system timezone
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
-
-                appStartTime.setValue(startDateTime.format(formatter));
-                appEndTime.setValue(endDateTime.format(formatter));
-
-                apptStartDate.setValue(startDateTime.toLocalDate());
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("could not find appointment");
         }
         JDBC.closeConnection();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+
+        appStartTime.getSelectionModel().select(startDateTime.format(formatter));
+        appEndTime.getSelectionModel().select(endDateTime.format(formatter));
+        apptStartDate.setValue(startDateTime.toLocalDate());
+
     }
 
 
@@ -225,4 +225,11 @@ public class ModifyAppointments implements Initializable {
                 }
             };
 
+    public void resetAction(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyAppointments.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Modify Appointments");
+        stage.setScene(new Scene(root, 1100, 590));
+        stage.show();
+    }
 }
