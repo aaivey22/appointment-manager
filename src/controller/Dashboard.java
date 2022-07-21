@@ -33,10 +33,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
-/** This class controls the Dashboard page.*/
+/**
+ * This class controls the Dashboard page.
+ */
 public class Dashboard implements Initializable {
     public Label appCount5;
     public Label appCount6;
@@ -82,7 +85,9 @@ public class Dashboard implements Initializable {
     private ObservableList<Appointments> weekList = FXCollections.observableArrayList();
     private static Appointments modifiedAppt = null;
 
-    /** @param url,resourceBundle used to initialize setDates() method.*/
+    /**
+     * @param url,resourceBundle used to initialize setDates() method.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         JDBC.openConnection();
@@ -90,7 +95,7 @@ public class Dashboard implements Initializable {
             allApps = LoginQuery.getAllApps();
             allAppsList.removeAll();
             ZonedDateTime crntDate = ZonedDateTime.now();
-            while(allApps.next()) {
+            while (allApps.next()) {
                 ZonedDateTime start = TimeFunctions.convertLocal(allApps.getTimestamp("Start").toLocalDateTime());
                 ZonedDateTime end = TimeFunctions.convertLocal(allApps.getTimestamp("End").toLocalDateTime());
                 Appointments new_appointment = new Appointments(allApps.getInt("Appointment_ID"),
@@ -102,18 +107,18 @@ public class Dashboard implements Initializable {
                         allApps.getInt("Customer_ID"),
                         allApps.getInt("User_ID"),
                         allApps.getInt("Contact_ID")
-                        );
+                );
                 new_appointment.setContact(new_appointment.getContactID());
                 allAppsList.add(new_appointment);
 
-                if (start.getMonth().equals(crntDate.getMonth())){
+                if (start.getMonth().equals(crntDate.getMonth())) {
                     monthList.add(new_appointment);
                 }
 
-                for(int i = 0; i < 7; i++){
+                for (int i = 0; i < 7; i++) {
                     int startDay = start.getDayOfMonth();
                     int crntday = crntDate.plusDays(i).getDayOfMonth();
-                    if(start.getMonth().equals(crntDate.getMonth()) && (startDay == crntday)){
+                    if (start.getMonth().equals(crntDate.getMonth()) && (startDay == crntday)) {
                         weekList.add(new_appointment);
                     }
                 }
@@ -141,19 +146,21 @@ public class Dashboard implements Initializable {
     }
 
     // notate lambda expression
-    private void timeAlert(){
+    private void timeAlert() {
         ZonedDateTime currentDateTime = ZonedDateTime.now().withSecond(0).withNano(0);
-        allAppsList.forEach( (appts) -> {
-            if(appts.timeDateStart.isBefore(currentDateTime.plusMinutes(15)) && (appts.timeDateStart.isAfter(currentDateTime)) || appts.timeDateStart.withSecond(0).isEqual(currentDateTime.withSecond(0).withNano(0))) {
+        allAppsList.forEach((appts) -> {
+            if (appts.timeDateStart.isBefore(currentDateTime.plusMinutes(15)) && (appts.timeDateStart.isAfter(currentDateTime)) || appts.timeDateStart.withSecond(0).isEqual(currentDateTime.withSecond(0).withNano(0))) {
                 Message.information("Appointment Alert", "Upcoming appointment within 15 minutes");
             }
         });
     }
 
-    /** The setDates method contains a for loop that adds 1 day to each label in listOfDates object.*/
+    /**
+     * The setDates method contains a for loop that adds 1 day to each label in listOfDates object.
+     */
     private void setDates() {
         Label[] listOfDates = {dateLabel0, dateLabel1, dateLabel2, dateLabel3, dateLabel4, dateLabel5, dateLabel6};
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             listOfDates[i].setText(DateTimeFormatter.ofPattern("EEEE").format(ZonedDateTime.now().plusDays(i))
                     + " " + DateTimeFormatter.ofPattern("d").format(ZonedDateTime.now().plusDays(i)));
         }
@@ -163,20 +170,22 @@ public class Dashboard implements Initializable {
         dateLabelNumText.setText(DateTimeFormatter.ofPattern("d").format(ZonedDateTime.now()));
     }
 
-    /** The setAptCount counts the number of appointments by comparing the month and date of each appointment in the list of appointments with the current day of the month. */
+    /**
+     * The setAptCount counts the number of appointments by comparing the month and date of each appointment in the list of appointments with the current day of the month.
+     */
     private void setAptCount() {
         JDBC.openConnection();
         Label[] listOfApts = {appCount0, appCount1, appCount2, appCount3, appCount4, appCount5, appCount6};
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             ZonedDateTime crntDate = ZonedDateTime.now().plusDays(i);
             appointmentCount = 0;
-            allAppsList.forEach( (appts) -> {
+            allAppsList.forEach((appts) -> {
                 int crntDay = crntDate.getDayOfMonth();
                 int crntMonth = crntDate.getMonthValue();
                 int day2 = appts.getTimeDateStart().getDayOfMonth();
                 int month2 = appts.getTimeDateStart().getMonthValue();
-                if(crntDay == day2 && crntMonth == month2){
+                if (crntDay == day2 && crntMonth == month2) {
                     appointmentCount++;
                 }
             });
@@ -186,7 +195,9 @@ public class Dashboard implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent directToCustomers function used to redirect user to Customers form.*/
+    /**
+     * @param actionEvent directToCustomers function used to redirect user to Customers form.
+     */
     public void directToCustomers(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -195,7 +206,9 @@ public class Dashboard implements Initializable {
         stage.show();
     }
 
-    /** @param actionEvent directToReports function used to redirect user to Reports form.*/
+    /**
+     * @param actionEvent directToReports function used to redirect user to Reports form.
+     */
     public void directToReports(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Reports.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -204,7 +217,9 @@ public class Dashboard implements Initializable {
         stage.show();
     }
 
-    /** @param actionEvent cancelAction function used to redirect user to login form.*/
+    /**
+     * @param actionEvent cancelAction function used to redirect user to login form.
+     */
     public void cancelAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -214,16 +229,36 @@ public class Dashboard implements Initializable {
     }
 
 
-    public void deleteAppmtAction(ActionEvent actionEvent) {
+    /**
+     * @param actionEvent deleteCustomerAction function used to remove a customer from database.
+     */
+    public void deleteAppmtAction(ActionEvent actionEvent) throws SQLException {
+        model.Appointments selectedAppmt = (Appointments) manageApptTable.getSelectionModel().getSelectedItem();
+        Integer appmtID = selectedAppmt.getAppointmentID();
+        if (selectedAppmt != null) {
+            Optional<ButtonType> result = Message.confirmation("Delete Appointment", "Are you sure you want to delete this appointment?");
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                JDBC.openConnection();
+                allAppsList.remove(selectedAppmt);
+                monthList.remove(selectedAppmt);
+                weekList.remove(selectedAppmt);
+                LoginQuery.deleteAppointment(appmtID);
+                JDBC.closeConnection();
+            }
+        }
     }
 
-    /** @return modifiedAppt used to retrieve appointment data to be modified.*/
-    public static Appointments  getModifiedAppt() {
+    /**
+     * @return modifiedAppt used to retrieve appointment data to be modified.
+     */
+    public static Appointments getModifiedAppt() {
         return modifiedAppt;
     }
 
 
-    /** @param actionEvent modifyAppmtAction function used to redirect user to ModifyAppointments form.*/
+    /**
+     * @param actionEvent modifyAppmtAction function used to redirect user to ModifyAppointments form.
+     */
     public void modifyAppmtAction(ActionEvent actionEvent) throws IOException {
         modifiedAppt = (Appointments) manageApptTable.getSelectionModel().getSelectedItem();
         if (modifiedAppt != null) { // if a customer is not clicked it will == null
@@ -235,7 +270,9 @@ public class Dashboard implements Initializable {
         }
     }
 
-    /** @param actionEvent addAppmtAction function used to redirect user to AddAppointments form.*/
+    /**
+     * @param actionEvent addAppmtAction function used to redirect user to AddAppointments form.
+     */
     public void addAppmtAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/AddAppointments.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -244,7 +281,9 @@ public class Dashboard implements Initializable {
         stage.show();
     }
 
-    /** @param actionEvent searchCustomerAction function used to search for a specific customer first by name, then by ID via a button actionEvent.*/
+    /**
+     * @param actionEvent searchCustomerAction function used to search for a specific customer first by name, then by ID via a button actionEvent.
+     */
     public void searchAppAction(ActionEvent actionEvent) {
         String Q = apptSearchField.getText();
         ObservableList<Appointments> apptData = searchApptTitle(Q);
@@ -271,7 +310,9 @@ public class Dashboard implements Initializable {
     }
 
     /** @param customerName used to search for a specific customer by name in the allCustomers list via a button actionEvent.*/
-    /** @return nameResults returns a list of customers matching the search criteria.*/
+    /**
+     * @return nameResults returns a list of customers matching the search criteria.
+     */
     private ObservableList<Appointments> searchApptTitle(String apptTitle) {
         ObservableList<Appointments> nameResults = FXCollections.observableArrayList();
         ObservableList<Appointments> allAppts = allAppsList;
@@ -286,7 +327,9 @@ public class Dashboard implements Initializable {
 
     /** @param searchApptID the customer ID to find in the allCustomers list.*/
     /** @return singleCustomer the specific customer from the list allCustomers.*/
-    /** @return null if there is not an ID match in the allCustomers list.*/
+    /**
+     * @return null if there is not an ID match in the allCustomers list.
+     */
     private Appointments searchApptID(Integer apptID) {
         ObservableList<Appointments> allAppts = allAppsList;
         for (int i = 0; i < allAppts.size(); i++) {
@@ -300,7 +343,7 @@ public class Dashboard implements Initializable {
     }
 
     public void setTable(ActionEvent actionEvent) {
-        if(allRB.isSelected()) {
+        if (allRB.isSelected()) {
             manageApptTable.setItems(allAppsList);
             appIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
             titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
@@ -326,7 +369,7 @@ public class Dashboard implements Initializable {
             userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("userID"));
             contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("contact"));
         }
-        if(weekRB.isSelected()){
+        if (weekRB.isSelected()) {
             manageApptTable.setItems(weekList);
             appIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
             titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));

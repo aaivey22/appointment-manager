@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 
 import javafx.stage.Stage;
 import model.Appointments;
+import model.customer;
 
 import java.io.IOException;
 
@@ -30,6 +31,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ModifyAppointments implements Initializable {
@@ -315,4 +317,5 @@ public class ModifyAppointments implements Initializable {
         stage.setScene(new Scene(root, 1100, 590));
         stage.show();
     }
+
 }

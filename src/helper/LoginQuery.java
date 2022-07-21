@@ -357,7 +357,9 @@ public abstract class LoginQuery {
             start = resultSet.getTimestamp("Start").toLocalDateTime().atZone(UTC);
         }
         return start;
-    };
+    }
+
+    ;
 
     /**
      * @return SELECT method used to retrieve End date time data from a specific appointment ID in UTC timezone and returns the data in the ZonedDateTime data type.
@@ -373,7 +375,9 @@ public abstract class LoginQuery {
             end = resultSet.getTimestamp("End").toLocalDateTime().atZone(UTC);
         }
         return end;
-    };
+    }
+
+    ;
 
     /**
      * @return UPDATE method used to update customer data in the database and returns "rowsAffected".
@@ -428,6 +432,14 @@ public abstract class LoginQuery {
         return rowsAffected;
     }
 
+    public static int deleteAppointment(Integer appmtID) throws SQLException {
+        String sql = "DELETE FROM client_schedule.appointments WHERE Appointment_ID = (?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, appmtID);
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
 
     /**
      * @return insert method used to insert user input for username and pword into the database and returns "rowsAffected".
