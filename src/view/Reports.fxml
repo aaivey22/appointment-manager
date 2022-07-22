@@ -3,7 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,9 +20,14 @@
       </ImageView>
       <Pane layoutX="17.0" layoutY="126.0" prefHeight="455.0" prefWidth="1074.0" style="-fx-background-color: #FFFFFF; -fx-opacity: .80; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;">
          <children>
-            <MenuButton fx:id="selectDivision" layoutX="35.0" layoutY="26.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="874.0" text="Select Report" />
+            <MenuButton fx:id="selectDivision" layoutX="35.0" layoutY="26.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="874.0" text="Select Report">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#contactSchedAction" text="Contact Schedule" />
+                  <MenuItem mnemonicParsing="false" onAction="#customerAppmtAction" text="Customer Appointments" />
+                  <MenuItem mnemonicParsing="false" onAction="#loginHistoryAction" text="Login History" />
+               </items></MenuButton>
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="935.0" layoutY="17.0" mnemonicParsing="false" onAction="#generateReportAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Generate Report" textAlignment="CENTER" />
-            <ScrollPane layoutX="35.0" layoutY="70.0" prefHeight="360.0" prefWidth="1010.0" style="-fx-background-color: #b28fc7; -fx-border-radius: 2; -fx-padding: 2; -fx-background-radius: 2;" vbarPolicy="ALWAYS" />
+            <TextArea fx:id="reportsTextArea" layoutX="33.0" layoutY="67.0" prefHeight="367.0" prefWidth="1011.0" />
          </children>
       </Pane>
       <Pane layoutX="320.0" layoutY="27.0" prefHeight="85.0" prefWidth="455.0" style="-fx-background-color: #FFFFFF; -fx-opacity: .80; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;">

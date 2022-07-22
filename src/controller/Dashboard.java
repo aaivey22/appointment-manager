@@ -149,6 +149,7 @@ public class Dashboard implements Initializable {
     // notate lambda expression
     private void timeAlert() {
         ZonedDateTime currentDateTime = ZonedDateTime.now().withSecond(0).withNano(0);
+        noAppmnts = true;
         allAppsList.forEach((appts) -> {
             if (appts.timeDateStart.isBefore(currentDateTime.plusMinutes(15)) && (appts.timeDateStart.isAfter(currentDateTime)) || appts.timeDateStart.withSecond(0).isEqual(currentDateTime.withSecond(0).withNano(0))) {
                 Message.information("Appointment Alert", "Upcoming appointment within 15 minutes");
