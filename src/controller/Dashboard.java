@@ -79,6 +79,7 @@ public class Dashboard implements Initializable {
     private ResultSet allApps;
 
     private Integer appointmentCount = 0;
+    private Boolean noAppmnts;
 
     private ObservableList<Appointments> allAppsList = FXCollections.observableArrayList();
     private ObservableList<Appointments> monthList = FXCollections.observableArrayList();
@@ -151,8 +152,12 @@ public class Dashboard implements Initializable {
         allAppsList.forEach((appts) -> {
             if (appts.timeDateStart.isBefore(currentDateTime.plusMinutes(15)) && (appts.timeDateStart.isAfter(currentDateTime)) || appts.timeDateStart.withSecond(0).isEqual(currentDateTime.withSecond(0).withNano(0))) {
                 Message.information("Appointment Alert", "Upcoming appointment within 15 minutes");
+                noAppmnts = false;
             }
         });
+        if (noAppmnts)  {
+            Message.information("Appointment Alert", "You have no upcoming appointments");
+        }
     }
 
     /**
@@ -177,7 +182,6 @@ public class Dashboard implements Initializable {
         JDBC.openConnection();
         Label[] listOfApts = {appCount0, appCount1, appCount2, appCount3, appCount4, appCount5, appCount6};
         for (int i = 0; i < 7; i++) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             ZonedDateTime crntDate = ZonedDateTime.now().plusDays(i);
             appointmentCount = 0;
             allAppsList.forEach((appts) -> {
@@ -189,7 +193,6 @@ public class Dashboard implements Initializable {
                     appointmentCount++;
                 }
             });
-            //int appointmentCount = LoginQuery.getNumRecords(String.valueOf(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(crntDate)));
             listOfApts[i].setText(String.valueOf(appointmentCount));
         }
         JDBC.closeConnection();
