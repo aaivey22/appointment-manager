@@ -13,6 +13,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
@@ -25,6 +28,9 @@ import javafx.stage.Stage;
 
 /**
  * created class AddPartForm.java  @author Angela Ivey
+ *
+ * @author Angela Ivey
+ * @author Angela Ivey
  */
 /** @author Angela Ivey */
 
@@ -117,19 +123,39 @@ public class LoginForm implements Initializable {
         userNameInput = userNameField.getText();
         userPwordInput = passwordField.getText();
         JDBC.openConnection();
-        //LoginQuery.insert(userNameInput, userPwordInput);
-        if(LoginQuery.authenticate(userNameInput, userPwordInput)){
-            System.out.println("Authenticated");
+        if (LoginQuery.authenticate(userNameInput, userPwordInput)) {
+            writeLog(true);
             Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setTitle("My Dashboard");
             stage.setScene(new Scene(root, 1100, 590));
             stage.show();
         } else {
+            writeLog(false);
             Message.error(alertTitle, alertText);
         }
         JDBC.closeConnection();
     }
+
+    /**  @param login writeLog function used to write io log to text file. */
+    public void writeLog(Boolean login) throws IOException {
+        String status;
+        if(login) status = "success";
+        else status = "failed";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm");
+        ZonedDateTime currentDateTime = ZonedDateTime.now();
+        File log = new File("login_activity.txt");
+        if (log.createNewFile()) {
+            FileWriter fw = new FileWriter("login_activity.txt", true);
+            fw.write(currentDateTime.format(formatter) + " [username] " + userNameField.getText() + " [login status] " + status + " \n");
+            fw.close();
+        } else {
+            FileWriter fw = new FileWriter("login_activity.txt", true);
+            fw.write(currentDateTime.format(formatter) + " [username] " + userNameField.getText() + " [login status] " + status + " \n");
+            fw.close();
+        }
+    }
+
 
     /**  @param actionEvent retrievePword function used to execute an informational alert. */
     public void retrievePword(ActionEvent actionEvent) {

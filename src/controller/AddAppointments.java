@@ -69,7 +69,6 @@ public class AddAppointments implements Initializable {
 
     ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
 
-
     /**
      * @param url,resourceBundle used to initialize the populateCustomers, populateContact, populateUsers methods.
      */
