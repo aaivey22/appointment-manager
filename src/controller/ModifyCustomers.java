@@ -14,12 +14,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
 import javafx.stage.Stage;
 import model.customer;
 
 import java.io.IOException;
-
 import java.net.URL;
 
 import java.sql.ResultSet;
@@ -90,8 +88,7 @@ public class ModifyCustomers implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.*/
-    /**
+    /** @param actionEvent handle within selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.
      * The division variable is also reset to default state to avoid potential bugs when user changes their country selection.
      **/
     public EventHandler<ActionEvent> selectCountryAction =
@@ -109,7 +106,7 @@ public class ModifyCustomers implements Initializable {
             };
 
     /**
-     * @param actionEvent selectDivisionAction function fires when the user selects a Division from the menu list.
+     * @param actionEvent handle within selectDivisionAction function fires when the user selects a Division from the menu list.
      */
     public EventHandler<ActionEvent> selectDivisionAction =
             new EventHandler<ActionEvent>() {
@@ -120,7 +117,7 @@ public class ModifyCustomers implements Initializable {
             };
 
     /**
-     * The populateDivisions method opens a connection to the database and with the help of an imported function, retrieves the division column data and assigns the user selection to the menu button label.
+     * The populateDivisions method opens a connection to the database through an imported function to retrieve the division column data and assign the user selection to the menu btn label.
      */
     private void populateDivisions(String countryName) throws SQLException {
         JDBC.openConnection();
@@ -206,7 +203,6 @@ public class ModifyCustomers implements Initializable {
                 countryName = LoginQuery.getcountryName(countryID);
                 selectDivision.setText(divisionName);
                 selectCountry.setText(countryName);
-
                 populateDivisions(countryName);
             }
         } catch (SQLException e) {

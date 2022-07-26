@@ -34,8 +34,6 @@ public class AddAppointments implements Initializable {
     public TextField locationField;
     public TextField appTypeField;
 
-    java.util.List<LocalTime> timeItems = new ArrayList<LocalTime>();
-
     public MenuButton selectCustomer;
     public MenuButton selectUser;
     public MenuButton selectContact;
@@ -66,8 +64,6 @@ public class AddAppointments implements Initializable {
     private LocalDateTime UTCStart;
     private ZonedDateTime EndDateTime;
     private LocalDateTime UTCEnd;
-
-    ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
 
     /**
      * @param url,resourceBundle used to initialize the populateCustomers, populateContact, populateUsers methods.
@@ -100,16 +96,16 @@ public class AddAppointments implements Initializable {
     }
 
     /**
-     * The populateCustomers method opens a database connection and retrieves the customer column data.
+     * The populateCustomers method opens a database connection and retrieves the customer data.
      */
     private void populateCustomers() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCustomers = LoginQuery.getCustNames();
-        java.util.List<MenuItem> countriesMenuItems = new ArrayList<MenuItem>();
+        java.util.List<MenuItem> customersMenuItems = new ArrayList<MenuItem>();
         for (int i = 0; i < listofCustomers.size(); i++) {
-            countriesMenuItems.add(new MenuItem(listofCustomers.get(i)));
-            countriesMenuItems.get(i).setOnAction(selectCustAction);
-            selectCustomer.getItems().add(countriesMenuItems.get(i));
+            customersMenuItems.add(new MenuItem(listofCustomers.get(i)));
+            customersMenuItems.get(i).setOnAction(selectCustAction);
+            selectCustomer.getItems().add(customersMenuItems.get(i));
         }
         JDBC.closeConnection();
     }
@@ -194,7 +190,7 @@ public class AddAppointments implements Initializable {
                 StartDateTime = TimeFunctions.combineDateTime(datefield, timeStartField);
                 UTCStart = LocalDateTime.from(TimeFunctions.convertUTC(StartDateTime));
 
-                ZoneId UTC = ZoneId.of("UTC");
+                //ZoneId UTC = ZoneId.of("UTC");
                 EndDateTime = TimeFunctions.combineDateTime(datefield, timeEndField);
                 UTCEnd = LocalDateTime.from(TimeFunctions.convertUTC(EndDateTime));
 

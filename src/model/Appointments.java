@@ -18,9 +18,9 @@ public class Appointments {
     public String type;
     public String contact;
     public ZonedDateTime timeDateStart;
-    public String formattedStart;
+    //public String formattedStart;
     public ZonedDateTime timeDateEnd;
-    public String formattedEnd;
+    //public String formattedEnd;
     public int customerID;
     public int userID;
     public int contactID;
@@ -37,8 +37,6 @@ public class Appointments {
         this.userID = user_ID;
         this.contactID = contact_ID;
     }
-
-    ;
 
     /**
      * @return setContact method used to retrieve customer ID data from the customerID member in customer object model.

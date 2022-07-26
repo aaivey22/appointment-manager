@@ -83,12 +83,10 @@ public class Customers implements Initializable {
             custPostCol.setCellValueFactory(new PropertyValueFactory<customer, String>("postalCode"));
             custPhoneCol.setCellValueFactory(new PropertyValueFactory<customer, String>("phone"));
 
-
         } catch (SQLException e) {
             System.out.println("could not load customers");
         }
         JDBC.closeConnection();
-
     }
 
     /**

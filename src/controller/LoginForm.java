@@ -21,14 +21,14 @@ import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.stage.Stage;
 
 /**
- * created class AddPartForm.java  @author Angela Ivey
+ * created class LoginForm.java  @author Angela Ivey
  *
+ * @author Angela Ivey
  * @author Angela Ivey
  * @author Angela Ivey
  */
@@ -62,7 +62,7 @@ public class LoginForm implements Initializable {
     private String retrievePwordText = "Contact the IT department at @helpdesk to reset your password.";
     private String retrievePwordTitle = "Password Help";
 
-    /** @param url,resourceBundle used to initialize translate() method.*/
+    /** @param url,resourceBundle used to initialize currentDateTime.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZonedDateTime currentDateTime = ZonedDateTime.now();
@@ -70,12 +70,13 @@ public class LoginForm implements Initializable {
         timeZoneLabel.setText(String.valueOf(currentDateTime.getZone()));
     }
 
-    /** The translate method that contains actions that will take place when specific user events occur.*/
+    /** The translate method that contains actions that will take place when a language radio btn is selected.*/
     public void translate() {
         /** @param actionEvent used to retrieve default language setting and set it to == the user's selected radio button.*/
         if (freRadioButton.isSelected()) {
             Locale.setDefault(new Locale("fr"));
-        } else if (engRadioButton.isSelected()) {
+        }
+        if (engRadioButton.isSelected()) {
             Locale.setDefault(new Locale("en"));
         }
         ResourceBundle rb = ResourceBundle.getBundle("main/lang", Locale.getDefault());
@@ -118,7 +119,8 @@ public class LoginForm implements Initializable {
 
     /**  @param actionEvent loginAction function used to execute username and pword authentication via the LoginQuery. */
     /** If the user is authenticated, they will be redirected to their dashboard page.*/
-    /** Else the user is NOT authenticated, the alertText variable will be displayed in an error message.*/
+    /** Else the user is NOT authenticated, the alertText variable will be displayed in an error message.
+     * Will write to log files upon successful or failed authentication*/
     public void loginAction(ActionEvent actionEvent) throws SQLException, IOException {
         userNameInput = userNameField.getText();
         userPwordInput = passwordField.getText();
@@ -140,7 +142,7 @@ public class LoginForm implements Initializable {
     /**  @param login writeLog function used to write io log to text file. */
     public void writeLog(Boolean login) throws IOException {
         String status;
-        if(login) status = "success";
+        if (login) status = "success";
         else status = "failed";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm");
         ZonedDateTime currentDateTime = ZonedDateTime.now();
@@ -162,7 +164,7 @@ public class LoginForm implements Initializable {
         Message.information(retrievePwordTitle, retrievePwordText);
     }
 
-    /**  @param actionEvent registerUser function used to add a new user to the database. */
+    /**  @param actionEvent registerUser function used to redirect user to the RegisterUser page. */
     public void registerUser(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/RegisterUser.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -170,4 +172,5 @@ public class LoginForm implements Initializable {
         stage.setScene(new Scene(root, 810, 470));
         stage.show();
     }
+
 }

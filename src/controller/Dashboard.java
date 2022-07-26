@@ -18,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import model.Appointments;
-import model.customer;
+//import model.customer;
 
 import java.io.IOException;
 
@@ -26,16 +26,16 @@ import java.net.URL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+//import java.sql.Timestamp;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
+//import java.time.temporal.TemporalAccessor;
 
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
+//import java.util.TimeZone;
 
 /**
  * This class controls the Dashboard page.
@@ -91,6 +91,7 @@ public class Dashboard implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale.setDefault(new Locale("en"));
         JDBC.openConnection();
         try {
             allApps = LoginQuery.getAllApps();
@@ -146,18 +147,21 @@ public class Dashboard implements Initializable {
         timeAlert();
     }
 
-    // notate lambda expression
-    private void timeAlert() {
+    /**
+     * The timeAlert method contains an if statement to alert the user of any upcoming appointments within a 15 min window.
+     * lambda expression
+     */
+    public void timeAlert() {
         ZonedDateTime currentDateTime = ZonedDateTime.now().withSecond(0).withNano(0);
         noAppmnts = true;
         allAppsList.forEach((appts) -> {
             if (appts.timeDateStart.isBefore(currentDateTime.plusMinutes(15)) && (appts.timeDateStart.isAfter(currentDateTime)) || appts.timeDateStart.withSecond(0).isEqual(currentDateTime.withSecond(0).withNano(0))) {
-                Message.information("Appointment Alert", "Upcoming appointment within 15 minutes");
+                Message.informationDash("Appointment Alert", "Upcoming appointment within 15 minutes");
                 noAppmnts = false;
             }
         });
-        if (noAppmnts)  {
-            Message.information("Appointment Alert", "You have no upcoming appointments");
+        if (noAppmnts) {
+            Message.informationDash("Appointment Alert", "You have no upcoming appointments");
         }
     }
 
@@ -178,6 +182,7 @@ public class Dashboard implements Initializable {
 
     /**
      * The setAptCount counts the number of appointments by comparing the month and date of each appointment in the list of appointments with the current day of the month.
+     * lambda expression
      */
     private void setAptCount() {
         JDBC.openConnection();
@@ -234,7 +239,7 @@ public class Dashboard implements Initializable {
 
 
     /**
-     * @param actionEvent deleteCustomerAction function used to remove a customer from database.
+     * @param actionEvent deleteAppmtAction function used to remove an appointment from database.
      */
     public void deleteAppmtAction(ActionEvent actionEvent) throws SQLException {
         model.Appointments selectedAppmt = (Appointments) manageApptTable.getSelectionModel().getSelectedItem();
@@ -253,7 +258,7 @@ public class Dashboard implements Initializable {
     }
 
     /**
-     * @return modifiedAppt used to retrieve appointment data to be modified.
+     * @return getModifiedAppt method is used to retrieve appointment data to be modified.
      */
     public static Appointments getModifiedAppt() {
         return modifiedAppt;
@@ -285,7 +290,7 @@ public class Dashboard implements Initializable {
     }
 
     /**
-     * @param actionEvent searchCustomerAction function used to search for a specific customer first by name, then by ID via a button actionEvent.
+     * @param actionEvent searchAppAction function used to search for a specific appointment first by title, then by ID via a button actionEvent.
      */
     public void searchAppAction(ActionEvent actionEvent) {
         String Q = apptSearchField.getText();
@@ -312,9 +317,9 @@ public class Dashboard implements Initializable {
         }
     }
 
-    /** @param customerName used to search for a specific customer by name in the allCustomers list via a button actionEvent.*/
+    /** @param apptTitle used to search for a specific appointment by title in the allAppts list via a button actionEvent.*/
     /**
-     * @return nameResults returns a list of customers matching the search criteria.
+     * @return nameResults returns a list of appointments matching the search criteria.
      */
     private ObservableList<Appointments> searchApptTitle(String apptTitle) {
         ObservableList<Appointments> nameResults = FXCollections.observableArrayList();
@@ -328,10 +333,10 @@ public class Dashboard implements Initializable {
         return nameResults;
     }
 
-    /** @param searchApptID the customer ID to find in the allCustomers list.*/
-    /** @return singleCustomer the specific customer from the list allCustomers.*/
+    /** @param apptID the appointment ID to find in the allAppts list.*/
+    /** @return singleAppt the specific appointment from the list allAppts.*/
     /**
-     * @return null if there is not an ID match in the allCustomers list.
+     * @return null if there is not an ID match in the allAppts list.
      */
     private Appointments searchApptID(Integer apptID) {
         ObservableList<Appointments> allAppts = allAppsList;
@@ -345,6 +350,7 @@ public class Dashboard implements Initializable {
         return null;
     }
 
+    /** @param actionEvent setTable sets the data in their specified fields in the allAppsList table.*/
     public void setTable(ActionEvent actionEvent) {
         if (allRB.isSelected()) {
             manageApptTable.setItems(allAppsList);

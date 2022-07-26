@@ -3,6 +3,9 @@ package helper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * This class controls the JDBC connection.
+ */
 public abstract class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -14,12 +17,14 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
+    /**
+     * Opens connection to database.
+     */
     public static void openConnection()
     {
         try {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
-            //System.out.println("Connection successful!");
         }
         catch(Exception e)
         {
@@ -27,10 +32,12 @@ public abstract class JDBC {
         }
     }
 
+    /**
+     * Closes connection to database.
+     */
     public static void closeConnection() {
         try {
             connection.close();
-            //System.out.println("Connection closed!");
         }
         catch(Exception e)
         {

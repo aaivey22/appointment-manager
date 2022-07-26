@@ -9,15 +9,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+//import javafx.scene.control.Alert;
+//import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Optional;
+//import java.util.Optional;
 
+/**
+ * This class controls the RegisterUser page.
+ */
 public class RegisterUser {
 
     public TextField userNameField;
@@ -29,7 +32,7 @@ public class RegisterUser {
 
     /**
      * @param actionEvent registerAction function used to execute if statement for warning alert if username is < 8 or >12 chars long.
-     * The nested if statements contain multiple username and  password checks and alerts to guid customers.
+     *                    The nested if statements contain multiple username and  password checks and alerts to guid customers.
      */
     public void registerAction(ActionEvent actionEvent) throws SQLException, IOException {
         newUserName = userNameField.getText();
@@ -37,10 +40,10 @@ public class RegisterUser {
         confirmUserPassword = confirmField.getText();
 
         if (userNameField.getText().length() < 8 || userNameField.getText().length() > 12) {
-            Message.warning("Invalid User Name","User name must be between 8 - 12 characters long.");
+            Message.warning("Invalid User Name", "User name must be between 8 - 12 characters long.");
         } else {
             if (passwordField.getText().length() < 8 || passwordField.getText().length() > 12) {
-                Message.warning("Invalid Password","Password must be between 8 - 12 characters long.");
+                Message.warning("Invalid Password", "Password must be between 8 - 12 characters long.");
             } else {
                 if (newUserPassword.equals(confirmUserPassword)) {
                     try {

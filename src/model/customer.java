@@ -26,12 +26,19 @@ public class customer {
         this.divisionID = divisionID;
     }
 
+    /**
+     * @return setCountryName method used to set the country name by first querying the division ID data to get the country ID and then
+     * Querying the database using the country ID.
+     */
     // void is a data type that does not return anything
     public void setCountryName() throws SQLException {
         String countryID = LoginQuery.getCountryID(divisionID);
         countryName = LoginQuery.getcountryName(countryID);
     }
 
+    /**
+     * @return setDivisionName method used to set the division name by querying the division ID data
+     */
     public void setDivisionName() throws SQLException {
         divisionName = LoginQuery.getDivisionName(divisionID);
     }

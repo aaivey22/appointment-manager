@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
 import javafx.stage.Stage;
 
 import helper.LoginQuery;
@@ -27,12 +26,14 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 
-import java.util.Optional;
+//import java.util.Optional;
 
 import java.util.ResourceBundle;
 
-/** This class controls the AddCustomers page.*/
-public class AddCustomers implements Initializable{
+/**
+ * This class controls the AddCustomers page.
+ */
+public class AddCustomers implements Initializable {
     public TextField custNameField;
     public TextField custAddressField;
     public TextField custPostalField;
@@ -47,7 +48,9 @@ public class AddCustomers implements Initializable{
     private String phoneNum;
     private String postalCode;
 
-    /** @param url,resourceBundle used to initialize the populateCountries method.*/
+    /**
+     * @param url,resourceBundle used to initialize the populateCountries method.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -57,7 +60,9 @@ public class AddCustomers implements Initializable{
         }
     }
 
-    /** @param actionEvent directToCustomers function used to redirect user to Customers form.*/
+    /**
+     * @param actionEvent directToCustomers function used to redirect user to Customers form.
+     */
     public void directToCustomers(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -67,8 +72,9 @@ public class AddCustomers implements Initializable{
     }
 
 
-
-    /** The populateCountries method opens a connection to the database, retrieves the Country column data to display and when the user makes a selection, it's assigned to the menu button label.*/
+    /**
+     * The populateCountries method opens a connection to the database, retrieves the Country column data to display and when the user makes a selection, it's assigned to the menu button label.
+     */
     private void populateCountries() throws SQLException {
         JDBC.openConnection();
         java.util.List<String> listofCountries = LoginQuery.getCountries();
@@ -81,7 +87,9 @@ public class AddCustomers implements Initializable{
         JDBC.closeConnection();
     }
 
-    /** The populateDivisions method opens a connection to the database, retrieves the Division column data to display and when the user makes a selection, it's assigned to the menu button label.*/
+    /**
+     * The populateDivisions method opens a connection to the database, retrieves the Division column data to display and when the user makes a selection, it's assigned to the menu button label.
+     */
     private void populateDivisions(String countryName) throws SQLException {
         JDBC.openConnection();
         selectDivision.setText("Select Division");
@@ -93,16 +101,17 @@ public class AddCustomers implements Initializable{
         java.util.List<String> listofDivisions = new ArrayList<String>();
         listofDivisions = LoginQuery.getDivisions(countryID);
         java.util.List<MenuItem> divisionsMenuItems = new ArrayList<MenuItem>();
-        for(int i = 0; i < listofDivisions.size(); i++)
-        {
+        for (int i = 0; i < listofDivisions.size(); i++) {
             divisionsMenuItems.add(new MenuItem(listofDivisions.get(i)));
             divisionsMenuItems.get(i).setOnAction(selectDivisionAction);
             selectDivision.getItems().add(divisionsMenuItems.get(i));
         }
-            JDBC.closeConnection();
+        JDBC.closeConnection();
     }
 
-    /** @param actionEvent saveChangesAction function fires when the user clicks save changes. All fields with modified rows are stored in the database table.*/
+    /**
+     * @param actionEvent saveChangesAction function fires when the user clicks save changes. All fields with modified rows are stored in the database table.
+     */
     public void saveChangesAction(ActionEvent actionEvent) throws SQLException {
         name = custNameField.getText();
         streetAddress = custAddressField.getText();
@@ -118,8 +127,7 @@ public class AddCustomers implements Initializable{
         }
         JDBC.closeConnection();
 
-        if(name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && division.length() > 0 && divisionID.length() > 0)
-        {
+        if (name.length() > 0 && streetAddress.length() > 0 && postalCode.length() > 0 && phoneNum.length() > 0 && country.length() > 0 && division.length() > 0 && divisionID.length() > 0) {
             JDBC.openConnection();
             try {
                 rowsModified = LoginQuery.addCustomer(name, streetAddress, postalCode, phoneNum, divisionID);
@@ -128,20 +136,21 @@ public class AddCustomers implements Initializable{
             }
             JDBC.closeConnection();
 
-            if( rowsModified > 0) {
+            if (rowsModified > 0) {
                 Message.information("Success", "New customer added");
                 clearFieldsAction(null); // using null because the function is being directly called without an action event such as a button click.
-            } else
-            {
+            } else {
                 System.out.println("customer could not be added");
             }
 
-        }else{
+        } else {
             Message.information("Missing Information", "All fields are required.");
         }
     }
 
-    /** @param actionEvent clearFieldsAction function fires when the user clicks clear. This resets all the form fields to their original state.*/
+    /**
+     * @param actionEvent clearFieldsAction function fires when the user clicks clear. This resets all the form fields to their original state.
+     */
     public void clearFieldsAction(ActionEvent actionEvent) {
         custNameField.setText("");
         custAddressField.setText("");
@@ -157,7 +166,9 @@ public class AddCustomers implements Initializable{
     }
 
     /** @param actionEvent selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.*/
-    /** The division variable is also reset to default state to avoid potential bugs when user changes their country selection.**/
+    /**
+     * The division variable is also reset to default state to avoid potential bugs when user changes their country selection.
+     **/
     public EventHandler<ActionEvent> selectCountryAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {
@@ -172,7 +183,9 @@ public class AddCustomers implements Initializable{
                 }
             };
 
-    /** @param actionEvent selectDivisionAction function fires when the user selects a Division from the menu list.*/
+    /**
+     * @param actionEvent selectDivisionAction function fires when the user selects a Division from the menu list.
+     */
     public EventHandler<ActionEvent> selectDivisionAction =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent ae) {

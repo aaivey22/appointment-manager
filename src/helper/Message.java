@@ -5,6 +5,9 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
+/**
+ * This class store various alerts that are imported and throughout the program.
+ */
 public abstract class Message {
 
     public static void error(String title, String message){
@@ -37,6 +40,14 @@ public abstract class Message {
         alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         return result;
+    }
+
+    public static void informationDash(String title, String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setResizable(true);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.show();
     }
 
 }

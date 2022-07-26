@@ -2,9 +2,9 @@ package controller;
 
 import helper.JDBC;
 import helper.LoginQuery;
-
 import helper.Message;
 import helper.TimeFunctions;
+
 import javafx.event.ActionEvent;
 
 import javafx.event.EventHandler;
@@ -18,12 +18,9 @@ import javafx.scene.control.*;
 
 import javafx.stage.Stage;
 import model.Appointments;
-import model.customer;
 
 import java.io.IOException;
-
 import java.net.URL;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -34,6 +31,14 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+
+/**
+ * This class controls the ModifyAppointments page.
+ */
 public class ModifyAppointments implements Initializable {
     public TextField apptID;
     public TextField appTypeField;
@@ -79,6 +84,10 @@ public class ModifyAppointments implements Initializable {
     private LocalDateTime UTCStart;
     private LocalDateTime UTCEnd;
 
+    /**
+     * @param url,resourceBundle used to initialize populateTimes, populateCustomers(), populateContact(), populateUsers() methods.
+     *                           Runs setUpAction() function which populates many appointment fields from the resultset.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateTimes();
@@ -96,11 +105,10 @@ public class ModifyAppointments implements Initializable {
     }
 
     /**
-     * @param actionEvent setUpAction function that retrieves customer data and populates the fields with it.
+     * @param actionEvent setUpAction function that retrieves appointment data, saves it into a ResultSet and populates the fields with it. Also populates Date and Time ComboBoxes
      */
     public void setUpAction(ActionEvent actionEvent) {
         JDBC.openConnection();
-
         try {
             appointmentID = Integer.valueOf(modifiedAppt.getAppointmentID());
             resultSet = LoginQuery.getAppointment(appointmentID);
@@ -127,16 +135,16 @@ public class ModifyAppointments implements Initializable {
             System.out.println("could not find appointment");
         }
         JDBC.closeConnection();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
-
-        appStartTime.getSelectionModel().select(startDateTime.format(formatter));
-        appEndTime.getSelectionModel().select(endDateTime.format(formatter));
+        LocalTime start = LocalTime.of(startDateTime.getHour(), startDateTime.getMinute());
+        LocalTime end = LocalTime.of(endDateTime.getHour(), endDateTime.getMinute());
+        appStartTime.getSelectionModel().select(start);
+        appEndTime.getSelectionModel().select(end);
         apptStartDate.setValue(startDateTime.toLocalDate());
-
     }
 
-
+    /**
+     * @param actionEvent directToDashboard function used to redirect user to Dashboard page.
+     */
     public void directToDashboard(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -145,6 +153,9 @@ public class ModifyAppointments implements Initializable {
         stage.show();
     }
 
+    /**
+     * @param actionEvent saveApptChanges function saves updated appointment data while continuing to check for conflict.
+     */
     public void saveApptChanges(ActionEvent actionEvent) throws IOException, SQLException {
         Integer rowsModified = 0;
         type = appTypeField.getText();
@@ -152,20 +163,23 @@ public class ModifyAppointments implements Initializable {
         title = titleField.getText();
         description = descriptionField.getText();
         datefield = apptStartDate.getValue();
-        timeStartField = (LocalTime) appStartTime.getValue();
+        customer = selectCustomer.getText();
+        contact = selectContact.getText();
+        user = selectUser.getText();
         timeEndField = (LocalTime) appEndTime.getValue();
+        timeStartField = (LocalTime) appStartTime.getValue();
 
         if (apptStartDate.getValue() != null && timeStartField != null && timeEndField != null) {
             if (timeStartField.isBefore(timeEndField)) {
                 StartDateTime = TimeFunctions.combineDateTime(datefield, timeStartField);
                 UTCStart = LocalDateTime.from(TimeFunctions.convertUTC(StartDateTime));
 
-                ZoneId UTC = ZoneId.of("UTC");
+                //ZoneId UTC = ZoneId.of("UTC");
                 EndDateTime = TimeFunctions.combineDateTime(datefield, timeEndField);
                 UTCEnd = LocalDateTime.from(TimeFunctions.convertUTC(EndDateTime));
 
                 JDBC.openConnection();
-                Boolean overlap = TimeFunctions.isOverlap(UTCStart, UTCEnd);
+                Boolean overlap = TimeFunctions.isOverlapModify(UTCStart, UTCEnd, appointmentID);
                 JDBC.closeConnection();
 
                 if (overlap) {
@@ -215,8 +229,6 @@ public class ModifyAppointments implements Initializable {
             Message.error("Missing Information", "Missing Date or Times");
         }
         JDBC.closeConnection();
-
-
     }
 
     /**
@@ -310,6 +322,9 @@ public class ModifyAppointments implements Initializable {
                 }
             };
 
+    /**
+     * @param actionEvent resetAction method resets the modify appointments page to its initial state.
+     */
     public void resetAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyAppointments.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -317,5 +332,4 @@ public class ModifyAppointments implements Initializable {
         stage.setScene(new Scene(root, 1100, 590));
         stage.show();
     }
-
 }

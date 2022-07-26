@@ -20,7 +20,7 @@
       </ImageView>
       <Pane layoutX="17.0" layoutY="126.0" prefHeight="455.0" prefWidth="1074.0" style="-fx-background-color: #FFFFFF; -fx-opacity: .80; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;">
          <children>
-            <MenuButton fx:id="selectDivision" layoutX="35.0" layoutY="26.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="874.0" text="Select Report">
+            <MenuButton fx:id="selectReport" layoutX="35.0" layoutY="26.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="874.0" text="Select Report">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#contactSchedAction" text="Contact Schedule" />
                   <MenuItem mnemonicParsing="false" onAction="#customerAppmtAction" text="Customer Appointments" />
