@@ -39,63 +39,63 @@ public class Appointments {
     }
 
     /**
-     * @return setContact method used to retrieve customer ID data from the customerID member in customer object model.
+     * @param contactID  setContact method used to retrieve contact ID data from the contactID member in contact object model.
      */
     public void setContact(Integer contactID) throws SQLException {
         contact = LoginQuery.getContact(contactID);
     }
 
     /**
-     * @return getCustomerID method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return contact getContact method used to return a contact string.
      */
     public String getContact() {
         return contact;
     }
 
     /**
-     * @return getContactID method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return appointmentID getAppointmentID method used to retrieve an appointment ID.
      */
     public Integer getAppointmentID() {
         return appointmentID;
     }
 
     /**
-     * @return getCustomerID method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return title getTitle method used to return the title string.
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * @return getDescription method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return getDescription method used to return the description string.
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @return getLocation method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return getLocation method used to return the location string.
      */
     public String getLocation() {
         return location;
     }
 
     /**
-     * @return getType method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return type getType method used to return the type string.
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @return getTimeDateStart method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return timeDateStart getTimeDateStart method used to return the timeDateStart ZonedDateTime.
      */
     public ZonedDateTime getTimeDateStart() {
         return timeDateStart;
     }
 
     /**
-     * @return getFormattedStart method used to convert and return LocalDateTime start to a formatted string.
+     * @return formattedStart getFormattedStart method used to convert and return LocalDateTime start to a formatted string.
      */
     public String getFormattedStart() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
@@ -104,14 +104,14 @@ public class Appointments {
     }
 
     /**
-     * @return getTimeDateEnd method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return timeDateEnd getTimeDateEnd method used to return the timeDateStart ZonedDateTime.
      */
     public ZonedDateTime getTimeDateEnd() {
         return timeDateEnd;
     }
 
     /**
-     * @return getFormattedStart method used to convert and return LocalDateTime start to a formatted string.
+     * @return formattedEnd getFormattedStart method used to convert and return LocalDateTime end to a formatted string.
      */
     public String getFormattedEnd() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
@@ -120,7 +120,7 @@ public class Appointments {
     }
 
     /**
-     * @return getCustomerID method used to retrieve customer ID data from the customerID member in customer object model.
+     * @return customerID getCustomerID method used to return the customerID Integer.
      */
     public Integer getCustomerID() {
         return customerID;

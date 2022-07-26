@@ -184,7 +184,7 @@ public class AddCustomers implements Initializable {
             };
 
     /**
-     * @param actionEvent selectDivisionAction function fires when the user selects a Division from the menu list.
+     * @param ae selectDivisionAction function fires when the user selects a Division from the menu list.
      */
     public EventHandler<ActionEvent> selectDivisionAction =
             new EventHandler<ActionEvent>() {

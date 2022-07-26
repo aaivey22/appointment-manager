@@ -111,7 +111,7 @@ public class AddAppointments implements Initializable {
     }
 
     /**
-     * @param actionEvent selectCustAction function fires when the user selects a customer from the menu list, assigning their selection to the menu button label.
+     * @param ae selectCustAction function fires when the user selects a customer from the menu list, assigning their selection to the menu button label.
      */
     public EventHandler<ActionEvent> selectCustAction =
             new EventHandler<ActionEvent>() {
@@ -137,7 +137,7 @@ public class AddAppointments implements Initializable {
     }
 
     /**
-     * @param actionEvent selectContactAction function fires when the user selects a contact from the menu list, assigning their selection to the menu button label.
+     * @param ae selectContactAction function fires when the user selects a contact from the menu list, assigning their selection to the menu button label.
      */
     public EventHandler<ActionEvent> selectContactAction =
             new EventHandler<ActionEvent>() {
@@ -163,7 +163,7 @@ public class AddAppointments implements Initializable {
     }
 
     /**
-     * @param actionEvent selectUserAction function fires when the user selects a 'user' from the menu list, assigning their selection to the menu button label.
+     * @param ae selectUserAction function fires when the user selects a 'user' from the menu list, assigning their selection to the menu button label.
      */
     public EventHandler<ActionEvent> selectUserAction =
             new EventHandler<ActionEvent>() {
