@@ -22,19 +22,6 @@ public abstract class LoginQuery {
     private static ResultSet resultSet = null;
 
     /**
-     * @param date used in getNumRecords() method.
-     * @return rowsCounted SELECT method used to count data from appointments column in database and returns "rowsCounted".
-     */
-   /* public static int getNumRecords(String date) throws SQLException {
-        String sql = "SELECT COUNT(Start) from appointments WHERE Start >= \"" + date + " 00:00:00\" AND Start < \"" + date + " 23:59:59\"";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        resultSet = ps.executeQuery();
-        resultSet.next();
-        int rowsCounted = resultSet.getInt(1);
-        return rowsCounted;
-    }
-*/
-    /**
      * @param custID used in appmtCount() method.
      * @return rowsCounted SELECT method used to count data from appointments column in database and returns "rowsCounted".
      */
@@ -89,7 +76,6 @@ public abstract class LoginQuery {
         }
         return listofCustomers;
     }
-
 
     /**
      * @param countryID used in getDivisions() method.
@@ -228,7 +214,7 @@ public abstract class LoginQuery {
     }
 
     /**
-     * @return resultSet SELECT method returns all customer data to populate in the customers table in the customers page.
+     * @return resultSet SELECT method returns all customer data from the customers table.
      */
     public static ResultSet getAllCustomers() throws SQLException {
         String sql = "SELECT * FROM client_schedule.customers";
@@ -237,13 +223,23 @@ public abstract class LoginQuery {
     }
 
     /**
-     * @return resultSet SELECT method returns all appointment data to populate in the appointments table in the dashboard page.
+     * @return resultSet SELECT method returns all contact data from the contacts table.
+     */
+    public static ResultSet getAllContacts() throws SQLException {
+        String sql = "SELECT * FROM client_schedule.contacts";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        return resultSet = ps.executeQuery();
+    }
+
+    /**
+     * @return resultSet SELECT method returns all appointment data from the appointments table.
      */
     public static ResultSet getAllApps() throws SQLException {
         String sql = "SELECT * FROM client_schedule.appointments";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         return resultSet = ps.executeQuery();
     }
+
     /**
      * @param contactID used in getContact() method.
      * @return contact SELECT method returns a contact name whose contactID matches the Contact_ID in the database.

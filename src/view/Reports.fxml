@@ -23,7 +23,8 @@
             <MenuButton fx:id="selectReport" layoutX="35.0" layoutY="26.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="874.0" text="Select Report">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#contactSchedAction" text="Contact Schedule" />
-                  <MenuItem mnemonicParsing="false" onAction="#customerAppmtAction" text="Customer Appointments" />
+                  <MenuItem mnemonicParsing="false" onAction="#custSchedAction" text="Customer Schedule" />
+                  <MenuItem mnemonicParsing="false" onAction="#customerAppmtAction" text="Number of Appointments by Type and Month" />
                   <MenuItem mnemonicParsing="false" onAction="#loginHistoryAction" text="Login History" />
                </items></MenuButton>
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="935.0" layoutY="17.0" mnemonicParsing="false" onAction="#generateReportAction" opacity="0.85" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #4c87ae; -fx-border-color: #4c87ae; -fx-text-fill: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: 15;" text="Generate Report" textAlignment="CENTER" />

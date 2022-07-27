@@ -70,6 +70,11 @@ public class Reports implements Initializable {
                 Message.error("Report Failure", "Failed to load report");
             }
         }
+        if (Objects.equals(reportType, "Customer Schedule")) {
+            if (!customerScheduleReport()) {
+                Message.error("Report Failure", "Failed to load report");
+            }
+        }
         if (Objects.equals(reportType, "Contact Schedule")) {
             if (!contactScheduleReport()) {
                 Message.error("Report Failure", "Failed to load report");
@@ -124,7 +129,7 @@ public class Reports implements Initializable {
      * @param actionEvent customerAppmtAction function used to set the user's selection text to the dropdown menu.
      */
     public void customerAppmtAction(ActionEvent actionEvent) {
-        selectReport.setText("Customer Appointments");
+        selectReport.setText("Number of Appointments by Type and Month");
         reportType = "Customer Appointments";
     }
 
@@ -143,7 +148,20 @@ public class Reports implements Initializable {
         ArrayList<String> types = new ArrayList(); //list of all types in appointments result set
         ArrayList<String> apptMonths = new ArrayList(); //list of all months that have appointments in result set
 
-        reportsTextArea.appendText("Appointments by Type Totals\n\n");
+        reportsTextArea.appendText("Appointments by Month Totals\n\n");
+
+        for (String allMonth : months) {
+            Integer count = 0;
+            for (String month : apptMonths) {
+                if (allMonth.toUpperCase().equals(month)) {
+                    System.out.println("Match");
+                    count += 1;
+                }
+            }
+            reportsTextArea.appendText(allMonth + ": " + count + "\n");
+        }
+
+        reportsTextArea.appendText("\n\nAppointments by Type Totals\n\n");
 
         while (appmnts.next()) {
             String type = appmnts.getString("Type");
@@ -167,18 +185,7 @@ public class Reports implements Initializable {
             }
             reportsTextArea.appendText(individualType + ": " + count + "\n");
         }
-        reportsTextArea.appendText("\n\nAppointments by Month Totals\n\n");
 
-        for (String allMonth : months) {
-            Integer count = 0;
-            for (String month : apptMonths) {
-                if (allMonth.toUpperCase().equals(month)) {
-                    System.out.println("Match");
-                    count += 1;
-                }
-            }
-            reportsTextArea.appendText(allMonth + ": " + count + "\n");
-        }
 
         JDBC.closeConnection();
         return true;
@@ -193,10 +200,10 @@ public class Reports implements Initializable {
     }
 
     /**
-     * @return true contactScheduleReport function used to open a connection to the database to retrieve all contacts with their appointment information and print the data in reportsTextArea.
+     * @return true customerScheduleReport function used to open a connection to the database to retrieve all contacts with their appointment information and print the data in reportsTextArea.
      * lambda expression
      */
-    private Boolean contactScheduleReport() throws SQLException {
+    private Boolean customerScheduleReport() throws SQLException {
         JDBC.openConnection();
         ZoneId UTC = ZoneId.of("UTC");
         ResultSet appmnts = LoginQuery.getAllApps();
@@ -238,5 +245,60 @@ public class Reports implements Initializable {
         });
         JDBC.closeConnection();
         return true;
+    }
+
+    /**
+     * @return true contactScheduleReport function used to open a connection to the database to retrieve all contacts with their appointment information and print the data in reportsTextArea.
+     * lambda expression
+     */
+    private Boolean contactScheduleReport() throws SQLException {
+        JDBC.openConnection();
+        ZoneId UTC = ZoneId.of("UTC");
+        ResultSet appmnts = LoginQuery.getAllApps();
+        ResultSet contacts = LoginQuery.getAllContacts();
+        ArrayList<Integer> contactIDs = new ArrayList<Integer>();
+        while (contacts.next()) {
+            contactIDs.add(contacts.getInt("Contact_ID"));
+        }
+        while (appmnts.next()) {
+            ZonedDateTime start = TimeFunctions.convertLocal(appmnts.getTimestamp("Start").toLocalDateTime());
+            ZonedDateTime end = TimeFunctions.convertLocal(appmnts.getTimestamp("End").toLocalDateTime());
+            Appointments new_appointment = new Appointments(appmnts.getInt("Appointment_ID"),
+                    appmnts.getString("Title"),
+                    appmnts.getString("Description"),
+                    appmnts.getString("Location"),
+                    appmnts.getString("Type"),
+                    start, end,
+                    appmnts.getInt("Customer_ID"),
+                    appmnts.getInt("User_ID"),
+                    appmnts.getInt("Contact_ID")
+            );
+            new_appointment.setContact(new_appointment.getContactID());
+            apptsList.add(new_appointment);
+        }
+        reportsTextArea.appendText("All Contact Appointment Dates & Times\n\n");
+        contactIDs.forEach((ID) -> { // nested lambda
+            try {
+                String contactName = LoginQuery.getContact(ID);
+                reportsTextArea.appendText(contactName + " Appointments:\n");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            apptsList.forEach((appointment) -> { // nested lambda
+                        if (Objects.equals(ID, appointment.getContactID())) {
+                            reportsTextArea.appendText("     -  " + appointment.getTimeDateStart() + " -- " + appointment.getTimeDateEnd() + "\n");
+                        }
+                    }
+            );
+        });
+        JDBC.closeConnection();
+        return true;
+    }
+
+
+
+    public void custSchedAction(ActionEvent actionEvent) {
+        selectReport.setText("Customer Schedule");
+        reportType = "Customer Schedule";
     }
 }
