@@ -3,7 +3,6 @@ package model;
 import helper.LoginQuery;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,9 +17,7 @@ public class Appointments {
     public String type;
     public String contact;
     public ZonedDateTime timeDateStart;
-    //public String formattedStart;
     public ZonedDateTime timeDateEnd;
-    //public String formattedEnd;
     public int customerID;
     public int userID;
     public int contactID;

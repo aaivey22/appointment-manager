@@ -24,8 +24,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -88,7 +86,8 @@ public class ModifyCustomers implements Initializable {
         JDBC.closeConnection();
     }
 
-    /** @param actionEvent handle within selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.
+    /**
+     * @param actionEvent handle within selectCountryAction function fires when the user selects a Country from the menu list. It then runs the populateDivisions function with country as a parameter.
      * The division variable is also reset to default state to avoid potential bugs when user changes their country selection.
      **/
     public EventHandler<ActionEvent> selectCountryAction =

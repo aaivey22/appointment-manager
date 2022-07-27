@@ -13,21 +13,13 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import helper.LoginQuery;
-
 import helper.JDBC;
-
 import helper.Message;
 
 import java.io.IOException;
-
 import java.net.URL;
-
 import java.sql.SQLException;
-
 import java.util.ArrayList;
-
-//import java.util.Optional;
-
 import java.util.ResourceBundle;
 
 /**

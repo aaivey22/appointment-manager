@@ -18,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import model.Appointments;
-//import model.customer;
 
 import java.io.IOException;
 
@@ -26,16 +25,13 @@ import java.net.URL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.Timestamp;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-//import java.time.temporal.TemporalAccessor;
 
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
-//import java.util.TimeZone;
 
 /**
  * This class controls the Dashboard page.
@@ -148,13 +144,13 @@ public class Dashboard implements Initializable {
     }
 
     /**
-     * The timeAlert method contains an if statement to alert the user of any upcoming appointments within a 15 min window.
-     * lambda expression
+     * The timeAlert method contains a lambda expression with an if statement to alert the user of any upcoming appointments within a 15 min window.
+     * This does not query the database, instead it checks an observable list.
      */
     public void timeAlert() {
         ZonedDateTime currentDateTime = ZonedDateTime.now().withSecond(0).withNano(0);
         noAppmnts = true;
-        allAppsList.forEach((appts) -> {
+        allAppsList.forEach((appts) -> { //lambda expression
             if (appts.timeDateStart.isBefore(currentDateTime.plusMinutes(15)) && (appts.timeDateStart.isAfter(currentDateTime)) || appts.timeDateStart.withSecond(0).isEqual(currentDateTime.withSecond(0).withNano(0))) {
                 Message.informationDash("Appointment Alert", "Upcoming appointment within 15 minutes");
                 noAppmnts = false;
@@ -181,8 +177,7 @@ public class Dashboard implements Initializable {
     }
 
     /**
-     * The setAptCount counts the number of appointments by comparing the month and date of each appointment in the list of appointments with the current day of the month.
-     * lambda expression
+     * The setAptCount counts the number of appointments by comparing the month and date of each appointment in the list of appointments using a lambda expression, with the current day of the month.
      */
     private void setAptCount() {
         JDBC.openConnection();
@@ -244,6 +239,8 @@ public class Dashboard implements Initializable {
     public void deleteAppmtAction(ActionEvent actionEvent) throws SQLException {
         model.Appointments selectedAppmt = (Appointments) manageApptTable.getSelectionModel().getSelectedItem();
         Integer appmtID = selectedAppmt.getAppointmentID();
+        String type = selectedAppmt.getType();
+        String deleteMessage = "Appointment ID: " + appmtID + " Type: " + type + " deleted.";
         if (selectedAppmt != null) {
             Optional<ButtonType> result = Message.confirmation("Delete Appointment", "Are you sure you want to delete this appointment?");
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -253,6 +250,8 @@ public class Dashboard implements Initializable {
                 weekList.remove(selectedAppmt);
                 LoginQuery.deleteAppointment(appmtID);
                 JDBC.closeConnection();
+
+                Message.information("Appointment Deleted", deleteMessage);
             }
         }
     }
@@ -350,7 +349,9 @@ public class Dashboard implements Initializable {
         return null;
     }
 
-    /** @param actionEvent setTable sets the data in their specified fields in the allAppsList table.*/
+    /**
+     * @param actionEvent setTable sets the data in their specified fields in the allAppsList table.
+     */
     public void setTable(ActionEvent actionEvent) {
         if (allRB.isSelected()) {
             manageApptTable.setItems(allAppsList);

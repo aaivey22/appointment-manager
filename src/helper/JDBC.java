@@ -20,14 +20,11 @@ public abstract class JDBC {
     /**
      * Opens connection to database.
      */
-    public static void openConnection()
-    {
+    public static void openConnection() {
         try {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
     }
@@ -38,9 +35,7 @@ public abstract class JDBC {
     public static void closeConnection() {
         try {
             connection.close();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
     }

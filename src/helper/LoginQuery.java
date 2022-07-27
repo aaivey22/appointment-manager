@@ -1,6 +1,5 @@
 package helper;
 
-//import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -15,9 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-//import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-//import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
@@ -30,7 +28,6 @@ import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -55,10 +52,6 @@ public class Reports implements Initializable {
     }
 
     public void generateReportAction(ActionEvent actionEvent) throws FileNotFoundException, SQLException {
-        /*for (int i = 0; i < 100 ; i++) {
-            String x = String.valueOf(i);
-            reportsTextArea.appendText(x + "\n");
-        }*/
         reportsTextArea.clear(); //clear each time button is pressed before running new report
         if (Objects.equals(reportType, "Login History")) {
             if (!loginHistoryReport()) {
@@ -172,7 +165,7 @@ public class Reports implements Initializable {
             apptMonths.add(month);
         }
 
-        types.forEach((type) -> {
+        types.forEach((type) -> { // lambda expression
             individualTypes.add(type);
         });
 
@@ -185,8 +178,6 @@ public class Reports implements Initializable {
             }
             reportsTextArea.appendText(individualType + ": " + count + "\n");
         }
-
-
         JDBC.closeConnection();
         return true;
     }
@@ -229,7 +220,7 @@ public class Reports implements Initializable {
             apptsList.add(new_appointment);
         }
         reportsTextArea.appendText("All Customer Appointment Dates & Times\n\n");
-        customerIDs.forEach((ID) -> { // lambda
+        customerIDs.forEach((ID) -> { // lambda expression
             try {
                 String customerName = LoginQuery.getCustomerName(ID);
                 reportsTextArea.appendText(customerName + " Appointments:\n");
@@ -277,14 +268,14 @@ public class Reports implements Initializable {
             apptsList.add(new_appointment);
         }
         reportsTextArea.appendText("All Contact Appointment Dates & Times\n\n");
-        contactIDs.forEach((ID) -> { // nested lambda
+        contactIDs.forEach((ID) -> { // nested lambda expression
             try {
                 String contactName = LoginQuery.getContact(ID);
                 reportsTextArea.appendText(contactName + " Appointments:\n");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            apptsList.forEach((appointment) -> { // nested lambda
+            apptsList.forEach((appointment) -> { // nested lambda expression
                         if (Objects.equals(ID, appointment.getContactID())) {
                             reportsTextArea.appendText("     -  " + appointment.getTimeDateStart() + " -- " + appointment.getTimeDateEnd() + "\n");
                         }
@@ -295,8 +286,9 @@ public class Reports implements Initializable {
         return true;
     }
 
-
-
+    /**
+     * @param actionEvent custSchedAction function used to set the customer's selection text to the dropdown menu.
+     */
     public void custSchedAction(ActionEvent actionEvent) {
         selectReport.setText("Customer Schedule");
         reportType = "Customer Schedule";

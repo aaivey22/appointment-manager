@@ -19,10 +19,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.*;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
-
 
 /**
  * This class controls the AddAppointments page.
