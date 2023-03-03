@@ -20,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import model.Appointments;
+import model.customer;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +43,8 @@ public class Reports implements Initializable {
     public TextArea reportsTextArea;
 
     private ObservableList<Appointments> apptsList = FXCollections.observableArrayList();
+    private ObservableList<customer> customerList = FXCollections.observableArrayList();
+
     private String reportType;
 
     /**
@@ -73,7 +76,20 @@ public class Reports implements Initializable {
                 Message.error("Report Failure", "Failed to load report");
             }
         }
+        if (Objects.equals(reportType, "Customer Information")) {
+            if (!custInformationReport()) {
+                Message.error("Report Failure", "Failed to load report");
+            }
+        }
+        if (Objects.equals(reportType, "Registered Users")) {
+            if (!custInformationReport()) {
+                Message.error("Report Failure", "Failed to load report");
+            }
+        }
+
     }
+
+
 
     /**
      * @param actionEvent directToDashboard function used to redirect user to Dashboard form.
@@ -292,5 +308,41 @@ public class Reports implements Initializable {
     public void custSchedAction(ActionEvent actionEvent) {
         selectReport.setText("Customer Schedule");
         reportType = "Customer Schedule";
+    }
+
+    public void custInformationAction(ActionEvent actionEvent) {
+        selectReport.setText("Customer Information");
+        reportType = "Customer Information";
+    }
+
+    private boolean custInformationReport() throws SQLException {
+        JDBC.openConnection();
+        ZoneId UTC = ZoneId.of("UTC");
+        ResultSet appmnts = LoginQuery.getAllApps();
+        ResultSet allCustomers = LoginQuery.getAllCustomers();
+        Integer count = 0;
+        while (allCustomers.next()) {
+            customer new_customer = new customer(allCustomers.getString("Customer_ID"),
+                    allCustomers.getString("Customer_Name"),
+                    allCustomers.getString("Address"),
+                    allCustomers.getString("Postal_Code"),
+                    allCustomers.getString("Phone"),
+                    allCustomers.getInt("Division_ID"));
+            customerList.add(new_customer);
+            count += 1;
+        };
+        reportsTextArea.appendText("All Customer Information\n");
+        reportsTextArea.appendText("Total Number of Cutomers: " + count + "\n\n");
+        reportsTextArea.appendText(String.format("%-19s", "ID") + String.format("%-40s", "Name")+String.format("%-36s", "Address") + String.format("%-39s", "Phone")+"\n");
+        customerList.forEach((customer) -> {
+            reportsTextArea.appendText(String.format("%-"+ (20 - customer.getCustomerID().length()) + "s", customer.getCustomerID())
+                    + String.format("%-"+ (45 - customer.getCustomerName().length()) + "s", customer.getCustomerName())
+                    + String.format("%-"+ (45 - customer.getAddress().length()) + "s", customer.getAddress())
+                    + String.format("%-"+ (45 - customer.getPhone().length()) + "s", customer.getPhone())
+                    + "\n");
+        }
+        );
+
+        return true;
     }
 }

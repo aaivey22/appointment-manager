@@ -24,6 +24,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#contactSchedAction" text="Contact Schedule" />
                   <MenuItem mnemonicParsing="false" onAction="#custSchedAction" text="Customer Schedule" />
+                  <MenuItem mnemonicParsing="false" onAction="#custInformationAction" text="Customer Information" />
                   <MenuItem mnemonicParsing="false" onAction="#customerAppmtAction" text="Number of Appointments by Type and Month" />
                   <MenuItem mnemonicParsing="false" onAction="#loginHistoryAction" text="Login History" />
                </items></MenuButton>
