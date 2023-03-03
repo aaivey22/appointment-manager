@@ -14,7 +14,6 @@ import java.util.Objects;
  * This class communicates with the database.
  */
 public abstract class LoginQuery {
-
     /**
      * a ResultSet is a datatype that holds mysql query results.
      */

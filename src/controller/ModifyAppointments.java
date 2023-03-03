@@ -191,14 +191,18 @@ public class ModifyAppointments implements Initializable {
                         } catch (SQLException e) {
                             System.out.println("failed");
                         }
+                        JDBC.closeConnection();
                         if (custID.length() > 0 && contID.length() > 0 && useID.length() > 0 && type.length() > 0 && location.length() > 0
                                 && title.length() > 0 && description.length() > 0) {
+                            JDBC.openConnection();
                             try {
                                 rowsModified = LoginQuery.modifyAppointment(title, description, location, type, UTCStart, UTCEnd, custID, useID, contID, appointmentID);
                             } catch (SQLException e) {
                                 e.printStackTrace();
                                 Message.error("Failed", "Appointment could not be modified");
                             }
+                            JDBC.closeConnection();
+
                             if (rowsModified > 0) {
                                 Message.information("Success", "Appointment updated");
                                 Parent root = FXMLLoader.load(getClass().getResource("/view/ModifyAppointments.fxml"));

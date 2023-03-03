@@ -4,6 +4,7 @@ import helper.JDBC;
 import helper.LoginQuery;
 import helper.Message;
 import helper.TimeFunctions;
+import helper.Testing;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,6 +83,8 @@ public class Dashboard implements Initializable {
     private ObservableList<Appointments> weekList = FXCollections.observableArrayList();
     private static Appointments modifiedAppt = null;
 
+    private Testing UnitTest = new Testing();
+
     /**
      * @param url,resourceBundle used to initialize setDates() method.
      */
@@ -107,6 +110,7 @@ public class Dashboard implements Initializable {
                         allApps.getInt("Contact_ID")
                 );
                 new_appointment.setContact(new_appointment.getContactID());
+                UnitTest.ObjectTest(new_appointment);
                 allAppsList.add(new_appointment);
 
                 if (start.getMonth().equals(crntDate.getMonth())) {
