@@ -1,6 +1,6 @@
 •  Appointment Manager is a dynamic java app! The purpose of this application is to support a company with client appointment coordination.
 
-•  Author: Angela Ivey, aivey9@my.wgu.edu, Application Version 1, Built on March 15, 2022
+•  Author: Angela Ivey, aivey9@my.wgu.edu
 
 •  IntelliJ IDEA 2021.3.3 (Community Edition), Java SE 17.0.2, JavaFX-SDK-11.0.2
 
